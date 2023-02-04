@@ -40,10 +40,10 @@ CREATE OR REPLACE TABLE Members (
     address VARCHAR(200) NOT NULL,
     birthday DATE NOT NULL,
     membership_plan_id TINYINT(2) NOT NULL DEFAULT 1,
-    gym_id INT(3) NOT NULL,
+    gym_id INT(3),
     PRIMARY KEY(member_id),
     FOREIGN KEY(membership_plan_id) REFERENCES Membership_plans(membership_plan_id) ON DELETE RESTRICT,
-    FOREIGN KEY(gym_id) REFERENCES Gyms(gym_id) ON DELETE CASCADE
+    FOREIGN KEY(gym_id) REFERENCES Gyms(gym_id) ON DELETE SET NULL
 );
 
 INSERT INTO Members (f_name, l_name, address, birthday, membership_plan_id, gym_id)
@@ -61,9 +61,9 @@ CREATE OR REPLACE TABLE Instructors(
     birthday DATE NOT NULL,
     email VARCHAR(100) NOT NULL,
     phone_number VARCHAR(15) NOT NULL,
-    gym_id INT(3) NOT NULL,
+    gym_id INT(3),
     PRIMARY Key(instructor_id),
-    FOREIGN KEY(gym_id) REFERENCES Gyms(gym_id) ON DELETE RESTRICT
+    FOREIGN KEY(gym_id) REFERENCES Gyms(gym_id) ON DELETE SET NULL
 );
 
 INSERT INTO Instructors (f_name, l_name, address, birthday, email, phone_number, gym_id)
@@ -80,7 +80,7 @@ CREATE OR REPLACE TABLE Workout_classes(
     instructor_id INT(3) NOT NULL,
     schedule DATETIME NOT NULL,
     PRIMARY KEY(workout_class_id),
-    FOREIGN KEY(instructor_id) REFERENCES Instructors(instructor_id)
+    FOREIGN KEY(instructor_id) REFERENCES Instructors(instructor_id) ON DELETE CASCADE
 );
 
 INSERT INTO Workout_classes (class_type, duration, instructor_id, schedule)
@@ -95,8 +95,8 @@ CREATE OR REPLACE TABLE Members_workouts (
     member_id INT(5) NOT NULL,
     workout_class_id INT(3) NOT NULL,
     PRIMARY KEY(member_workout_id),
-    FOREIGN KEY(member_id) REFERENCES Members(member_id),
-    FOREIGN KEY(workout_class_id) REFERENCES Workout_classes(workout_class_id)
+    FOREIGN KEY(member_id) REFERENCES Members(member_id) ON DELETE CASCADE,
+    FOREIGN KEY(workout_class_id) REFERENCES Workout_classes(workout_class_id) ON DELETE CASCADE
 );
 
 INSERT INTO Members_workouts ( member_id, workout_class_id)
