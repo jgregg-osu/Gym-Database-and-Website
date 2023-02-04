@@ -95,7 +95,7 @@ CREATE OR REPLACE TABLE Members_workouts (
     member_id INT(5) NOT NULL,
     workout_class_id INT(3) NOT NULL,
     PRIMARY KEY(member_workout_id),
-    FOREIGN KEY(member_id) REFERENCES Members(member_id) ON DELETE CASCADE,
+    FOREIGN KEY(member_id) REFERENCES Members(member_id),
     FOREIGN KEY(workout_class_id) REFERENCES Workout_classes(workout_class_id) ON DELETE CASCADE
 );
 
