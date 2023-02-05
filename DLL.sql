@@ -47,7 +47,7 @@ CREATE OR REPLACE TABLE Members (
 );
 
 INSERT INTO Members (f_name, l_name, address, birthday, membership_plan_id, gym_id)
-VALUE ('Andrea', 'Lopez', '7104 S Miller Dr., San Pablo, CA 94806', '1986-04-20', 2, 1),
+VALUE ('Andrea', 'Lopez', '7104 S Miller Dr., San Pablo, CA 94806', '1986-04-20', 2, NULL),
     ('Kevin', 'Nguyen', '7785 Ridgewood Court, Front Royal, CA 92630', '1991-10-20', 3, 2),
     ('Jimothy', 'Bernoulli', '3345 Friesian Walk, Santa Ana, CA 92701', '1967-11-07', 4, 5),
     ('Donathan', 'Oyamada', '638 On-Belay Rd., Pomona, CA 91750', '2005-01-01', 4, 3),
@@ -71,7 +71,7 @@ VALUES ('Pedro', 'Pascal', '49 Ann St. Alabaster, CA 95007', '1975-04-02', 'Pasc
     ('Miley', 'Kunis', '640 W. Studebaker St., Southfield, CA 98076', '1983-08-14', 'KunisMiley@gmail.com', '714-990-6531', 1),
     ('Lee', 'Mack', '2213 McKillop Ln., Irvine, CA 92602', '1968-08-04', 'LMack@gmail.com', '213-664-4309', 2),
     ('David', 'Mitchell', '748 Stuart Ave., Claremont, CA 91711', '1974-07-14', 'DMitchell@gmail.com', '616-495-3398', 1),
-    ('Rob', 'Brydon', '8678 Baglan Way, Front Royal, CA 92630', '1965-05-03', 'BrybryBAFTA@gmail.com', '909-860-2769', 2);
+    ('Rob', 'Brydon', '8678 Baglan Way, Front Royal, CA 92630', '1965-05-03', 'BrybryBAFTA@gmail.com', '909-860-2769', NULL);
 
 CREATE OR REPLACE TABLE Workout_classes(
     workout_class_id INT(3) NOT NULL AUTO_INCREMENT,
