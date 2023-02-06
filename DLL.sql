@@ -1,6 +1,3 @@
--- Group 36
--- Jonathan Gregg & Edward Mai
-
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;
 
