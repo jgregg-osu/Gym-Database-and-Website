@@ -123,7 +123,7 @@ VALUES ('HIIT', 60, 1, '2023-03-14 09:00:00'),
 -- `Members_workouts` Table
 -- -----------------------------------------------------
 CREATE OR REPLACE TABLE Members_workouts (
-    member_workout_id INT NOT NULL AUTO_INCREMENT,
+    member_workout_id INT(3) NOT NULL AUTO_INCREMENT,
     member_id INT(5) NOT NULL,
     workout_class_id INT(3) NOT NULL,
     PRIMARY KEY(member_workout_id),
