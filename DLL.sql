@@ -2,7 +2,7 @@ SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;
 
 -- -----------------------------------------------------
--- Table `Gym`
+-- `Gyms` Table
 -- -----------------------------------------------------
 CREATE OR REPLACE TABLE Gyms (
     gym_id INT(3) NOT NULL AUTO_INCREMENT,
@@ -13,7 +13,7 @@ CREATE OR REPLACE TABLE Gyms (
 );
 
 -- -----------------------------------------------------
--- `Gym` Data
+-- `Gyms` Data
 -- -----------------------------------------------------
 INSERT INTO Gyms (gym_address, opening_time, closing_time)
 VALUES ('100 E Jacked St. Swoleville City, CA 91990', '05:00:00', '22:00:00'),
@@ -23,7 +23,7 @@ VALUES ('100 E Jacked St. Swoleville City, CA 91990', '05:00:00', '22:00:00'),
     ('53135 Birch Way. Rancho Cucamonga, CA 91701', '05:00:00', '21:00:00');
 
 -- -----------------------------------------------------
--- Table `Membership_plans`
+-- `Membership_plans` Table
 -- -----------------------------------------------------
 CREATE OR REPLACE TABLE Membership_plans (
     membership_plan_id TINYINT(2) NOT NULL AUTO_INCREMENT,
@@ -45,7 +45,7 @@ VALUES (20.00, 1, 0, 0, 0),
     (50.00, 1, 1, 1, 1 );
 
 -- -----------------------------------------------------
--- Table `Members`
+-- `Members` Table
 -- -----------------------------------------------------
 CREATE OR REPLACE TABLE Members (
     member_id INT(5) NOT NULL AUTO_INCREMENT,
@@ -71,7 +71,7 @@ VALUE ('Andrea', 'Lopez', '7104 S Miller Dr., San Pablo, CA 94806', '1986-04-20'
     ('Kenjamin', 'Dyson', '1153 Northumberland Dr., Bonting, CA 98765', '1999-03-20', 2, 4);
 
 -- -----------------------------------------------------
--- Table `Instructors`
+-- `Instructors` Table
 -- -----------------------------------------------------
 CREATE OR REPLACE TABLE Instructors(
     instructor_id INT(3) NOT NULL AUTO_INCREMENT,
@@ -97,7 +97,7 @@ VALUES ('Pedro', 'Pascal', '49 Ann St. Alabaster, CA 95007', '1975-04-02', 'Pasc
     ('Rob', 'Brydon', '8678 Baglan Way, Front Royal, CA 92630', '1965-05-03', 'BrybryBAFTA@gmail.com', '909-860-2769', NULL);
 
 -- -----------------------------------------------------
--- Table `Workout_classes`
+-- `Workout_classes` Table
 -- -----------------------------------------------------
 CREATE OR REPLACE TABLE Workout_classes(
     workout_class_id INT(3) NOT NULL AUTO_INCREMENT,
@@ -120,7 +120,7 @@ VALUES ('HIIT', 60, 1, '2023-03-14 09:00:00'),
     ('Pilates', 90, 5, '2023-03-18 09:00:00');
 
 -- -----------------------------------------------------
--- Table `Members_workouts`
+-- `Members_workouts` Table
 -- -----------------------------------------------------
 CREATE OR REPLACE TABLE Members_workouts (
     member_workout_id INT NOT NULL AUTO_INCREMENT,
