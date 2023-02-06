@@ -1,3 +1,9 @@
+-- -----------------------------------------------------
+-- Project Group 36
+-- Edward Mai
+-- Jonathan Gregg
+-- -----------------------------------------------------
+
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;
 
