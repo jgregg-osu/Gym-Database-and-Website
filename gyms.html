@@ -68,7 +68,7 @@
     <div id="insert">
         <form method="POST" id="addGym">
         <legend> <strong>Add Gym</strong></legend> 
-        <fieldset>
+        <fieldset class="fields">
             <label> Gym Address</label> <input type="text" name="gym_address">
             <label> Opening Time</label> <input type="text" name="opening_time">
             <label> Closing Time</label> <input type="text" name="closing_time">
@@ -76,7 +76,23 @@
             <input class="btn" type="submit" id="addGym" value="Add Gym">
             <input class="btn" type="submit" value="cancel">
         </form>
-
     </div> <!-- insert -->
+
+    <p>&nbsp;</p>
+
+    <div id="update">
+        <form method="POST" id="updateGym">
+            <legend><strong>Update Gym</strong></legend>
+            <fieldset class="fields">
+                <label>ID: </label>1
+                <label> Gym Address</label> <input type="text" name="gym_address" value="100 E Jacked St. Swoleville City, CA 91990">
+                <label> Opening Time</label> <input type="text" name="opening_time" value="05:00:00">
+                <label> Closing Time</label> <input type="text" name="closing_time" value="22:00:00">
+            </fieldset>
+            <input class="btn" type="submit" id="updateGym" value="Update Gym">
+            <input class="btn" type="submit" value="cancel">
+        </form>
+    </div><!-- update -->
+    
 </body>
 </html>

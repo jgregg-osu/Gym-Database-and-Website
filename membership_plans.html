@@ -70,7 +70,7 @@
     <div id="insert">
         <form method="POST" id="addMembershipPlan">
             <legend><strong>Add Membership Plan</strong></legend>
-            <fieldset>
+            <fieldset class="fields">
                 <label>Monthly Fee</label> <input type="number">
                 <label> Weight/Cardio</label> <select name="weight_cardio">
                     <option value="0">No</option>
@@ -92,8 +92,37 @@
             <input class="btn" type="submit" id="addMembershipPlan" value="Add Membership Plan">
             <input class="btn" type="submit" value="cancel">
         </form>
-
     </div> <!-- insert -->
+
+    <p>&nbsp;</p>
+
+    <div id="update">
+        <form method="POST" id="updateMembershipPlan">
+            <legend><strong>Update Membership Plan</strong></legend>
+            <fieldset class="fields">
+                <label>Plan ID: </label> 1
+                <label>Monthly Fee</label> <input type="number" value="20.00">
+                <label> Weight/Cardio</label> <select name="weight_cardio">
+                    <option value="0">No</option>
+                    <option value="1" selected>Yes</option>
+                </select>
+                <label>Spa Room</label> <select name="spa_room">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+                <label>Lap/Pool</label> <select name="lap_pool">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+                <label>Ballcourt</label> <select name="ballcourt">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </fieldset>
+            <input class="btn" type="submit" id="updateMembershipPlan" value="Update Membership Plan">
+            <input class="btn" type="submit" value="cancel">
+        </form>
+    </div> <!-- update -->
 
 </body>
 

@@ -74,11 +74,12 @@
 <div id="insert">
     <form method="POST" id="addWorkoutClass">
         <legend><strong>Add Workout Class</strong></legend>
-        <fieldset>
+        <fieldset class="fields">
             <label> Class Type </label> <input type="text" name="class_type"> 
-            <label> Duration </label> <input type="number" name="duration">
             <label> Schedule </label> <input type="text" name="schedule">
+            <label> Duration </label> <input type="number" name="duration">
             <label> Instructor </label> <select name="instructor_id">
+                <option value="0"></option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -89,7 +90,31 @@
         <input class="btn" type="submit" id="addWorkoutClass" value="Add Class">
         <input class="btn" type="submit" value="cancel">
     </form>
+</div> <!-- insert -->
+<p>&nbsp;</p>
 
-</div>
+<div id="update">
+    <form method="POST" id="updateWorkoutClass">
+        <legend><strong>Update Workout Class</strong></legend>
+        <fieldset class="fields">
+            <label>Class ID: </label>1
+            <label> Class Type </label> <input type="text" name="class_type" value="HIIT"> 
+            <label> Schedule </label> <input type="text" name="schedule" value="2023-03-14 09:00:00">
+            <label> Duration </label> <input type="number" name="duration" value="60">
+            <label> Instructor </label> <select name="instructor_id">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select> 
+        </fieldset>
+        <input class="btn" type="submit" id="updateWorkoutClass" value="Update Class">
+        <input class="btn" type="submit" value="cancel">
+    </form>
+
+    </form>
+</div> <!-- update -->
+
 </body>
 </html>
