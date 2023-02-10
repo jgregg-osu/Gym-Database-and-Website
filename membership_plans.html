@@ -1,0 +1,100 @@
+<html>
+
+<head>
+    <title>Membership_plan</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1> Membership Plans</h1>
+[ <a href="members.html">Members</a> | <a href="instructors.html">Instructors</a> | <a href="gyms.html">Gyms</a> | <a href="membership_plans.html">Membership Plans</a> | <a href="workout_class.html">Workout Classes</a> ]
+    <div id="browse">
+        <p></p>
+        <strong>Browse Membership Plans</strong>
+
+        <table border="1" cellpadding="5">
+            <tr>
+                <th><a href="#">New</a></th>
+                <th></th>
+                <th>membership_plan_id</th>
+                <th>monthly_fee</th>
+                <th>weight_cardio</th>
+                <th>spa_room</th>
+                <th>lap_pool</th>
+                <th>ballcourt</th>
+            </tr>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td>1</td>
+                <td>20.00</td>
+                <td>1</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td>2</td>
+                <td>30.00</td>
+                <td>1</td>
+                <td>1</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td>3</td>
+                <td>40.00</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td>4</td>
+                <td>50.00</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+        </table>
+        <p>&nbsp;</p>
+    </div> <!-- browse -->
+
+    <div id="insert">
+        <form id="addMembershipPlan">
+            <legend><strong>Add Membership Plan</strong></legend>
+            <fieldset>
+                <label>Monthly Fee</label> <input type="number">
+                <label> Weight/Cardio</label> <select name="weight_cardio">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+                <label>Spa Room</label> <select name="spa_room">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+                <label>Lap/Pool</label> <select name="lap_pool">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+                <label>Ballcourt</label> <select name="ballcourt">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </fieldset>
+            <input class="btn" type="submit" id="addMembershipPlan" value="Add Membership Plan">
+            <input class="btn" type="submit" value="cancel">
+        </form>
+
+    </div> <!-- insert -->
+
+</body>
+
+</html>
