@@ -124,6 +124,22 @@
         </form>
     </div> <!-- update -->
 
+    <p>&nbsp;</p>
+    
+    <div id="delete">
+        <form method="POST" id="deleteMembershipPlan">
+            <legend><strong>Delete Membership Plan</strong></legend>
+            <fieldset class="fields">
+                <p>Are you sure you wish to delete this plan?</p>
+                <input type='hidden' name="membership_plan_id" id="deletePlanID" value="1">
+                <label><strong>ID: </strong></label>1
+                <label><strong>Monthly Fee: </strong></label> 20.00
+            </fieldset>
+            <input class="btn" type="submit" id="deletePlan" value="Delete Plan">
+            <input class="btn" type="submit" value="cancel">
+        </form>
+    </div><!-- delete -->
+
 </body>
 
 </html>
