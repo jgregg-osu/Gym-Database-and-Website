@@ -93,7 +93,7 @@
     <div id="insert">
         <form method="POST" id="addInstructor">
             <legend> <strong>Add Instructor</strong></legend>
-                <fieldset>
+                <fieldset class="fields">
                     <label>First Name</label> <input type="text" name="f_name">
                     <label>Last Name</label> <input type="text" name="l_name">
                     <label>Address</label> <input type="text" name="address">
@@ -116,6 +116,37 @@
                 <input class="btn" type="submit" value="cancel">
         </form>
     </div> <!-- insert -->
+    <p>&nbsp;</p>
+
+    <div id="update">
+        <form method="POST" id="updateInstructor">
+            <legend><strong>Update Instructor</strong></legend>
+            <fieldset>
+                <label>ID: </label>1
+                <label>First Name</label> <input type="text" name="f_name" value="Pedro">
+                <label>Last Name</label> <input type="text" name="l_name" value="Pascal">
+                <label>Address</label> <input type="text" name="address" value="49 Ann St. Alabaster, CA 95007">
+                <p></p>
+                <label>Birthday</label> <input type="text" name="birthday" value="1975-04-02">
+                <label>Email</label> <input type="text" name="email" value="PascalPedro@hollywood.com">
+                <label>Phone Number</label> <input type="text" name="phone_number" value="213-795-4636">
+            
+                <label>Gym</label>
+                    <select name="gym_id">
+                        <option value="0">NULL</option>
+                        <option value="1">1</option>
+                        <option value="2" selected>2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+            </fieldset>
+            <input class="btn" type="submit" id="updateInstructor" value="Update Instructor">
+            <input class="btn" type="submit" value="cancel">
+        </form>
+    </div><!-- update -->
+    <p>&nbsp;</p>
+    
 
     
 
