@@ -147,10 +147,20 @@
     </div><!-- update -->
     <p>&nbsp;</p>
     
-
+    <div id="delete">
+        <form method="POST" id="deleteInstructor">
+            <legend><strong>Delete Instructor</strong></legend>
+            <fieldset class="fields">
+                <p>Are you sure you wish to delete this instructor?</p>
+                <input type='hidden' name="instructor_id" id="deleteInstructorID" value="1">
+                <label><strong>ID: </strong></label>1
+                <label><strong>Name: </strong></label> Pedro Pascal
+            </fieldset>
+            <input class="btn" type="submit" id="deleteInstructor" value="Delete Instructor">
+            <input class="btn" type="submit" value="cancel">
+        </form>
     
-
-    
+    </div><!-- delete -->    
 
 </body>
 
