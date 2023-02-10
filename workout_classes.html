@@ -1,0 +1,95 @@
+<html>
+<head>
+    <title>People</title>
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+<div id="browse">
+    <h1>Workout Classes</h1>
+    [ <a href="members.html">Members</a> | <a href="instructors.html">Instructors</a> | <a href="gyms.html">Gyms</a> | <a href="membership_plans.html">Membership Plans</a> | <a href="workout_class.html">Workout Classes</a>]
+
+    <p></p>
+    <strong>Browse Classes</strong>
+        <table border="1" cellpadding="5">
+            <tr>
+                <th>New</th>
+                <th></th>
+                <th>workout_class_id</th>
+                <th>class_type</th>
+                <th>schedule</th>
+                <th>duration</th>
+                <th>instructor_id</th>
+            </tr>
+
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td>1</td>
+                <td>HIIT</td>
+                <td>2023-03-14 09:00:00</td>
+                <td>60</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td>2</td>
+                <td>Yoga</td>
+                <td>2023-03-27 07:00:00</td>
+                <td>45</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td>3</td>
+                <td>Spin</td>
+                <td>2023-03-14 09:00:00</td>
+                <td>60</td>
+                <td>4</td>
+            </tr>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td>4</td>
+                <td>Crossfit</td>
+                <td>2023-03-15 07:00:00</td>
+                <td>90</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+                <td>5</td>
+                <td>Pilates</td>
+                <td>2023-03-18 09:00:00</td>
+                <td>90</td>
+                <td>5</td>
+            </tr>
+        </table>
+        <p>&nbsp;</p>
+</div> <!-- browse -->
+
+<div id="insert">
+    <form method="POST" id="addWorkoutClass">
+        <legend><strong>Add Workout Class</strong></legend>
+        <fieldset>
+            <label> Class Type </label> <input type="text" name="class_type"> 
+            <label> Duration </label> <input type="number" name="duration">
+            <label> Schedule </label> <input type="text" name="schedule">
+            <label> Instructor </label> <select name="instructor_id">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select> 
+        </fieldset>
+        <input class="btn" type="submit" id="addWorkoutClass" value="Add Class">
+        <input class="btn" type="submit" value="cancel">
+    </form>
+
+</div>
+</body>
+</html>
