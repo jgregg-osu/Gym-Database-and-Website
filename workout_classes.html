@@ -112,9 +112,23 @@
         <input class="btn" type="submit" id="updateWorkoutClass" value="Update Class">
         <input class="btn" type="submit" value="cancel">
     </form>
-
-    </form>
 </div> <!-- update -->
+
+<p>&nbsp;</p>
+<div id="delete">
+    <form method="POST" id="deleteWorkoutClass">
+        <legend><strong>Delete Member</strong></legend>
+        <fieldset class="fields">
+            <p>Are you sure you wish to delete this class?</p>
+            <input type="hidden" name="workout_class_id" id="deleteWorkoutClassID" value="1">
+            <label><strong>ID: </strong></label>1
+            <label><strong>Schedule: </strong></label> 2023-03-14 09:00:00
+            <label><strong>Instructor: </strong></label> 1
+        </fieldset>
+        <input class="btn" type="submit" id="deleteWorkoutClass" value="Delete Class">
+        <input class="btn" type="submit" value="cancel">
+    </form>
+</div><!-- delete -->
 
 </body>
 </html>
