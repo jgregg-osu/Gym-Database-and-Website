@@ -26,8 +26,8 @@ DELETE FROM Members
 WHERE member_id = :id_from_form
 
 
--- Return all instructor information --
 
+-- Return all instructor information --
 -- add new Instructor --
 INSERT INTO Instructors(f_name, l_name, address, birthday, email, phone_number, gym_id)
 VALUES (:f_nameInput,:l_nameInput, :addressInput, :birthdayInput, :emailInput, :phoneInput, :gym_idInput)
@@ -51,8 +51,8 @@ DELETE FROM Instructors
 WHERE instructor_id = :id_from_form
 
 
--- Return all gym information --
 
+-- Return all gym information --
 -- add new gym --
 INSERT INTO Gyms(gym_address, opening_time, closing_time)
 VALUES (:gym_addressInput, :opening_timeInput, :closing_timeInput)
@@ -68,8 +68,9 @@ WHERE gym_id = :id_from_form
 DELETE FROM Gyms
 WHERE gym_id = :id_from_form
 
--- Return all membership plan information --
 
+
+-- Return all membership plan information --
 -- add new membership plan --
 INSERT INTO Membership_plans(monthly_fee, weight_cardio, spa_room, lap_pool, ballcourt)
 VALUES (:monthly_feeInput, :weight_cardioInput, :spa_roomInput, :lap_poolInput, :ballcourtInput)
@@ -87,8 +88,9 @@ WHERE membership_plan_id = :id_from_form
 DELETE FROM Membership_plans
 WHERE membership_plan_id = :id_from_form
 
--- Return all workout class information --
 
+
+-- Return all workout class information --
 -- add new workout class --
 INSERT INTO Workout_classes(class_type, duration, instructor_id, schedule)
 VALUES (:class_typeInput, :durationInput, :instructor_idInput, :scheduleInput)
