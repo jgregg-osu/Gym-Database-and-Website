@@ -6,6 +6,7 @@ SELECT Members.member_id, Members.f_name, Members.l_name, Members.address,
     Members.birthday, Members.membership_plan_id, Members.gym_id
 FROM Members 
 INNER JOIN Membership_plans ON Members.membership_plan_id = Membership_plans.membership_plan_id
+LEFT JOIN Gyms ON Members.gym_id = Gyms.gym_id
 
 -- add new Member --
 INSERT INTO Members(f_name, l_name, address, birthday, membership_plan_id, gym_id)
@@ -44,7 +45,16 @@ WHERE member_id = :id_from_form
 -- Instructors queries --
 ------------------------------------------------------------------------------
 -- select all Instructors --
-
+SELECT  Instructors.instructor_id, 
+        Instructors.f_name, 
+        Instructors.l_name, 
+        Instructors.address, 
+        Instructors.birthday, 
+        Instructors.email, 
+        Instructors.phone_number, 
+        Gyms.gym_id
+FROM Instructors 
+    LEFT JOIN Gyms ON Instructors.gym_id = Gyms.gym_id
 
 -- add new Instructor --
 INSERT INTO Instructors(f_name, l_name, address, birthday, email, phone_number, gym_id)
