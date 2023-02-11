@@ -95,6 +95,7 @@ WHERE instructor_id = :id_from_form
 -- Gyms queries --
 ------------------------------------------------------------------------------
 -- select all gyms --
+SELECT * FROM Gyms
 
 
 -- add new gym --
