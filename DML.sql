@@ -6,12 +6,22 @@ INNER JOIN Membership_plans ON Members.membership_plan_id = Membership_plans.mem
 
 -- add a new Member --
 INSERT INTO Members(f_name, l_name, address, birthday, membership_plan_id, gym_id)
-VALUES (:f_nameInput, :l_nameInput, :addressInput, :birthdayInput, :membership_plan_idInput, :gym_idInput)
+VALUES (:f_nameInput,
+        :l_nameInput,
+        :addressInput,
+        :birthdayInput,
+        :membership_plan_idInput,
+        :gym_idInput)
 
 -- update member data --
-SELECT Members.member_id, Members.f_name, Members.l_name, Members.address, Members.birthday, Members.membership_plan_id, Members.gym_id
+SELECT  Members.member_id,
+        Members.f_name,
+        Members.l_name,
+        Members.address,
+        Members.birthday,
+        Members.membership_plan_id,
+        Members.gym_id
 FROM Members WHERE member_id = :member_id_selected_from_browse_member_page
-
 UPDATE Members
 SET f_name = :new_first_name,
     l_name = :new_last_name,
@@ -30,12 +40,24 @@ WHERE member_id = :id_from_form
 -- Return all instructor information --
 -- add new Instructor --
 INSERT INTO Instructors(f_name, l_name, address, birthday, email, phone_number, gym_id)
-VALUES (:f_nameInput,:l_nameInput, :addressInput, :birthdayInput, :emailInput, :phoneInput, :gym_idInput)
+VALUES (:f_nameInput,
+        :l_nameInput,
+        :addressInput,
+        :birthdayInput,
+        :emailInput,
+        :phoneInput,
+        :gym_idInput)
 
 -- update Instructor --
-SELECT Instructors.instructor_id, Instructors.f_name, Instructors.l_name, Instructors.address, Instructors.birthday, Instructors.email, Instructors.phone_number, Instructors.gym_id
+SELECT  Instructors.instructor_id,
+        Instructors.f_name,
+        Instructors.l_name,
+        Instructors.address,
+        Instructors.birthday,
+        Instructors.email,
+        Instructors.phone_number,
+        Instructors.gym_id
 FROM Instructors WHERE instructor_id = :instructor_id_selected_from_browse_member_page
-
 UPDATE FROM Instructors
 SET f_name = :new_first_name
     l_name = :new_last_name
@@ -73,7 +95,11 @@ WHERE gym_id = :id_from_form
 -- Return all membership plan information --
 -- add new membership plan --
 INSERT INTO Membership_plans(monthly_fee, weight_cardio, spa_room, lap_pool, ballcourt)
-VALUES (:monthly_feeInput, :weight_cardioInput, :spa_roomInput, :lap_poolInput, :ballcourtInput)
+VALUES (:monthly_feeInput,
+        :weight_cardioInput,
+        :spa_roomInput,
+        :lap_poolInput,
+        :ballcourtInput)
 
 -- update membership plan --
 UPDATE Membership_plans
