@@ -33,6 +33,9 @@ INSERT INTO Instructors(f_name, l_name, address, birthday, email, phone_number, 
 VALUES (:f_nameInput,:l_nameInput, :addressInput, :birthdayInput, :emailInput, :phoneInput, :gym_idInput)
 
 -- update Instructor --
+SELECT Instructors.instructor_id, Instructors.f_name, Instructors.l_name, Instructors.address, Instructors.birthday, Instructors.email, Instructors.phone_number, Instructors.gym_id
+FROM Instructors WHERE instructor_id = :instructor_id_selected_from_browse_member_page
+
 UPDATE FROM Instructors
 SET f_name = :new_first_name
     l_name = :new_last_name
@@ -44,7 +47,8 @@ SET f_name = :new_first_name
 WHERE instructor_id = :id_from_form
 
 -- delete Instructor --
-
+DELETE FROM Instructors
+WHERE instructor_id = :id_from_form
 
 
 -- Return all gym information --
@@ -61,7 +65,8 @@ SET gym_address = :new_gym_address
 WHERE gym_id = :id_from_form
 
 -- delete gym --
-
+DELETE FROM Gyms
+WHERE gym_id = :id_from_form
 
 -- Return all membership plan information --
 
@@ -79,7 +84,8 @@ SET monthly_fee = :new_monthly_fee
 WHERE membership_plan_id = :id_from_form
 
 -- delete membership plan --
-
+DELETE FROM Membership_plans
+WHERE membership_plan_id = :id_from_form
 
 -- Return all workout class information --
 
@@ -96,3 +102,5 @@ SET class_type = :new_class_type
 WHERE workout_class_id = :id_from_form
 
 -- delete workout class --
+DELETE FROM Workout_classes
+WHERE workout_class_id = :id_from_form
