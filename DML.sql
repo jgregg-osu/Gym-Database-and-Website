@@ -119,6 +119,7 @@ WHERE gym_id = :id_from_form
 -- Membership plan queries --
 ------------------------------------------------------------------------------
 -- select all membership plans --
+SELECT * from Membership_plans
 
 
 -- add new membership plan --
@@ -148,7 +149,13 @@ WHERE membership_plan_id = :id_from_form
 -- Workout classes queries --
 ------------------------------------------------------------------------------
 -- select all workout classes --
-
+SELECT  Workout_classes.workout_class_id, 
+        Workout_classes.class_type, 
+        Workout_classes.schedule,
+        Workout_classes.duration,
+        Instructors.instructor_id
+FROM Workout_classes
+    INNER JOIN Instructors ON Workout_classes.instructor_id = Instructors.instructor_id
 
 -- add new workout class --
 INSERT INTO Workout_classes(class_type, duration, instructor_id, schedule)
