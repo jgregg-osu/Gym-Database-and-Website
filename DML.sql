@@ -153,7 +153,8 @@ SELECT  Workout_classes.workout_class_id,
         Workout_classes.class_type, 
         Workout_classes.schedule,
         Workout_classes.duration,
-        Instructors.instructor_id
+        Instructors.instructor_id,
+        Instructors.f_name
 FROM Workout_classes
     INNER JOIN Instructors ON Workout_classes.instructor_id = Instructors.instructor_id
 
