@@ -154,3 +154,15 @@ WHERE workout_class_id = :id_from_form
 -- delete workout class --
 DELETE FROM Workout_classes
 WHERE workout_class_id = :id_from_form
+
+
+
+------------------------------------------------------------------------------
+-- Class Participants queries --
+------------------------------------------------------------------------------
+-- select all Class Participants --
+------------------------------------------------------------------------------
+SELECT Members_workouts.member_workout_id, Members_workouts.workout_class_id, Workout_classes.class_type, Workout_classes.schedule, Members.member_id, Members.f_name, Members.l_name
+FROM Members 
+	JOIN Members_workouts ON Members.member_id = Members_workouts.member_id
+	JOIN Workout_classes ON Members_workouts.workout_class_id = Workout_classes.workout_class_id
