@@ -1,12 +1,13 @@
 ------------------------------------------------------------------------------
 -- Members queries --
 ------------------------------------------------------------------------------
+-- select all Members --
 SELECT Members.member_id, Members.f_name, Members.l_name, Members.address,
     Members.birthday, Members.membership_plan_id, Members.gym_id
 FROM Members 
-INNER JOIN Membership_plans ON Members.membership_plan_id = Membership_plans.membership_plan_id 
+INNER JOIN Membership_plans ON Members.membership_plan_id = Membership_plans.membership_plan_id
 
--- add a new Member --
+-- add new Member --
 INSERT INTO Members(f_name, l_name, address, birthday, membership_plan_id, gym_id)
 VALUES (:f_nameInput,
         :l_nameInput,
@@ -42,6 +43,9 @@ WHERE member_id = :id_from_form
 ------------------------------------------------------------------------------
 -- Instructors queries --
 ------------------------------------------------------------------------------
+-- select all Instructors --
+
+
 -- add new Instructor --
 INSERT INTO Instructors(f_name, l_name, address, birthday, email, phone_number, gym_id)
 VALUES (:f_nameInput,
@@ -80,6 +84,9 @@ WHERE instructor_id = :id_from_form
 ------------------------------------------------------------------------------
 -- Gyms queries --
 ------------------------------------------------------------------------------
+-- select all gyms --
+
+
 -- add new gym --
 INSERT INTO Gyms(gym_address, opening_time, closing_time)
 VALUES (:gym_addressInput, :opening_timeInput, :closing_timeInput)
@@ -100,6 +107,9 @@ WHERE gym_id = :id_from_form
 ------------------------------------------------------------------------------
 -- Membership plan queries --
 ------------------------------------------------------------------------------
+-- select all membership plans --
+
+
 -- add new membership plan --
 INSERT INTO Membership_plans(monthly_fee, weight_cardio, spa_room, lap_pool, ballcourt)
 VALUES (:monthly_feeInput,
@@ -124,8 +134,11 @@ WHERE membership_plan_id = :id_from_form
 
 
 ------------------------------------------------------------------------------
--- Workout class queries --
+-- Workout classes queries --
 ------------------------------------------------------------------------------
+-- select all workout classes --
+
+
 -- add new workout class --
 INSERT INTO Workout_classes(class_type, duration, instructor_id, schedule)
 VALUES (:class_typeInput, :durationInput, :instructor_idInput, :scheduleInput)
