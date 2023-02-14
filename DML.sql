@@ -192,7 +192,7 @@ WHERE class_id = :id_from_form
 -- Class Participants queries --
 ------------------------------------------------------------------------------
 -- select all Class Participants --
-SELECT  Members_classes.member_workout_id,
+SELECT  Members_classes.member_class_id,
         Members_classes.class_id,
         Classes.class_type,
         Classes.schedule,

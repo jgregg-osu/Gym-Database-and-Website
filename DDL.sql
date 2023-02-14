@@ -29,22 +29,22 @@ VALUES ('100 E Jacked St. Swoleville City, CA 91990', '05:00:00', '22:00:00'),
     ('53135 Birch Way. Rancho Cucamonga, CA 91701', '05:00:00', '21:00:00');
 
 -- -----------------------------------------------------
--- `Membership_plans` Table
+-- `Plans` Table
 -- -----------------------------------------------------
-CREATE OR REPLACE TABLE Membership_plans (
-    membership_plan_id TINYINT(2) NOT NULL AUTO_INCREMENT,
+CREATE OR REPLACE TABLE Plans (
+    plan_id TINYINT(2) NOT NULL AUTO_INCREMENT,
     monthly_fee DECIMAL(10,2) NOT NULL,
     weight_cardio BOOLEAN NOT NULL,
     spa_room BOOLEAN NOT NULL,
     lap_pool BOOLEAN NOT NULL,
     ballcourt BOOLEAN NOT NULL,
-    PRIMARY KEY(membership_plan_id)
+    PRIMARY KEY(plan_id)
 );
 
 -- -----------------------------------------------------
--- `Membership_plans` Data
+-- `Plans` Data
 -- -----------------------------------------------------
-INSERT INTO Membership_plans (monthly_fee, weight_cardio, spa_room, lap_pool, ballcourt)
+INSERT INTO Plans (monthly_fee, weight_cardio, spa_room, lap_pool, ballcourt)
 VALUES (20.00, 1, 0, 0, 0),
     (30.00, 1, 1, 0, 0 ),
     (40.00, 1, 1, 1, 0 ),
@@ -59,17 +59,17 @@ CREATE OR REPLACE TABLE Members (
     l_name VARCHAR(50) NOT NULL,
     address VARCHAR(200) NOT NULL,
     birthday DATE NOT NULL,
-    membership_plan_id TINYINT(2) NOT NULL DEFAULT 1,
+    plan_id TINYINT(2) NOT NULL DEFAULT 1,
     gym_id INT(3),
     PRIMARY KEY(member_id),
-    FOREIGN KEY(membership_plan_id) REFERENCES Membership_plans(membership_plan_id) ON DELETE RESTRICT,
+    FOREIGN KEY(plan_id) REFERENCES Plans(plan_id) ON DELETE RESTRICT,
     FOREIGN KEY(gym_id) REFERENCES Gyms(gym_id) ON DELETE SET NULL
 );
 
 -- -----------------------------------------------------
 -- `Members` Data
 -- -----------------------------------------------------
-INSERT INTO Members (f_name, l_name, address, birthday, membership_plan_id, gym_id)
+INSERT INTO Members (f_name, l_name, address, birthday, plan_id, gym_id)
 VALUE ('Andrea', 'Lopez', '7104 S Miller Dr., San Pablo, CA 94806', '1986-04-20', 2, NULL), -- member left or gym is gone due to NULL
     ('Kevin', 'Nguyen', '7785 Ridgewood Court, Front Royal, CA 92630', '1991-10-20', 3, 2),
     ('Jimothy', 'Bernoulli', '3345 Friesian Walk, Santa Ana, CA 92701', '1967-11-07', 4, 5),
@@ -103,22 +103,22 @@ VALUES ('Pedro', 'Pascal', '49 Ann St. Alabaster, CA 95007', '1975-04-02', 'Pasc
     ('Rob', 'Brydon', '8678 Baglan Way, Front Royal, CA 92630', '1965-05-03', 'BrybryBAFTA@gmail.com', '909-860-2769', NULL);
 
 -- -----------------------------------------------------
--- `Workout_classes` Table
+-- `Classes` Table
 -- -----------------------------------------------------
-CREATE OR REPLACE TABLE Workout_classes(
-    workout_class_id INT(3) NOT NULL AUTO_INCREMENT,
+CREATE OR REPLACE TABLE Classes(
+    class_id INT(3) NOT NULL AUTO_INCREMENT,
     class_type VARCHAR(50) NOT NULL,
     duration INT(3) NOT NULL,
     instructor_id INT(3) NOT NULL,
     schedule DATETIME NOT NULL,
-    PRIMARY KEY(workout_class_id),
+    PRIMARY KEY(class_id),
     FOREIGN KEY(instructor_id) REFERENCES Instructors(instructor_id) ON DELETE CASCADE
 );
 
 -- -----------------------------------------------------
--- `Workout_classes` Data
+-- `Classes` Data
 -- -----------------------------------------------------
-INSERT INTO Workout_classes (class_type, duration, instructor_id, schedule)
+INSERT INTO Classes (class_type, duration, instructor_id, schedule)
 VALUES ('HIIT', 60, 1, '2023-03-14 09:00:00'),
     ('Yoga', 45, 2, '2023-03-27 07:00:00'),
     ('Spin', 60, 4, '2023-03-14 09:00:00'),
@@ -126,21 +126,21 @@ VALUES ('HIIT', 60, 1, '2023-03-14 09:00:00'),
     ('Pilates', 90, 5, '2023-03-18 09:00:00');
 
 -- -----------------------------------------------------
--- `Members_workouts` Table
+-- `Members_classes` Table
 -- -----------------------------------------------------
-CREATE OR REPLACE TABLE Members_workouts (
-    member_workout_id INT(7) NOT NULL AUTO_INCREMENT,
+CREATE OR REPLACE TABLE Members_classes (
+    member_class_id INT(7) NOT NULL AUTO_INCREMENT,
     member_id INT(5) NOT NULL,
-    workout_class_id INT(3) NOT NULL,
-    PRIMARY KEY(member_workout_id),
+    class_id INT(3) NOT NULL,
+    PRIMARY KEY(member_class_id),
     FOREIGN KEY(member_id) REFERENCES Members(member_id) ON DELETE CASCADE,
-    FOREIGN KEY(workout_class_id) REFERENCES Workout_classes(workout_class_id) ON DELETE CASCADE
+    FOREIGN KEY(class_id) REFERENCES Classes(class_id) ON DELETE CASCADE
 );
 
 -- -----------------------------------------------------
--- `Members_workouts` Data
+-- `Members_classes` Data
 -- -----------------------------------------------------
-INSERT INTO Members_workouts ( member_id, workout_class_id)
+INSERT INTO Members_classes ( member_id, class_id)
 VALUES (1, 2),
     (2,1),
     (2,2),
