@@ -2,8 +2,13 @@
 -- Members queries --
 ------------------------------------------------------------------------------
 -- select all Members --
-SELECT Members.member_id, Members.f_name, Members.l_name, Members.address,
-    Members.birthday, Members.membership_plan_id, Members.gym_id
+SELECT  Members.member_id,
+        Members.f_name,
+        Members.l_name,
+        Members.address,
+        Members.birthday,
+        Members.membership_plan_id,
+        Gyms.gym_id
 FROM Members 
 INNER JOIN Membership_plans ON Members.membership_plan_id = Membership_plans.membership_plan_id
 LEFT JOIN Gyms ON Members.gym_id = Gyms.gym_id
@@ -54,7 +59,7 @@ SELECT  Instructors.instructor_id,
         Instructors.phone_number, 
         Gyms.gym_id
 FROM Instructors 
-    LEFT JOIN Gyms ON Instructors.gym_id = Gyms.gym_id
+LEFT JOIN Gyms ON Instructors.gym_id = Gyms.gym_id
 
 -- add new Instructor --
 INSERT INTO Instructors(f_name, l_name, address, birthday, email, phone_number, gym_id)
@@ -91,12 +96,12 @@ DELETE FROM Instructors
 WHERE instructor_id = :id_from_form
 
 
+
 ------------------------------------------------------------------------------
 -- Gyms queries --
 ------------------------------------------------------------------------------
 -- select all gyms --
 SELECT * FROM Gyms
-
 
 -- add new gym --
 INSERT INTO Gyms(gym_address, opening_time, closing_time)
@@ -120,7 +125,6 @@ WHERE gym_id = :id_from_form
 ------------------------------------------------------------------------------
 -- select all membership plans --
 SELECT * from Membership_plans
-
 
 -- add new membership plan --
 INSERT INTO Membership_plans(monthly_fee, weight_cardio, spa_room, lap_pool, ballcourt)
@@ -155,8 +159,16 @@ SELECT  Workout_classes.workout_class_id,
         Workout_classes.duration,
         Instructors.instructor_id,
         Instructors.f_name
+        Instructors.l_name,
 FROM Workout_classes
-    INNER JOIN Instructors ON Workout_classes.instructor_id = Instructors.instructor_id
+INNER JOIN Instructors ON Workout_classes.instructor_id = Instructors.instructor_id
+
+-- select workout classes for specific Instructor --
+SELECT  Workout_classes.workout_class_id, 
+        Workout_classes.class_type, 
+        Workout_classes.schedule,
+        Workout_classes.duration,
+FROM Workout_classes WHERE Workout_classes.instructor_id = :id_from_form
 
 -- add new workout class --
 INSERT INTO Workout_classes(class_type, duration, instructor_id, schedule)
@@ -179,12 +191,17 @@ WHERE workout_class_id = :id_from_form
 ------------------------------------------------------------------------------
 -- Class Participants queries --
 ------------------------------------------------------------------------------
-
 -- select all Class Participants --
-SELECT Members_workouts.member_workout_id, Members_workouts.workout_class_id, Workout_classes.class_type, Workout_classes.schedule, Members.member_id, Members.f_name, Members.l_name
+SELECT  Members_workouts.member_workout_id,
+        Members_workouts.workout_class_id,
+        Workout_classes.class_type,
+        Workout_classes.schedule,
+        Members.member_id,
+        Members.f_name,
+        Members.l_name
 FROM Members 
-	JOIN Members_workouts ON Members.member_id = Members_workouts.member_id
-	JOIN Workout_classes ON Members_workouts.workout_class_id = Workout_classes.workout_class_id
+JOIN Members_workouts ON Members.member_id = Members_workouts.member_id
+JOIN Workout_classes ON Members_workouts.workout_class_id = Workout_classes.workout_class_id
 
 -- add new Class Participants
 INSERT INTO Members_workouts(workout_class_id, member_id)
