@@ -158,8 +158,8 @@ SELECT  Classes.class_id,
         Classes.schedule,
         Classes.duration,
         Instructors.instructor_id,
-        Instructors.f_name
-        Instructors.l_name,
+        Instructors.f_name,
+        Instructors.l_name
 FROM Classes
 INNER JOIN Instructors ON Classes.instructor_id = Instructors.instructor_id
 
