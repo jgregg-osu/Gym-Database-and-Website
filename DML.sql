@@ -7,19 +7,19 @@ SELECT  Members.member_id,
         Members.l_name,
         Members.address,
         Members.birthday,
-        Members.membership_plan_id,
+        Members.plan_id,
         Gyms.gym_id
 FROM Members 
-INNER JOIN Membership_plans ON Members.membership_plan_id = Membership_plans.membership_plan_id
+INNER JOIN Plans ON Members.plan_id = Plans.plan_id
 LEFT JOIN Gyms ON Members.gym_id = Gyms.gym_id
 
 -- add new Member --
-INSERT INTO Members(f_name, l_name, address, birthday, membership_plan_id, gym_id)
+INSERT INTO Members(f_name, l_name, address, birthday, plan_id, gym_id)
 VALUES (:f_nameInput,
         :l_nameInput,
         :addressInput,
         :birthdayInput,
-        :membership_plan_idInput,
+        :plan_idInput,
         :gym_idInput)
 
 -- update member data --
@@ -28,7 +28,7 @@ SELECT  Members.member_id,
         Members.l_name,
         Members.address,
         Members.birthday,
-        Members.membership_plan_id,
+        Members.plan_id,
         Members.gym_id
 FROM Members WHERE member_id = :member_id_selected_from_browse_member_page
 UPDATE Members
@@ -36,7 +36,7 @@ SET f_name = :new_first_name,
     l_name = :new_last_name,
     address = :new_address,
     birthday = :new_birthday,
-    membership_plan_id = :new_membership_plan_id,
+    plan_id = :new_plan_id,
     gym_id = :new_gym
 WHERE member_id = :id_from_form
 
@@ -107,7 +107,7 @@ SELECT * FROM Gyms
 INSERT INTO Gyms(gym_address, opening_time, closing_time)
 VALUES (:gym_addressInput, :opening_timeInput, :closing_timeInput)
 
--- update gym --
+-- update gym information --
 UPDATE Gyms
 SET gym_address = :new_gym_address
     opening_time = :new_opening_time
@@ -124,10 +124,10 @@ WHERE gym_id = :id_from_form
 -- Membership plan queries --
 ------------------------------------------------------------------------------
 -- select all membership plans --
-SELECT * from Membership_plans
+SELECT * from Plans
 
 -- add new membership plan --
-INSERT INTO Membership_plans(monthly_fee, weight_cardio, spa_room, lap_pool, ballcourt)
+INSERT INTO Plans(monthly_fee, weight_cardio, spa_room, lap_pool, ballcourt)
 VALUES (:monthly_feeInput,
         :weight_cardioInput,
         :spa_roomInput,
@@ -135,17 +135,17 @@ VALUES (:monthly_feeInput,
         :ballcourtInput)
 
 -- update membership plan --
-UPDATE Membership_plans
+UPDATE Plans
 SET monthly_fee = :new_monthly_fee
     weight_cardio = :new_weight_cardio
     spa_room = :new_spa_room
     lap_pool = :new_lap_pool
     ballcourt = :new_ballcourt
-WHERE membership_plan_id = :id_from_form
+WHERE plan_id = :id_from_form
 
 -- delete membership plan --
-DELETE FROM Membership_plans
-WHERE membership_plan_id = :id_from_form
+DELETE FROM Plans
+WHERE plan_id = :id_from_form
 
 
 
@@ -153,38 +153,38 @@ WHERE membership_plan_id = :id_from_form
 -- Workout classes queries --
 ------------------------------------------------------------------------------
 -- select all workout classes --
-SELECT  Workout_classes.workout_class_id, 
-        Workout_classes.class_type, 
-        Workout_classes.schedule,
-        Workout_classes.duration,
+SELECT  Classes.class_id, 
+        Classes.class_type, 
+        Classes.schedule,
+        Classes.duration,
         Instructors.instructor_id,
         Instructors.f_name
         Instructors.l_name,
-FROM Workout_classes
-INNER JOIN Instructors ON Workout_classes.instructor_id = Instructors.instructor_id
+FROM Classes
+INNER JOIN Instructors ON Classes.instructor_id = Instructors.instructor_id
 
 -- select workout classes for specific Instructor --
-SELECT  Workout_classes.workout_class_id, 
-        Workout_classes.class_type, 
-        Workout_classes.schedule,
-        Workout_classes.duration,
-FROM Workout_classes WHERE Workout_classes.instructor_id = :id_from_form
+SELECT  Classes.class_id, 
+        Classes.class_type, 
+        Classes.schedule,
+        Classes.duration,
+FROM Classes WHERE Classes.instructor_id = :id_from_form
 
 -- add new workout class --
-INSERT INTO Workout_classes(class_type, duration, instructor_id, schedule)
+INSERT INTO Classes(class_type, duration, instructor_id, schedule)
 VALUES (:class_typeInput, :durationInput, :instructor_idInput, :scheduleInput)
 
 -- update workout class --
-UPDATE Workout_classes
+UPDATE Classes
 SET class_type = :new_class_type
     schedule = :new_schedule
     duration = :new_duration
     instructor_id = :new_instructor_id
-WHERE workout_class_id = :id_from_form
+WHERE class_id = :id_from_form
 
 -- delete workout class --
-DELETE FROM Workout_classes
-WHERE workout_class_id = :id_from_form
+DELETE FROM Classes
+WHERE class_id = :id_from_form
 
 
 
@@ -192,31 +192,30 @@ WHERE workout_class_id = :id_from_form
 -- Class Participants queries --
 ------------------------------------------------------------------------------
 -- select all Class Participants --
-SELECT  Members_workouts.member_workout_id,
-        Members_workouts.workout_class_id,
-        Workout_classes.class_type,
-        Workout_classes.schedule,
+SELECT  Members_classes.member_workout_id,
+        Members_classes.class_id,
+        Classes.class_type,
+        Classes.schedule,
         Members.member_id,
         Members.f_name,
         Members.l_name
 FROM Members 
-JOIN Members_workouts ON Members.member_id = Members_workouts.member_id
-JOIN Workout_classes ON Members_workouts.workout_class_id = Workout_classes.workout_class_id
+JOIN Members_classes ON Members.member_id = Members_classes.member_id
+JOIN Classes ON Members_classes.class_id = Classes.class_id
 
 -- add new Class Participants
-INSERT INTO Members_workouts(workout_class_id, member_id)
-VALUES  ((workout_class_id WHERE class_type = :class_typeInput AND schedule = :scheduleInput),
+INSERT INTO Members_classes(class_id, member_id)
+VALUES  ((class_id WHERE class_type = :class_typeInput AND schedule = :scheduleInput),
         (member_id WHERE f_name = :f_nameInput AND l_name = :l_nameInput))
 
 -- update Class Participant
-UPDATE Members_workouts
+UPDATE Members_classes
 SET class_type = :new_class_type
     schedule = :new_schedule
     f_name = :new_f_name
     l_name = :new_l_name
-
-WHERE members_workouts_id = :id_from_form
+WHERE Members_classes_id = :id_from_form
 
 -- delete Class Participant
-DELETE FROM Members_workouts
-WHERE members_workouts_id = :id_from_form
+DELETE FROM Members_classes
+WHERE Members_classes_id = :id_from_form
