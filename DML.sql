@@ -179,9 +179,27 @@ WHERE workout_class_id = :id_from_form
 ------------------------------------------------------------------------------
 -- Class Participants queries --
 ------------------------------------------------------------------------------
+
 -- select all Class Participants --
-------------------------------------------------------------------------------
 SELECT Members_workouts.member_workout_id, Members_workouts.workout_class_id, Workout_classes.class_type, Workout_classes.schedule, Members.member_id, Members.f_name, Members.l_name
 FROM Members 
 	JOIN Members_workouts ON Members.member_id = Members_workouts.member_id
 	JOIN Workout_classes ON Members_workouts.workout_class_id = Workout_classes.workout_class_id
+
+-- add new Class Participants
+INSERT INTO Members_workouts(workout_class_id, member_id)
+VALUES  ((workout_class_id WHERE class_type = :class_typeInput AND schedule = :scheduleInput),
+        (member_id WHERE f_name = :f_nameInput AND l_name = :l_nameInput))
+
+-- update Class Participant
+UPDATE Members_workouts
+SET class_type = :new_class_type
+    schedule = :new_schedule
+    f_name = :new_f_name
+    l_name = :new_l_name
+
+WHERE members_workouts_id = :id_from_form
+
+-- delete Class Participant
+DELETE FROM Members_workouts
+WHERE members_workouts_id = :id_from_form
