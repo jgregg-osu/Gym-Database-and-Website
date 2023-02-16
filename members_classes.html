@@ -24,8 +24,7 @@
                     <th>class_type</th>
                     <th>schedule</th>
                     <th>member_id</th>
-                    <th>member_f_name</th>
-                    <th>member_l_name</th>
+                    <th>member_name</th>
                 </tr>
                 <tr>
                     <td><a href=#>Edit</a></td>
@@ -35,8 +34,7 @@
                     <td>Yoga</td>   
                     <td>2023-03-27 07:00:00</td>
                     <td>1</td>
-                    <td>Andrea</td>
-                    <td>Lopez</td>
+                    <td>Andrea Lopez</td>
                 </tr>
                 <tr>
                     <td><a href=#>Edit</a></td>
@@ -46,8 +44,7 @@
                     <td>HIIT</td>   
                     <td>2023-03-14 09:00:00</td>
                     <td>2</td>
-                    <td>Kevin</td>
-                    <td>Nguyen</td>
+                    <td>Kevin Nguyen</td>
                 </tr>
                 <tr>
                     <td><a href=#>Edit</a></td>
@@ -57,8 +54,7 @@
                     <td>Yoga</td>   
                     <td>2023-03-27 07:00:00</td>
                     <td>2</td>
-                    <td>Kevin</td>
-                    <td>Nguyen</td>
+                    <td>Kevin Nguyen</td>
                 </tr>
                 <tr>
                     <td><a href=#>Edit</a></td>
@@ -68,8 +64,7 @@
                     <td>Yoga</td>   
                     <td>2023-03-27 07:00:00</td>
                     <td>4</td>
-                    <td>Donathan</td>
-                    <td>Oyamada</td>
+                    <td>Donathan Oyamada</td>
                 </tr>
                 <tr>
                     <td><a href=#>Edit</a></td>
@@ -79,8 +74,7 @@
                     <td>Yoga</td>   
                     <td>2023-03-27 07:00:00</td>
                     <td>5</td>
-                    <td>Kenjamin</td>
-                    <td>Dyson</td>
+                    <td>Kenjamin Dyson</td>
                 </tr>
             </table>
         </div> <!-- browse -->
@@ -90,24 +84,22 @@
             <form method="POST" id="addMember_workout">
                 <legend> Add Class and Members </legend>
                 <fieldset class="fields">
-                    <label>Class Type</label> <input type="text" name="class_type">
-                    <label>Schedule</label> <input type="datetime" name="schedule">
-                    <label>Member First Name</label> <select name="f_name">
-                        <option value="0"></option>
-                        <option value="1">Andrea</option>
-                        <option value="2">Kevin</option>
-                        <option value="3">Jimothy</option>
-                        <option value="4">Donathan</option>
-                        <option value="5">Kenjamin</option>
+                    <label>Class Type</label> <select name="class_type">
+                        <option>Yoga</option>
+                        <option>HIIT</option>
                     </select>
-                    <label>Member Last Name</label> <select name="l_name">
-                        <option value="0"></option>
-                        <option value="1">Lopez</option>
-                        <option value="2">Nguyen</option>
-                        <option value="3">Bernoulli</option>
-                        <option value="4">Oyamada</option>
-                        <option value="5">Dyson</option>
+                    <label>Schedule</label> <select name="schedule">
+                        <option>2023-03-27 07:00:00</option>
+                        <option>2023-03-14 09:00:00</option>
                     </select>
+                    <label>Member Name</label> <select name="f_name">
+                        <option value="0"></option>
+                        <option value="1">Andrea Lopez</option>
+                        <option value="2">Kevin Nguyen</option>
+                        <option value="3">Jimothy Bernoulli</option>
+                        <option value="4">Donathan Oyamada</option>
+                        <option value="5">Kenjamin Dyson</option>
+                    </select>  
                 </fieldset>
                 <input class="btn" type="submit" id="addWorkout_member" value="Add">
                 <input class="btn" type="submit" value="cancel">
@@ -120,23 +112,21 @@
                 <legend> Update Class and Members </legend>
                 <fieldset class="fields">
                     <label>ID: </label> 1
-                    <label>Class Type</label> <input type="text" name="class_type" value="Yoga">
-                    <label>Schedule</label> <input type="datetime" name="schedule" value="2023-03-27 07:00:00">
-                    <label>Member First Name</label> <select name="f_name">
-                        <option value="0"></option>
-                        <option value="1">Andrea</option>
-                        <option value="2">Kevin</option>
-                        <option value="3">Jimothy</option>
-                        <option value="4">Donathan</option>
-                        <option value="5">Kenjamin</option>
+                    <label>Class Type</label> <select>
+                        <option>Yoga</option>
+                        <option>HIIT</option>
                     </select>
-                    <label>Member Last Name</label> <select name="l_name">
+                    <label>Schedule</label> <select>
+                        <option>2023-03-27 07:00:00</option>
+                        <option>2023-03-14 09:00:00</option>
+                    </select>
+                    <label>Member Name</label> <select name="f_name">
                         <option value="0"></option>
-                        <option value="1">Lopez</option>
-                        <option value="2">Nguyen</option>
-                        <option value="3">Bernoulli</option>
-                        <option value="4">Oyamada</option>
-                        <option value="5">Dyson</option>
+                        <option value="1">Andrea Lopez</option>
+                        <option value="2">Kevin Nguyen</option>
+                        <option value="3">Jimothy Bernoulli</option>
+                        <option value="4">Donathan Oyamada</option>
+                        <option value="5">Kenjamin Dyson</option>
                     </select>
                 </fieldset>
                 <input class="btn" type="submit" id="updateWorkout_member" value="Update">
