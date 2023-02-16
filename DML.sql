@@ -197,8 +197,7 @@ SELECT  Members_classes.member_class_id,
         Classes.class_type,
         Classes.schedule,
         Members.member_id,
-        Members.f_name,
-        Members.l_name
+        CONCAT(Members.f_name, " ",Members.l_name) AS member_name
 FROM Members 
 JOIN Members_classes ON Members.member_id = Members_classes.member_id
 JOIN Classes ON Members_classes.class_id = Classes.class_id
@@ -206,14 +205,13 @@ JOIN Classes ON Members_classes.class_id = Classes.class_id
 -- add new Class Participants
 INSERT INTO Members_classes(class_id, member_id)
 VALUES  ((class_id WHERE class_type = :class_typeInput AND schedule = :scheduleInput),
-        (member_id WHERE f_name = :f_nameInput AND l_name = :l_nameInput))
+        (member_id CONCAT(Members.f_name, " ", Members.l_name) = :member_name))
 
 -- update Class Participant
 UPDATE Members_classes
 SET class_type = :new_class_type
     schedule = :new_schedule
-    f_name = :new_f_name
-    l_name = :new_l_name
+    member_name = :new_member_name
 WHERE Members_classes_id = :id_from_form
 
 -- delete Class Participant
