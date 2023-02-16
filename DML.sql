@@ -207,12 +207,6 @@ INSERT INTO Members_classes(class_id, member_id)
 VALUES  ((class_id WHERE class_type = :class_typeInput AND schedule = :scheduleInput),
         (member_id CONCAT(Members.f_name, " ", Members.l_name) = :member_name))
 
--- update Class Participant
-UPDATE Members_classes
-SET class_type = :new_class_type
-    schedule = :new_schedule
-    member_name = :new_member_name
-WHERE Members_classes_id = :id_from_form
 
 -- delete Class Participant
 DELETE FROM Members_classes
