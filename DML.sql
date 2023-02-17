@@ -2,13 +2,13 @@
 -- Members queries --
 ------------------------------------------------------------------------------
 -- select all Members --
-SELECT  Members.member_id,
-        Members.f_name,
-        Members.l_name,
-        Members.address,
-        Members.birthday,
-        Members.plan_id,
-        Gyms.gym_id
+SELECT  Members.member_id AS "Member ID",
+        Members.f_name AS "First Name",
+        Members.l_name AS "Last Name",
+        Members.address AS Address,
+        Members.birthday AS Birthday,
+        Members.plan_id AS "Membership Plan ID",
+        Gyms.gym_id AS "Gym ID"
 FROM Members 
 INNER JOIN Plans ON Members.plan_id = Plans.plan_id
 LEFT JOIN Gyms ON Members.gym_id = Gyms.gym_id
@@ -50,14 +50,14 @@ WHERE member_id = :id_from_form
 -- Instructors queries --
 ------------------------------------------------------------------------------
 -- select all Instructors --
-SELECT  Instructors.instructor_id, 
-        Instructors.f_name, 
-        Instructors.l_name, 
-        Instructors.address, 
-        Instructors.birthday, 
-        Instructors.email, 
-        Instructors.phone_number, 
-        Gyms.gym_id
+SELECT  Instructors.instructor_id AS "Instructor ID", 
+        Instructors.f_name AS "First Name", 
+        Instructors.l_name AS "Last Name", 
+        Instructors.address AS Address, 
+        Instructors.birthday AS Birthday, 
+        Instructors.email AS Email, 
+        Instructors.phone_number AS "Phone Number", 
+        Gyms.gym_id AS "Gym ID"
 FROM Instructors 
 LEFT JOIN Gyms ON Instructors.gym_id = Gyms.gym_id
 
@@ -128,7 +128,13 @@ WHERE gym_id = :id_from_form
 -- Membership plan queries --
 ------------------------------------------------------------------------------
 -- select all membership plans --
-SELECT * from Plans
+SELECT Plans.plan_id AS "Membership Plan ID", 
+        Plans.monthly_fee AS "Monthly Fee",
+        Plans.weight_cardio AS "Weights/Cardio",
+        Plans.spa_room AS "Spa Room",
+        Plans.lap_pool AS "Lap Pool",
+        Plans.ballcourt AS Ballcourt
+from Plans
 
 -- add new membership plan --
 INSERT INTO Plans(monthly_fee, weight_cardio, spa_room, lap_pool, ballcourt)
