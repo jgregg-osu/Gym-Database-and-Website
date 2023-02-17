@@ -192,12 +192,12 @@ WHERE class_id = :id_from_form
 -- Class Participants queries --
 ------------------------------------------------------------------------------
 -- select all Class Participants --
-SELECT  Members_classes.member_class_id,
-        Members_classes.class_id,
-        Classes.class_type,
-        Classes.schedule,
-        Members.member_id,
-        CONCAT(Members.f_name, " ",Members.l_name) AS member_name
+SELECT  Members_classes.member_class_id AS "Class Particpant ID",
+        Members_classes.class_id AS "Class ID",
+        Classes.class_type AS "Class Type",
+        Classes.schedule AS "Schedule",
+        Members.member_id AS "Member ID",
+        CONCAT(Members.f_name, " ",Members.l_name) AS 'Member Name'
 FROM Members 
 JOIN Members_classes ON Members.member_id = Members_classes.member_id
 JOIN Classes ON Members_classes.class_id = Classes.class_id
