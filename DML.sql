@@ -101,7 +101,11 @@ WHERE instructor_id = :id_from_form
 -- Gyms queries --
 ------------------------------------------------------------------------------
 -- select all gyms --
-SELECT * FROM Gyms
+SELECT Gyms.gym_id AS "Gym ID", 
+        Gyms.gym_address AS Address,
+        Gyms.opening_time AS OPENS
+        Gyms.closing_time AS CLOSES
+FROM Gyms
 
 -- add new gym --
 INSERT INTO Gyms(gym_address, opening_time, closing_time)
