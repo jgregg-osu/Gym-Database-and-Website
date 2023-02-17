@@ -153,13 +153,12 @@ WHERE plan_id = :id_from_form
 -- Workout classes queries --
 ------------------------------------------------------------------------------
 -- select all workout classes --
-SELECT  Classes.class_id, 
-        Classes.class_type, 
-        Classes.schedule,
-        Classes.duration,
-        Instructors.instructor_id,
-        Instructors.f_name,
-        Instructors.l_name
+SELECT  Classes.class_id AS "Class ID", 
+        Classes.class_type AS "Class Type", 
+        Classes.schedule AS Schedule,
+        Classes.duration AS Duration,
+        Instructors.instructor_id AS "Instructor ID",
+        CONCAT(Instructors.f_name, " ", Instructors.l_name ) AS "Instructor Name"
 FROM Classes
 INNER JOIN Instructors ON Classes.instructor_id = Instructors.instructor_id
 
