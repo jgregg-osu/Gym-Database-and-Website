@@ -191,8 +191,8 @@ WHERE class_id = :id_from_form
 -- Class Participants queries --
 ------------------------------------------------------------------------------
 -- select all Class Participants --
-SELECT  Members_classes.member_class_id AS "Class Particpant ID",
-        Members_classes.class_id AS "Class ID",
+SELECT  Class_participants.member_class_id AS "Class Particpant ID",
+        Class_participants.class_id AS "Class ID",
         Classes.class_type AS "Class Type",
         Classes.schedule AS "Schedule",
         Members.member_id AS "Member ID",
@@ -202,11 +202,11 @@ JOIN Members_classes ON Members.member_id = Members_classes.member_id
 JOIN Classes ON Members_classes.class_id = Classes.class_id
 
 -- add new Class Participants
-INSERT INTO Members_classes(class_id, member_id)
+INSERT INTO Class_participants(class_id, member_id)
 VALUES  ((class_id WHERE class_type = :class_typeInput AND schedule = :scheduleInput),
         (member_id CONCAT(Members.f_name, " ", Members.l_name) = :member_name))
 
 
 -- delete Class Participant
-DELETE FROM Members_classes
-WHERE Members_classes_id = :id_from_form
+DELETE FROM Class_participants
+WHERE Class_participants_id = :id_from_form

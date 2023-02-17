@@ -128,7 +128,7 @@ VALUES ('HIIT', 60, 1, '2023-03-14 09:00:00'),
 -- -----------------------------------------------------
 -- `Members_classes` Table
 -- -----------------------------------------------------
-CREATE OR REPLACE TABLE Members_classes (
+CREATE OR REPLACE TABLE Class_participants (
     member_class_id INT(7) NOT NULL AUTO_INCREMENT,
     member_id INT(5) NOT NULL,
     class_id INT(3) NOT NULL,
@@ -140,7 +140,7 @@ CREATE OR REPLACE TABLE Members_classes (
 -- -----------------------------------------------------
 -- `Members_classes` Data
 -- -----------------------------------------------------
-INSERT INTO Members_classes ( member_id, class_id)
+INSERT INTO Class_participants ( member_id, class_id)
 VALUES (1, 2),
     (2,1),
     (2,2),
