@@ -80,7 +80,7 @@ SELECT  Instructors.instructor_id,
         Instructors.email,
         Instructors.phone_number,
         Instructors.gym_id
-FROM Instructors WHERE instructor_id = :instructor_id_selected_from_browse_member_page
+FROM Instructors WHERE instructor_id = :instructor_id_selected_from_browse_instructor_page
 UPDATE FROM Instructors
 SET f_name = :new_first_name
     l_name = :new_last_name
@@ -112,6 +112,10 @@ INSERT INTO Gyms(gym_address, opening_time, closing_time)
 VALUES (:gym_addressInput, :opening_timeInput, :closing_timeInput)
 
 -- update gym information --
+SELECT  Gyms.gym_address,
+        Gyms.opening_time
+        Gyms.closing_time
+FROM Gyms WHERE gym_id = :gym_id_selected_from_browse_gym_page
 UPDATE Gyms
 SET gym_address = :new_gym_address
     opening_time = :new_opening_time
@@ -145,6 +149,12 @@ VALUES (:monthly_feeInput,
         :ballcourtInput)
 
 -- update membership plan --
+SELECT  Plans.monthly_fee,
+        Plans.weight_cardio,
+        Plans.spa_room,
+        Plans.lap_pool,
+        Plans.ballcourt
+FROM Plans Where plan_id = :plan_id_selected_from_browse_plan_page
 UPDATE Plans
 SET monthly_fee = :new_monthly_fee
     weight_cardio = :new_weight_cardio
@@ -184,6 +194,11 @@ INSERT INTO Classes(class_type, duration, instructor_id, schedule)
 VALUES (:class_typeInput, :durationInput, :instructor_idInput, :scheduleInput)
 
 -- update workout class --
+SELECT  Classes.class_type, 
+        Classes.schedule,
+        Classes.duration,
+        Instructors.instructor_id,
+FROM Classes WHERE class_id = :class_id_selected_from_browse_plan_page
 UPDATE Classes
 SET class_type = :new_class_type
     schedule = :new_schedule
