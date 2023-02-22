@@ -8,10 +8,8 @@ SELECT  Members.member_id AS "Member ID",
         Members.address AS Address,
         Members.birthday AS Birthday,
         Members.plan_id AS "Membership Plan ID",
-        Gyms.gym_id AS "Gym ID"
+        Members.gym_id AS "Gym ID"
 FROM Members 
-INNER JOIN Plans ON Members.plan_id = Plans.plan_id
-LEFT JOIN Gyms ON Members.gym_id = Gyms.gym_id
 
 -- add new Member --
 INSERT INTO Members(f_name, l_name, address, birthday, plan_id, gym_id)
@@ -57,9 +55,8 @@ SELECT  Instructors.instructor_id AS "Instructor ID",
         Instructors.birthday AS Birthday, 
         Instructors.email AS Email, 
         Instructors.phone_number AS "Phone Number", 
-        Gyms.gym_id AS "Gym ID"
+        Instructors.gym_id AS "Gym ID"
 FROM Instructors 
-LEFT JOIN Gyms ON Instructors.gym_id = Gyms.gym_id
 
 -- add new Instructor --
 INSERT INTO Instructors(f_name, l_name, address, birthday, email, phone_number, gym_id)
@@ -138,7 +135,7 @@ SELECT Plans.plan_id AS "Membership Plan ID",
         Plans.spa_room AS "Spa Room",
         Plans.lap_pool AS "Lap Pool",
         Plans.ballcourt AS Ballcourt
-from Plans
+FROM Plans
 
 -- add new membership plan --
 INSERT INTO Plans(monthly_fee, weight_cardio, spa_room, lap_pool, ballcourt)
@@ -223,15 +220,15 @@ SELECT  Class_participants.member_class_id AS "Class Particpant ID",
         Members.member_id AS "Member ID",
         CONCAT(Members.f_name, " ",Members.l_name) AS 'Member Name'
 FROM Members 
-JOIN Members_classes ON Members.member_id = Members_classes.member_id
-JOIN Classes ON Members_classes.class_id = Classes.class_id
+JOIN Members ON Members.member_id = Class_participants.member_id
+JOIN Classes ON Class_participants.class_id = Classes.class_id
 
--- add new Class Participants
+-- add new Class Participants --
 INSERT INTO Class_participants(class_id, member_id)
 VALUES  ((class_id WHERE class_type = :class_typeInput AND schedule = :scheduleInput),
         (member_id CONCAT(Members.f_name, " ", Members.l_name) = :member_name))
 
 
--- delete Class Participant
+-- delete Class Participant --
 DELETE FROM Class_participants
 WHERE Class_participants_id = :id_from_form
