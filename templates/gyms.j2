@@ -1,0 +1,19 @@
+
+<table>
+<thead>
+<tr>
+    {% for key in gyms[0].keys() %}
+    <th>{{key}}</th>
+    {% endfor %}
+</tr>
+
+<tbody>
+{% for gym in gyms %}
+<tr>
+    {% for key in gym.keys() %}
+
+    <td>{{gym[key]}}</td>
+    {% endfor %}
+</tr>
+{% endfor %}
+</table>

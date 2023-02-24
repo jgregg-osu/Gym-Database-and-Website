@@ -1,0 +1,19 @@
+
+<table>
+<thead>
+<tr>
+    {% for key in members[0].keys() %}
+    <th>{{key}}</th>
+    {% endfor %}
+</tr>
+
+<tbody>
+{% for member in members %}
+<tr>
+    {% for key in member.keys() %}
+
+    <td>{{member[key]}}</td>
+    {% endfor %}
+</tr>
+{% endfor %}
+</table>
