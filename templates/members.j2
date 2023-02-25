@@ -1,19 +1,166 @@
+<html>
 
-<table>
-<thead>
-<tr>
-    {% for key in members[0].keys() %}
-    <th>{{key}}</th>
-    {% endfor %}
-</tr>
+<head>
+<title>Members</title>
+<link href="style.css" rel="stylesheet" type="text/css"/>
+    <script language="JavaScript">
+        function showform(dowhat) {
+            if(dowhat == 'insert') {
+                document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+            }
+            else if (dowhat == 'update'){
+                document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+            }
+            else if (dowhat == 'delete') {
+                document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+            }
+            else if (dowhat == 'all') {
+                document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'block';
+            }
+            else {
+                document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+            }
+        }
+        function newMember() { showform('insert'); }
+        function updateMember(pid) { showform('update'); }
+        function deleteMember(pid) { showform ('delete'); }
+        function browseMember() { showform ('browse'); }
+        function showAll() { showform ('all'); }
+    </script>
+</head>
 
-<tbody>
-{% for member in members %}
-<tr>
-    {% for key in member.keys() %}
+<body onload="browseMember()">
+<h1>Members</h1>    
+[ <a href="index">Home</a> |
+<a href="members">Members</a> |
+<a href="instructors.html">Instructors</a> |
+<a href="gyms">Gyms</a> |
+<a href="plans.html">Membership Plans</a> |
+<a href="classes.html">Classes</a> | 
+<a href="class_participants.html">Class Participants</a>]
 
-    <td>{{member[key]}}</td>
-    {% endfor %}
-</tr>
-{% endfor %}
-</table>
+<div id="browse">
+    <p><a href="#" onClick="showAll()"><strong>Display all forms</strong></a> </p>
+    <p><a href="#" onClick="newMember()"><strong>Add New Member</strong></a> </p>
+    <strong>Browse Members</strong>
+    <table border="1" cellpadding="4">
+        {% if data %}
+            <thead>
+            <tr>
+                {% for key in data[0].keys() %}
+                <th>{{key}}</th>
+                {% endfor %}
+            </tr>    
+
+            <tbody>
+            {% for item in data %}
+            <tr>
+                {% for key in item.keys() %}
+                    <td> {{item[key]}} </td>
+                {% endfor %}
+
+                    <td><a href="edit_member/{{item.Member_ID}}" class="btn btn-default">Edit</a></td>
+		    		<td><a href="delete_member/{{item.Member_ID}}" class="btn btn-default">Delete</a></td>
+            </tr>
+            {% endfor%}
+        {% endif %}
+    </table>
+    <p>&nbsp;</p>
+</div> <!--browse-->
+
+<div id="insert">
+    <form method="POST" action="/members" id="addMember">
+        <legend><strong>Add Member</strong></legend>
+            <fieldset class="fields">
+                <label>First Name</label> 
+                    <input type="text" name="f_name" id="f_name" required>
+                <label>Last Name</label> 
+                    <input type="text" name="l_name" id="l_name" required>
+                <label>Address</label> 
+                    <input type="text" name="address" id="address" style="width: 500px;" required>
+                <p></p>
+                <label>Birthday</label> <input type="date" name="birthday" id="birthday" required>
+                <label>Membership Plan</label> 
+                    <select name="plan_id" id="plan_id" required>
+                        <!-- Access our plans tuple passed from app.py -->
+                        {% for plan in plans %}
+                            <option value="{{plan['plan_id']}}"> {{plan['plan_id']}} </option>
+                        {% endfor %}
+                    </select>
+                <label>Gym</label> 
+                <select name="gym_id" id="gym_id">
+                    {% for gym in gyms %}
+                        <option value="{{gym['gym_id']}}"> {{gym['gym_id']}} </option>
+                    {% endfor %}
+                </select>
+            </fieldset>
+            <input class="btn" type="submit" name="addMember" value="Add Member">
+            <input class="btn" type="submit" value="cancel" onClick="browseMember()">
+    </form>
+</div> <!-- insert-->
+
+<p>&nbsp;</p>
+<div id="update">
+    <form id="updateMember" action="/update_members" method="POST">
+        <legend><strong>Update Member</strong></legend>
+        <fieldset class="fields">
+            <label>ID: </label>1
+            <label>First Name</label> <input type="text" name="f_name" value="Andrea">
+            <label>Last Name</label> <input type="text" name="l_name" value="Lopez">
+            <label>Address</label> <input type="text" name="address" value="7104 S Miller Dr., San Pablo, CA 94806">
+            <label>Birthday</label> <input type="date" name="birthday" value="1986-04-20">
+            <label>Membership Plan</label> <select name="membership_plan_id">
+                <option value="1">1</option>
+                <option value="2" selected>2</option> 
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+            <label>Gym</label> <select name="gym_id">
+                <option value="0">NULL</option>
+                <option value="1">1</option>
+                <option value="2">2</option> 
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </fieldset>
+        <input class="btn" type="submit" id="updateMember" value="Update Member">
+        <input class="btn" type="submit" value="cancel" onClick="browseMember()">
+    </form>
+</div> <!-- update -->
+
+<p>&nbsp;</p>
+
+<div id="delete">
+    <form method="POST" id="deleteMember">
+        <legend><strong>Delete Member</strong></legend>
+        <fieldset class="fields">
+            <p>Are you sure you wish to delete this member?</p>
+            <input type="hidden" name="member_id" id="deleteMemberID" value="1">
+            <label><strong>ID: </strong></label>1
+            <label><strong>Name: </strong></label> Andrea Lopez
+        </fieldset>
+        <input class="btn" type="submit" id="deleteMember" value="Delete Member">
+        <input class="btn" type="submit" value="cancel" onClick="browseMember()">
+    </form>
+
+</div><!-- delete -->
+
+</body>
+
+</html>
