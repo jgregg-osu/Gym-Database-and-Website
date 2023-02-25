@@ -23,10 +23,13 @@ app.config["MYSQL_CURSORCLASS"] = "DictCursor"
 mysql = MySQL(app)
 
 # Routes 
+
+# return to index page 
 @app.route('/')
 def root():
     return render_template('index.j2')
 
+# route to members page
 @app.route('/members', methods=["POST", "GET"])
 def members():
     if request.method == "POST":
@@ -83,7 +86,7 @@ def members():
 
         return render_template('members.j2', data=data, plans=plan_data, gyms=gym_data)
     
-    
+# handle deletion of members
 @app.route("/delete_member/<int:Member_ID>")
 def delete_member(Member_ID):
     #mySQL query to delete the member with our passed id
@@ -93,6 +96,7 @@ def delete_member(Member_ID):
     mysql.connection.commit()
     return redirect('/members')
 
+# handle editing members
 @app.route("/edit_member/<int:Member_ID>", methods=["POST", "GET"])
 def edit_member(Member_ID):
     if request.method == "GET":
