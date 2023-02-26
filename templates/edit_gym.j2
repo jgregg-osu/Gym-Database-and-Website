@@ -1,0 +1,65 @@
+<html>
+
+<head>
+	<title>Edit Gym</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body> 
+    <div> 
+        <table border="1 cellpadding="4">
+            <caption> <strong>Editing Gym: </strong> </caption>
+
+            {% if data %}
+                <thead>
+                    <tr>
+                        {% for key in data[0].keys() %}
+                        <th> {{ key }} </th>
+                        {% endfor %}
+                    </tr>
+
+                <tbody>
+                {% for item in data %}
+                    <tr>
+                    {% for key in item.keys() %}
+                        <td> {{ item[key] }} </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+    </div>
+
+    <p>&nbsp;</p>
+    <div id="edit">
+    <form method="POST" action="/edit_plan/{{ data[0].plan_id }}" id="editPlan">
+        <legend><strong>Edit Gym</strong></legend>
+            <fieldset class="fields">
+                <label>Gym Address:</label> 
+                    <input type="text" name="gym_address" id="gym_address" value="{{data[0].gym_address}}" required>
+                <label>Opening Time:</label> 
+                    <input type="time" name="opening_time" id="opening_time" value="{{data[0].opening_time}}" required>
+                <label>Closing Time</label> 
+                    <input type="time" name="closing_time" id="closing_time" value="{{data[0].closing_time}}" style="width: 500px;" required>
+                <p></p>
+            </fieldset>
+            <input class="btn" type="submit" name="Edit_Gym" value="Edit Gym">
+            <a href='/gyms'><input class="btn" type="button" value="cancel"></a
+    </form>
+</div> <!-- insert-->
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
