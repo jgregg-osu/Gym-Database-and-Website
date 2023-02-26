@@ -1,19 +1,83 @@
+<html>
 
-<table>
-<thead>
-<tr>
-    {% for key in gyms[0].keys() %}
-    <th>{{key}}</th>
-    {% endfor %}
-</tr>
+<head>
+<title>Gyms</title>
+<link href="style.css" rel="stylesheet" type="text/css"/>
+    <script language="JavaScript">
+        function showform(dowhat) {
+            if(dowhat == 'insert') {
+                document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+            }
+            else if (dowhat == 'all') {
+                document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+            }
+            else {
+                document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+            }
+        }
+        function newGym() { showform('insert'); }
+        function browseGyms() { showform ('browse'); }
+        function showAll() { showform ('all'); }
+    </script>
+</head>
 
-<tbody>
-{% for gym in gyms %}
-<tr>
-    {% for key in gym.keys() %}
+<body onload="browseGyms()">
+<h1>Gyms</h1>    
+[ <a href="/">Home</a> |
+<a href="members">Members</a> |
+<a href="instructors">Instructors</a> |
+<a href="gyms">Gyms</a> |
+<a href="plans">Membership Plans</a> |
+<a href="classes">Classes</a> | 
+<a href="class_participants">Class Participants</a>]
 
-    <td>{{gym[key]}}</td>
-    {% endfor %}
-</tr>
-{% endfor %}
-</table>
+<div id="browse">
+    <p><a href="#" onClick="newGym()"><strong>Add New Gym</strong></a> </p>
+    <strong>Browse Gyms</strong>
+    <table border="1" cellpadding="4">
+        {% if data %}
+            <thead>
+                <tr>
+                    {% for key in data[0].keys() %}
+                    <th>{{ key }}</th>
+                    {% endfor %}
+                </tr>    
+
+            <tbody>
+            {% for item in data %}
+                <tr>
+                    {% for key in item.keys() %}
+                        <td> {{ item[key] }} </td>
+                    {% endfor %}
+                    <td><a href="edit_gym/{{item.Gym_ID}}" class="btn btn-default">Edit</a></td>
+                    <td><a href="delete_gym/{{item.Gym_ID}}" class="btn btn-default">Delete</a></td>
+                </tr>
+            {% endfor %}
+
+        {% endif %}
+    </table>
+    <p>&nbsp;</p>
+</div> <!--browse-->
+
+<div id="insert">
+    <form method="POST" action="/gyms" id="addGym">
+        <legend><strong>Add Gym</strong></legend>
+            <fieldset class="fields">
+                <label>Gym Address</label> 
+                    <input type="text" name="gym_address" id="gym_address" required>
+                <label>Opening Time</label> 
+                    <input type="time" name="opening_time" id="opening_time" required>
+                <label>Closing Time</label> 
+                    <input type="time" name="closing_time" id="closing_time" required>
+            </fieldset>
+            <input class="btn" type="submit" name="addGym" value="Add Gym">
+            <input class="btn" type="submit" value="cancel" onClick="browseGyms()">
+    </form>
+</div> <!-- insert-->
+
+</body>
+
+</html>
