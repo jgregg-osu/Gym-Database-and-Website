@@ -153,7 +153,19 @@ def edit_member(Member_ID):
                 mysql.connection.commit()
 
             return redirect("/members")
-            
+
+
+
+@app.route("/plans", methods=["GET", "POST"])
+def plans():
+    pass
+@app.route("/gyms", methods=["POST", "GET"])
+def gyms():
+    pass
+
+# @app.route("/instructors")
+# @app.route("/classes")
+# @app.route("/class_participants")       
 
 # Listener
 
