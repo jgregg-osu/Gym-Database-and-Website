@@ -71,18 +71,24 @@
                 <label>Weights/Cardio</label> 
                     <select name="weight_cardio" id="weight_cardio" required>
                         <option value=0> 0 </option>
-                        </option value=1> 1 </option>
+                        <option value=1> 1 </option>
                     </select>
                 <label>Spa Room</label> 
                     <select name="spa_room" id="spa_room" required>
                         <option value=0> 0 </option>
-                        </option value=1> 1 </option>
+                        <option value=1> 1 </option>
                     </select>
                 <p></p>
                 <label>Lap Pool</label>
-                    <input type="tinyint" name="lap_pool" id="lap_pool" required>
+                    <select name="lap_pool" id="lap_pool" required>
+                        <option value=0> 0 </option>
+                        <option value=1> 1 </option>
+                    </select>
                 <label>Ball Court</label> 
-                    <input type="tinyint" name="ballcourt" id="ballcourt" required>
+                    <select name="ballcourt" id="ballcourt" required>
+                        <option value=0> 0 </option>
+                        <option value=1> 1 </option>
+                    </select>
             </fieldset>
             <input class="btn" type="submit" name="addPlan" value="Add Plan">
             <input class="btn" type="submit" value="cancel" onClick="browsePlan()">
