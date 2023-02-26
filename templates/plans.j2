@@ -1,0 +1,88 @@
+<html>
+
+<head>
+<title>Membership Plans</title>
+<link href="style.css" rel="stylesheet" type="text/css"/>
+    <script language="JavaScript">
+        function showform(dowhat) {
+            if(dowhat == 'insert') {
+                document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+            }
+            else if (dowhat == 'all') {
+                document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+            }
+            else {
+                document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+            }
+        }
+        function newPlan() { showform('insert'); }
+        function browsePlan() { showform ('browse'); }
+        function showAll() { showform ('all'); }
+    </script>
+</head>
+
+<body onload="browsePlan()">
+<h1>Membership Plans</h1>    
+[ <a href="/">Home</a> |
+<a href="members">Members</a> |
+<a href="instructors.html">Instructors</a> |
+<a href="gyms">Gyms</a> |
+<a href="plans.html">Membership Plans</a> |
+<a href="classes.html">Classes</a> | 
+<a href="class_participants.html">Class Participants</a>]
+
+<div id="browse">
+    <p><a href="#" onClick="newPlan()"><strong>Add New Membership Plan</strong></a> </p>
+    <strong>Browse Membership Plans</strong>
+    <table border="1" cellpadding="4">
+        {% if data %}
+            <thead>
+                <tr>
+                    {% for key in data[0].keys() %}
+                    <th>{{ key }}</th>
+                    {% endfor %}
+                </tr>    
+
+            <tbody>
+            {% for item in data %}
+                <tr>
+                    {% for key in item.keys() %}
+                        <td> {{ item[key] }} </td>
+                    {% endfor %}
+                    <td><a href="edit_plan/{{item.plan_id}}" class="btn btn-default">Edit</a></td>
+                    <td><a href="delete_plan/{{item.plan_id}}" class="btn btn-default">Delete</a></td>
+                </tr>
+            {% endfor %}
+
+        {% endif %}
+    </table>
+    <p>&nbsp;</p>
+</div> <!--browse-->
+
+<div id="insert">
+    <form method="POST" action="/plans" id="addPlan">
+        <legend><strong>Add Membership Plan</strong></legend>
+            <fieldset class="fields">
+                <label>Monthly Fee</label> 
+                    <input type="decimal" name="monthly_fee" id="monthly_fee" required>
+                <label>Weights/Cardio</label> 
+                    <input type="tinyint" name="weight_cardio" id="weight_cardio" required>
+                <label>Spa Room</label> 
+                    <input type="tinyint" name="spa_room" id="spa_room" style="width: 500px;" required>
+                <p></p>
+                <label>Lap Pool</label>
+                    <input type="tinyint" name="lap_pool" id="lap_pool" required>
+                <label>Ball Court</label> 
+                    <input type="tinyint" name="ballcourt" id="ballcourt" required>
+            </fieldset>
+            <input class="btn" type="submit" name="addPlan" value="Add Plan">
+            <input class="btn" type="submit" value="cancel" onClick="browsePlan()">
+    </form>
+</div> <!-- insert-->
+
+</body>
+
+</html>
