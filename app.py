@@ -235,13 +235,47 @@ def delete_plan(plan_id):
 Gyms Routes
 Includes No Functionality
 ####################################################################################################################'''
-# @app.route("/gyms", methods=["GET", "POST"])
-# def gyms():
-#     if request.method == "GET":
-#         pass
-#     if request.method == "POST":
-#         pass
-#     pass
+@app.route("/gyms", methods=["GET", "POST"])
+def gyms():
+    if request.method == "GET":
+        query = "SELECT Gyms.gym_id AS 'Gym_ID', \
+        Gyms.gym_address AS Address, \
+        Gyms.opening_time AS OPENS \
+        Gyms.closing_time AS CLOSES \
+        FROM Gyms"
+        cursor = mysql.connection.cursor()
+        cursor.execute(query)
+        data = cursor.fetchall()
+
+        return render_template("gyms.j2", data = data)
+
+    if request.method == "POST":
+        #activates when adding a new plan.
+        if request.form.get("addGym"):
+            # grab user form inputs
+            gym_address = request.form["gym_address"]
+            opening_time = request.form["opening_time"]
+            closing_time = request.form["closing_time"]
+
+            query = "INSERT INTO Gyms(gym_address, opening_time, closing_time) \
+                    VALUES (%s, %s, %s)"
+            cursor = mysql.connection.cursor()
+            cursor.execute(query,(gym_address, opening_time, closing_time))
+            mysql.connection.commit()
+
+            return redirect("/gyms")
+
+
+# handle deletion of members
+@app.route("/delete_gym/<int:gym_id>")
+def delete_gym(gym_id):
+    #mySQL query to delete the member with our passed id
+    query = "DELETE FROM Gyms WHERE gym_id = %s;"
+    cur = mysql.connection.cursor()
+    cur.execute(query, (gym_id,))
+    mysql.connection.commit()
+
+    return redirect('/gyms')
 
 
 '''####################################################################################################################
