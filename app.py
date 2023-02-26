@@ -192,10 +192,10 @@ def plans():
         cursor = mysql.connection.cursor()
         cursor.execute(query)
         data = cursor.fetchall()
+
         return render_template("plans.j2", data = data)
 
     if request.method == "POST":
-
         #activates when adding a new plan.
         if request.form.get("addPlan"):
             # grab user form inputs
@@ -210,6 +210,7 @@ def plans():
             cursor = mysql.connection.cursor()
             cursor.execute(query,(monthly_fee, weight_cardio, spa_room, lap_pool, ballcourt))
             mysql.connection.commit()
+
             return redirect("/plans")
 
 
@@ -221,51 +222,13 @@ def delete_plan(plan_id):
     cur = mysql.connection.cursor()
     cur.execute(query, (plan_id,))
     mysql.connection.commit()
+
     return redirect('/plans')
 
 
 # handle editing plans
-@app.route("/edit_plan/<int:plan_id>", methods=["GET", "POST"])
-def edit_plan(plan_id):
-    if request.method == "GET":
-        # mySQL query to grab the infor of the person with our passed id
-        query = "SELECT  Plans.monthly_fee, \
-                Plans.weight_cardio, \
-                Plans.spa_room, \
-                Plans.lap_pool, \
-                Plans.ballcourt \
-                FROM Plans WHERE plan_id = %s"
-        cur = mysql.connection.cursor()
-        cur.execute(query)
-        data = cur.fetchall()
-
-        return render_template('edit_plan.j2', data=data)
-    
-    if request.method == "POST":
-        # fire off if user clicks the "Edit Person" button
-        if request.form.get("Edit_Member"):
-            # grab user form inputs
-            f_name = request.form["f_name"]
-            l_name = request.form["l_name"]
-            address = request.form["address"]
-            birthday = request.form["birthday"]
-            plan_id = request.form["plan_id"]
-            gym_id = request.form["gym_id"]
-
-            # account for cases where gym_id is set to null
-            if gym_id == "0":
-                query = "INSERT INTO Members (f_name, l_name, address, birthday, plan_id) VALUES (%s, %s, %s, %s, %s)"
-                cur = mysql.connection.cursor()
-                cur.execute(query,(f_name, l_name, address, birthday, plan_id))
-                mysql.connection.commit()
-
-            else:
-                query = "INSERT INTO Members (f_name, l_name, address, birthday, plan_id, gym_id) VALUES (%s, %s, %s, %s, %s, %s)"
-                cur = mysql.connection.cursor()
-                cur.execute(query,(f_name, l_name, address, birthday, plan_id, gym_id))
-                mysql.connection.commit()
-
-            return redirect("/members")
+# @app.route("/edit_plan/<int:plan_id>", methods=["GET", "POST"])
+# def edit_plan(plan_id):
 
 
 '''####################################################################################################################
