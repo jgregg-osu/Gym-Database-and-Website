@@ -35,6 +35,8 @@
     <form method="POST" action="/edit_member/{{data[0].Member_ID}}" id="editMember">
         <legend><strong>Edit Member</strong></legend>
             <fieldset class="fields">
+                <label>Member ID:</label>
+                    <input type="hidden" value="{{data[0].Member_ID}}" id="member_id" name="member_id">
                 <label>First Name:</label> 
                     <input type="text" name="f_name" id="f_name" value="{{data[0].First_Name}}" required>
                 <label>Last Name:</label> 

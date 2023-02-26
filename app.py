@@ -132,6 +132,7 @@ def edit_member(Member_ID):
         # fire off if user clicks the "Edit Person" button
         if request.form.get("Edit_Member"):
             # grab user form inputs
+            member_id = request.form["member_id"]
             f_name = request.form["f_name"]
             l_name = request.form["l_name"]
             address = request.form["address"]
@@ -141,15 +142,29 @@ def edit_member(Member_ID):
 
             # account for cases where gym_id is set to null
             if gym_id == "0":
-                query = "INSERT INTO Members (f_name, l_name, address, birthday, plan_id) VALUES (%s, %s, %s, %s, %s)"
+                query = "UPDATE Members \
+                    SET Members.f_name = %s, \
+                        Members.l_name = %s,\
+                        Members.address = %s,\
+                        Members.birthday = %s,\
+                        Members.plan_id = %s,\
+                        Members.gym_id = NULL\
+                    WHERE Members.member_id = %s"
                 cur = mysql.connection.cursor()
-                cur.execute(query,(f_name, l_name, address, birthday, plan_id))
+                cur.execute(query,(f_name, l_name, address, birthday, plan_id, member_id))
                 mysql.connection.commit()
 
             else:
-                query = "INSERT INTO Members (f_name, l_name, address, birthday, plan_id, gym_id) VALUES (%s, %s, %s, %s, %s, %s)"
+                query = "UPDATE Members \
+                    SET Members.f_name = %s, \
+                        Members.l_name = %s,\
+                        Members.address = %s,\
+                        Members.birthday = %s,\
+                        Members.plan_id = %s,\
+                        Members.gym_id = %s\
+                    WHERE Members.member_id = %s"
                 cur = mysql.connection.cursor()
-                cur.execute(query,(f_name, l_name, address, birthday, plan_id, gym_id))
+                cur.execute(query,(f_name, l_name, address, birthday, plan_id, gym_id, member_id))
                 mysql.connection.commit()
 
             return redirect("/members")
