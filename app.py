@@ -187,7 +187,7 @@ def edit_member(Member_ID):
 @app.route("/plans", methods=["GET", "POST"])
 def plans():
     if request.method == "GET":
-        query = "SELECT Plans.plan_id AS 'Membership Plan ID', \
+        query = "SELECT Plans.plan_id AS 'Membership_Plan_ID', \
                 Plans.monthly_fee AS 'Monthly Fee', \
                 Plans.weight_cardio AS 'Weights/Cardio', \
                 Plans.spa_room AS 'Spa Room', \
