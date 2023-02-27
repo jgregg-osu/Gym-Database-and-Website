@@ -33,38 +33,31 @@
     <p>&nbsp;</p>
     <div id="edit">
     <form method="POST" action="/edit_plan/{{ data[0].plan_id }}" id="editPlan">
-        <legend><strong>Edit Member</strong></legend>
-            <fieldset class="fields">
-                <label>First Name:</label> 
-                    <input type="text" name="f_name" id="f_name" value="{{data[0].First_Name}}" required>
-                <label>Last Name:</label> 
-                    <input type="text" name="l_name" id="l_name" value="{{data[0].Last_Name}}" required>
-                <label>Address</label> 
-                    <input type="text" name="address" id="address" value="{{data[0].Address}}" style="width: 500px;" required>
-                <p></p>
-                <label>Birthday</label> 
-                    <input type="date" name="birthday" id="birthday" value="{{data[0].Birthday}}" required>
-                <label>Membership Plan</label> 
-                    <select name="plan_id" id="plan_id" required>
-                        <!-- Access our plans tuple passed from app.py -->
-                        {% for plan in plans %}
-                            {% if plan["plan_id"] == data[0].Membership_Plan_ID %}
-                                <option value ="{{plan["plan_id"]}}" selected> {{plan['plan_id']}}</option>
-                            {% else %}
-                                <option value="{{plan['plan_id']}}"> {{plan['plan_id']}} </option>
-                            {% endif %}
-                        {% endfor %}
+        <legend><strong>Edit Plan</strong></legend>
+                        <fieldset class="fields">
+                <label>Monthly Fee</label> 
+                    <input type="decimal" name="monthly_fee" id="monthly_fee" value="{{data[0].monthly_fee}}"required>
+                <label>Weights/Cardio</label> 
+                    <select name="weight_cardio" id="weight_cardio" value="{{data[0].weight_cardio}}" required>
+                        <option value=0> 0 </option>
+                        <option value=1> 1 </option>
                     </select>
-                <label>Gym</label> 
-                <select name="gym_id" id="gym_id">
-                    {% for gym in gyms %}
-                        {% if gym["gym_id"] == data[0].Gym_ID %}
-                            <option value ="{{gym["gym_id"]}}" selected> {{gym['gym_id']}}</option>
-                        {% else %}
-                            <option value="{{gym['gym_id']}}"> {{gym['gym_id']}} </option>
-                        {% endif %}
-                    {% endfor %}
-                </select>
+                <label>Spa Room</label> 
+                    <select name="spa_room" id="spa_room" value="{{data[0].spa_room}}" required>
+                        <option value=0> 0 </option>
+                        <option value=1> 1 </option>
+                    </select>
+                <p></p>
+                <label>Lap Pool</label>
+                    <select name="lap_pool" id="lap_pool" value="{{data[0].lap_pool}}" required>
+                        <option value=0> 0 </option>
+                        <option value=1> 1 </option>
+                    </select>
+                <label>Ball Court</label> 
+                    <select name="ballcourt" id="ballcourt" value="{{data[0].ballcourt}}" required>
+                        <option value=0> 0 </option>
+                        <option value=1> 1 </option>
+                    </select>
             </fieldset>
             <input class="btn" type="submit" name="Edit_Member" value="Edit Member">
             <a href='/members'><input class="btn" type="button" value="cancel"></a
