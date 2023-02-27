@@ -240,8 +240,8 @@ def gyms():
     if request.method == "GET":
         query = "SELECT Gyms.gym_id AS 'Gym_ID', \
         Gyms.gym_address AS Address, \
-        Gyms.opening_time AS OPENS \
-        Gyms.closing_time AS CLOSES \
+        Gyms.opening_time AS OPENS, \
+        Gyms.closing_time AS CLOSES, \
         FROM Gyms"
         cursor = mysql.connection.cursor()
         cursor.execute(query)
