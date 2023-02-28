@@ -282,7 +282,57 @@ def delete_gym(gym_id):
 Instructors Routes
 Includes No Functionality
 ####################################################################################################################'''
-# @app.route("/instructors")
+@app.route("/instructors", methods=["POST", "GET"])
+def instructors():
+    if request.method == "GET":
+        query = "SELECT Instructors.instructor_id AS 'Instructor_ID', \
+                    Instructors.f_name AS 'First_Name', \
+                    Instructors.l_name AS 'Last_Name', \
+                    Instructors.address AS Address, \
+                    Instructors.birthday AS Birthday, \
+                    Instructors.email AS Email, \
+                    Instructors.phone_number AS 'Phone_Number', \
+                    Instructors.gym_id AS 'Gym_ID'\
+                FROM Instructors"
+
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+
+        query2 = "SELECT Gyms.gym_id FROM Gyms"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        gym_data = cur.fetchall()
+        
+        return render_template('instructors.j2', data=data, gyms=gym_data)
+    
+    if request.method == "POST":
+        # fire off if user presses the Add Instructor button
+        if request.form.get("addInstructor"):
+            # grab user form inputs
+            f_name = request.form["f_name"]
+            l_name = request.form["l_name"]
+            address = request.form["address"]
+            birthday = request.form["birthday"]
+            email = request.form["email"]
+            phone_number = request.form["phone_number"]
+            gym_id = request.form["gym_id"]
+
+            # account for cases where gym_id is set to null
+            if gym_id == "0":
+                query = "INSERT INTO Instructors (f_name, l_name, address, birthday, email, phone_number) VALUES (%s, %s, %s, %s, %s, %s)"
+                cur = mysql.connection.cursor()
+                cur.execute(query,(f_name, l_name, address, birthday, email, phone_number))
+                mysql.connection.commit()
+
+            else:
+                query = "INSERT INTO Instructors (f_name, l_name, address, birthday, email, phone_number, gym_id) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+                cur = mysql.connection.cursor()
+                cur.execute(query,(f_name, l_name, address, birthday, email, phone_number, gym_id))
+                mysql.connection.commit()
+
+            return redirect("/instructors")
+            
 
 
 '''####################################################################################################################

@@ -1,0 +1,98 @@
+<html>
+<head>
+    <title> Instructors </title>
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+    <script language="JavaScript">
+        function showform(dowhat) {
+            if(dowhat == 'insert') {
+                document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+            }
+            else if (dowhat == 'all') {
+                document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+            }
+            else {
+                document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+            }
+        }
+        function newInstructor() { showform('insert'); }
+        function browseInstructor() { showform ('browse'); }
+        function showAll() { showform ('all'); }
+    </script>
+</head>
+
+<body onload="browseInstructor()">
+    <h1>Instructors</h1>
+    [ <a href="/">Home</a> |
+<a href="members">Members</a> |
+<a href="instructors">Instructors</a> |
+<a href="gyms">Gyms</a> |
+<a href="plans">Membership Plans</a> |
+<a href="classes">Classes</a> | 
+<a href="class_participants">Class Participants</a>]
+
+    <div id="browse">
+        <p><a href="#" onClick="newInstructor()"><strong>Add New Instructor</strong></a> </p>
+        <strong>Browse Instructors</strong>
+            <table border="1" cellpadding="4">
+        {% if data %}
+            <thead>
+            <tr>
+                {% for key in data[0].keys() %}
+                <th>{{key}}</th>
+                {% endfor %}
+            </tr>    
+
+            <tbody>
+            {% for item in data %}
+            <tr>
+                {% for key in item.keys() %}
+                    <td> {{item[key]}} </td>
+                {% endfor %}
+
+                    <td><a href="edit_instructor/{{item.Instructor_ID}}" class="btn btn-default">Edit</a></td>
+		    		<td><a href="delete_instructor/{{item.Instructor_ID}}" class="btn btn-default">Delete</a></td>
+            </tr>
+            {% endfor%}
+        {% endif %}
+    </table>
+        <p>&nbsp;</p>
+    </div> <!-- browse -->
+
+    
+    <div id="insert">
+        <form method="POST" id="addInstructor" action="/instructors">
+            <legend> <strong>Add Instructor</strong></legend>
+                <fieldset class="fields">
+                    <label>First Name</label> 
+                        <input type="text" name="f_name" id="f_name" required>
+                    <label>Last Name</label> 
+                        <input type="text" name="l_name" id="l_name" required>
+                    <label>Address</label> 
+                        <input type="text" name="address" id="address" required>
+                    <p></p>
+                    <label>Birthday</label> 
+                        <input type="date" name="birthday" id="birthday" required>
+                    <label>Email</label> 
+                        <input type="text" name="email" id="email">
+                    <label>Phone Number</label> 
+                        <input type="text" name="phone_number" id="phone_number" required>
+                
+                    <label>Gym</label>
+                        <select name="gym_id" id="gym_id">
+                        <!-- Access our plans tuple passed from app.py -->
+                        {% for gym in gyms %}
+                            <option value="{{gym['gym_id']}}"> {{gym['gym_id']}} </option>
+                        {% endfor %}
+                        </select>
+                </fieldset>
+                <input class="btn" type="submit" id="addInstructor" value="Add Instructor">
+                <input class="btn" type="submit" value="cancel" onClick="browseInstructor()">
+        </form>
+    </div> <!-- insert -->
+    <p>&nbsp;</p>
+</body>
+
+</html>
