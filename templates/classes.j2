@@ -1,0 +1,90 @@
+<html>
+<head>
+    <title>Classes</title>
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+    <script language="JavaScript">
+        function showform(dowhat) {
+            if(dowhat == 'insert') {
+                document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+            }
+            else if (dowhat == 'all') {
+                document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+            }
+            else {
+                document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+            }
+        }
+        function newClass() { showform('insert'); }
+        function browseClass() { showform ('browse'); }
+        function showAll() { showform ('all'); }
+    </script>
+</head>
+
+<body onload="browseClass()">
+<h1>Classes</h1>
+    [ <a href="/">Home</a> |
+<a href="members">Members</a> |
+<a href="instructors">Instructors</a> |
+<a href="gyms">Gyms</a> |
+<a href="plans">Membership Plans</a> |
+<a href="classes">Classes</a> | 
+<a href="class_participants">Class Participants</a>]
+
+<div id="browse">
+    <p><a href="#" onClick="newClass()"><strong>Add New Class</strong></a></p>
+    <strong>Browse Classes</strong>
+       <table border="1" cellpadding="4">
+        {% if data %}
+            <thead>
+                <tr>
+                    {% for key in data[0].keys() %}
+                    <th>{{ key }}</th>
+                    {% endfor %}
+                </tr>    
+
+            <tbody>
+            {% for item in data %}
+                <tr>
+                    {% for key in item.keys() %}
+                        <td> {{ item[key] }} </td>
+                    {% endfor %}
+                    <td><a href="edit_class/{{item.Class_ID}}" class="btn btn-default">Edit</a></td>
+                    <td><a href="delete_class/{{item.Class_ID}}" class="btn btn-default">Delete</a></td>
+                </tr>
+            {% endfor %}
+
+        {% endif %}
+    </table>
+    <p>&nbsp;</p>
+</div> <!-- browse -->
+
+<div id="insert">
+    <form method="POST" id="addClass" actions="/classes">
+        <legend><strong>Add Workout Class</strong></legend>
+            <fieldset class="fields">
+                <label>Class Type</label>
+                    <input type="text" name="class_type" id="class_type" required>
+                <label>Schedule</label>
+                    <input type="datetime" name="schedule" id="schedule" required>
+                <label>Duration</label>
+                    <input type="number" name="duration" id="duration" required>
+                <label>Instructor</label>
+                    <select name="instructor_id" id="instructor_id">
+                        <!-- Access class instructor tuples passed from app.py -->
+                        {% for instructor in instructors %}
+                            <option value="{{instructor['instructor_id']}}">{{instructor['f_name']}}</option>
+                        {% endfor %}
+                    </select>
+            </fieldset>
+        <input class="btn" type="submit" id="addClass" value="Add Class">
+        <input class="btn" type="submit" value="cancel" onClick="browseClass()">
+    </form>
+</div> <!-- insert -->
+<p>&nbsp;</p>
+
+
+</body>
+</html>

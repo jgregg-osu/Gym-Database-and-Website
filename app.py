@@ -266,7 +266,7 @@ def gyms():
             return redirect("/gyms")
 
 
-# handle deletion of members
+# handle deletion of gyms
 @app.route("/delete_gym/<int:gym_id>")
 def delete_gym(gym_id):
     #mySQL query to delete the member with our passed id
@@ -289,7 +289,51 @@ Includes No Functionality
 Classes Routes
 Includes No Functionality
 ####################################################################################################################'''
-# @app.route("/classes")
+@app.route("/classes", methods=["POST", "GET"])
+def classes():
+    if request.method == "GET":
+        query = "SELECT Classes.class_id AS 'Class_ID',\
+                    Classes.class_type AS 'Class_Type', \
+                    Classes.schedule AS 'Schedule',\
+                    Classes.duration AS 'Duration',\
+                    Instructors.instructor_id AS 'Instructor_ID',\
+                    CONCAT(Instructors.f_name, ' ',Instructors.l_name) AS Instructor_Name\
+                FROM Classes \
+                INNER JOIN Instructors ON Classes.instructor_id = Instructors.instructor_id"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+
+        query2 = "SELECT Instructors.f_name, Instructors.instructor_id FROM Instructors"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        instructor_data = cur.fetchall()
+        return render_template('classes.j2', data=data, instructors = instructor_data)
+    
+    if request.method == "POST":
+        if request.form.get("addClass"):
+            class_type = request.form["class_type"]
+            duration = request.form["duration"]
+            instructor_id  = request.form["instructor_id"]
+            schedule = request.form["schedule"]
+
+
+            query = "INSERT INTO Classes(class_type, duration, instructor_id, schedule) VALUES (%s, %s, %s, %s)"
+            cursor = mysql.connection.cursor()
+            cursor.execute(query,(class_type, duration, instructor_id, schedule))
+            mysql.connection.commit()
+
+            return redirect("/classes")
+        
+# handle deletion of classes
+@app.route("/delete_class/<int:Class_ID>")
+def delete_class(Class_ID):
+    query = "DELETE FROM Classes WHERE Class_ID = %s;"
+    cur = mysql.connection.cursor()
+    cur.execute(query, (Class_ID,))
+    mysql.connection.commit()
+    return redirect('/classes')
+
 
 
 '''####################################################################################################################
@@ -299,12 +343,12 @@ Includes No Functionality
 @app.route("/class_participants", methods=["Get", "Post"])  
 def class_participants():
     if request.method == "GET":
-        query = "SELECT  Class_participants.member_class_id AS 'Class Particpant ID', \
+        query = "SELECT Class_participants.member_class_id AS 'Class Particpant ID', \
                 Class_participants.class_id AS 'Class ID', \
                 Classes.class_type AS 'Class Type', \
                 Classes.schedule AS 'Schedule', \
                 Members.member_id AS 'Member ID', \
-                CONCAT(Members.f_name, " ",Members.l_name) AS 'Member Name' \
+                CONCAT(Members.f_name, ' ',Members.l_name) AS 'Member Name' \
         FROM Members \
         JOIN Members ON Members.member_id = Class_participants.member_id \
         JOIN Classes ON Class_participants.class_id = Classes.class_id"
@@ -313,6 +357,8 @@ def class_participants():
         data = cursor.fetchall()
 
         return render_template("class_participants.j2", data = data)
+    
+
 
 
 
