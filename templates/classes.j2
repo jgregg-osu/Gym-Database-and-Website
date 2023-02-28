@@ -68,7 +68,7 @@
                 <label>Class Type</label>
                     <input type="text" name="class_type" id="class_type" required>
                 <label>Schedule</label>
-                    <input type="datetime" name="schedule" id="schedule" required>
+                    <input type="datetime-local" name="schedule" id="schedule" required>
                 <label>Duration</label>
                     <input type="number" name="duration" id="duration" required>
                 <label>Instructor</label>
@@ -79,7 +79,7 @@
                         {% endfor %}
                     </select>
             </fieldset>
-        <input class="btn" type="submit" id="addClass" value="Add Class">
+        <input class="btn" type="submit" name="addClass" value="Add Class">
         <input class="btn" type="submit" value="cancel" onClick="browseClass()">
     </form>
 </div> <!-- insert -->

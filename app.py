@@ -332,6 +332,16 @@ def instructors():
                 mysql.connection.commit()
 
             return redirect("/instructors")
+        
+# handle deletion of instructors
+@app.route("/delete_instructor/<int:Instructor_ID>")
+def delete_instructor(Instructor_ID):
+    #mySQL query to delete the member with our passed id
+    query = "DELETE FROM Instructors WHERE Instructor_ID = %s;"
+    cur = mysql.connection.cursor()
+    cur.execute(query, (Instructor_ID,))
+    mysql.connection.commit()
+    return redirect('/instructors')
             
 
 
