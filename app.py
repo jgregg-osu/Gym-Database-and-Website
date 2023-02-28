@@ -296,7 +296,26 @@ Includes No Functionality
 Class Participants Routes
 Includes No Functionality
 ####################################################################################################################'''
-# @app.route("/class_participants")       
+@app.route("/class_participants", methods=["Get", "Post"])  
+def class_participants():
+    if request.method == "GET":
+        query = "SELECT  Class_participants.member_class_id AS 'Class Particpant ID', \
+                Class_participants.class_id AS 'Class ID', \
+                Classes.class_type AS 'Class Type', \
+                Classes.schedule AS 'Schedule', \
+                Members.member_id AS 'Member ID', \
+                CONCAT(Members.f_name, " ",Members.l_name) AS 'Member Name' \
+        FROM Members \
+        JOIN Members ON Members.member_id = Class_participants.member_id \
+        JOIN Classes ON Class_participants.class_id = Classes.class_id"
+        cursor = mysql.connection.cursor()
+        cursor.execute(query)
+        data = cursor.fetchall()
+
+        return render_template("class_participants.j2", data = data)
+
+
+
 
 # Listener
 
