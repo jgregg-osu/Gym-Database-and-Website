@@ -266,7 +266,7 @@ def gyms():
             return redirect("/gyms")
 
 
-# handle deletion of members
+# handle deletion of gyms
 @app.route("/delete_gym/<int:gym_id>")
 def delete_gym(gym_id):
     #mySQL query to delete the member with our passed id
@@ -282,14 +282,118 @@ def delete_gym(gym_id):
 Instructors Routes
 Includes No Functionality
 ####################################################################################################################'''
-# @app.route("/instructors")
+@app.route("/instructors", methods=["POST", "GET"])
+def instructors():
+    if request.method == "GET":
+        query = "SELECT Instructors.instructor_id AS 'Instructor_ID', \
+                    Instructors.f_name AS 'First_Name', \
+                    Instructors.l_name AS 'Last_Name', \
+                    Instructors.address AS Address, \
+                    Instructors.birthday AS Birthday, \
+                    Instructors.email AS Email, \
+                    Instructors.phone_number AS 'Phone_Number', \
+                    Instructors.gym_id AS 'Gym_ID'\
+                FROM Instructors"
+
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+
+        query2 = "SELECT Gyms.gym_id FROM Gyms"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        gym_data = cur.fetchall()
+        
+        return render_template('instructors.j2', data=data, gyms=gym_data)
+    
+    if request.method == "POST":
+        # fire off if user presses the Add Instructor button
+        if request.form.get("addInstructor"):
+            # grab user form inputs
+            f_name = request.form["f_name"]
+            l_name = request.form["l_name"]
+            address = request.form["address"]
+            birthday = request.form["birthday"]
+            email = request.form["email"]
+            phone_number = request.form["phone_number"]
+            gym_id = request.form["gym_id"]
+
+            # account for cases where gym_id is set to null
+            if gym_id == "0":
+                query = "INSERT INTO Instructors (f_name, l_name, address, birthday, email, phone_number) VALUES (%s, %s, %s, %s, %s, %s)"
+                cur = mysql.connection.cursor()
+                cur.execute(query,(f_name, l_name, address, birthday, email, phone_number))
+                mysql.connection.commit()
+
+            else:
+                query = "INSERT INTO Instructors (f_name, l_name, address, birthday, email, phone_number, gym_id) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+                cur = mysql.connection.cursor()
+                cur.execute(query,(f_name, l_name, address, birthday, email, phone_number, gym_id))
+                mysql.connection.commit()
+
+            return redirect("/instructors")
+        
+# handle deletion of instructors
+@app.route("/delete_instructor/<int:Instructor_ID>")
+def delete_instructor(Instructor_ID):
+    #mySQL query to delete the member with our passed id
+    query = "DELETE FROM Instructors WHERE Instructor_ID = %s;"
+    cur = mysql.connection.cursor()
+    cur.execute(query, (Instructor_ID,))
+    mysql.connection.commit()
+    return redirect('/instructors')
+            
 
 
 '''####################################################################################################################
 Classes Routes
 Includes No Functionality
 ####################################################################################################################'''
-# @app.route("/classes")
+@app.route("/classes", methods=["POST", "GET"])
+def classes():
+    if request.method == "GET":
+        query = "SELECT Classes.class_id AS 'Class_ID',\
+                    Classes.class_type AS 'Class_Type', \
+                    Classes.schedule AS 'Schedule',\
+                    Classes.duration AS 'Duration',\
+                    Instructors.instructor_id AS 'Instructor_ID',\
+                    CONCAT(Instructors.f_name, ' ',Instructors.l_name) AS Instructor_Name\
+                FROM Classes \
+                INNER JOIN Instructors ON Classes.instructor_id = Instructors.instructor_id"
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+
+        query2 = "SELECT Instructors.f_name, Instructors.instructor_id FROM Instructors"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        instructor_data = cur.fetchall()
+        return render_template('classes.j2', data=data, instructors = instructor_data)
+    
+    if request.method == "POST":
+        if request.form.get("addClass"):
+            class_type = request.form["class_type"]
+            duration = request.form["duration"]
+            instructor_id  = request.form["instructor_id"]
+            schedule = request.form["schedule"]
+
+
+            query = "INSERT INTO Classes(class_type, duration, instructor_id, schedule) VALUES (%s, %s, %s, %s)"
+            cursor = mysql.connection.cursor()
+            cursor.execute(query,(class_type, duration, instructor_id, schedule))
+            mysql.connection.commit()
+
+            return redirect("/classes")
+        
+# handle deletion of classes
+@app.route("/delete_class/<int:Class_ID>")
+def delete_class(Class_ID):
+    query = "DELETE FROM Classes WHERE Class_ID = %s;"
+    cur = mysql.connection.cursor()
+    cur.execute(query, (Class_ID,))
+    mysql.connection.commit()
+    return redirect('/classes')
+
 
 
 '''####################################################################################################################
