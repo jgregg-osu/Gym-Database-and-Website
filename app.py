@@ -430,13 +430,13 @@ def class_participants():
             return redirect("/class_participants")
 
 # handle deletion of class_participants
-@app.route("/delete_class/<int:member_class_ID>")
-def delete_class(member_class_ID):
+@app.route("/delete_class_participants/<int:member_class_ID>")
+def delete_class_participants(member_class_ID):
     query = "DELETE FROM Class_participants WHERE member_class_ID = %s;"
     cur = mysql.connection.cursor()
     cur.execute(query, (member_class_ID,))
     mysql.connection.commit()
-    return redirect('/classes')
+    return redirect('/class_participants')
 
 
 
