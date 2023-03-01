@@ -300,11 +300,11 @@ Includes No Functionality
 def class_participants():
     if request.method == "GET":
         query = "SELECT  Class_participants.member_class_id AS 'Class Particpant ID', \
+                Members.member_id AS 'Member ID', \
+                CONCAT(Members.f_name, " ",Members.l_name) AS 'Member Name' \
                 Class_participants.class_id AS 'Class ID', \
                 Classes.class_type AS 'Class Type', \
                 Classes.schedule AS 'Schedule', \
-                Members.member_id AS 'Member ID', \
-                CONCAT(Members.f_name, " ",Members.l_name) AS 'Member Name' \
         FROM Members \
         JOIN Members ON Members.member_id = Class_participants.member_id \
         JOIN Classes ON Class_participants.class_id = Classes.class_id"
@@ -313,6 +313,17 @@ def class_participants():
         data = cursor.fetchall()
 
         return render_template("class_participants.j2", data = data)
+    
+    if request.method == "POST":
+        if request.form.get("addParticipant"):
+            member_class_id = request.form["member_id"]
+            workout_class_id = request.form["workout_class_id"]
+
+            query = "INSERT INTO Class_participants(class_id, member_id) \
+                    VALUES  ((class_id WHERE class_type = :class_typeInput AND schedule = :scheduleInput), \
+                    (member_id CONCAT(Members.f_name, ' ', Members.l_name) = :member_name))"
+            
+
 
 
 
