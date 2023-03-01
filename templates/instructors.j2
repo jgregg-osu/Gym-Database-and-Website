@@ -82,6 +82,7 @@
                 
                     <label>Gym</label>
                         <select name="gym_id" id="gym_id">
+                        <option value="0">&nbsp;</option>
                         <!-- Access our plans tuple passed from app.py -->
                         {% for gym in gyms %}
                             <option value="{{gym['gym_id']}}"> {{gym['gym_id']}} </option>

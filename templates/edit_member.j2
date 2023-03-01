@@ -59,6 +59,7 @@
                     </select>
                 <label>Gym</label> 
                 <select name="gym_id" id="gym_id">
+                    <option value="0">&nbsp;</option>
                     {% for gym in gyms %}
                         {% if gym["gym_id"] == data[0].Gym_ID %}
                             <option value ="{{gym["gym_id"]}}" selected> {{gym['gym_id']}}</option>
