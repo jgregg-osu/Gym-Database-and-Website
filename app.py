@@ -422,11 +422,12 @@ def class_participants():
         if request.form.get("addParticipant"):
             member_class_id = request.form["member_id"]
             workout_class_id = request.form["workout_class_id"]
+            query = "INSERT INTO Class_participants(class_id, member_id) VALUES  (%s, %s)"
+            cursor = mysql.connection.cursor()
+            cursor.execute(query,(member_class_id, workout_class_id))
+            mysql.connection.commit()
 
-            query = "INSERT INTO Class_participants(class_id, member_id) \
-                    VALUES  ((class_id WHERE class_type = :class_typeInput AND schedule = :scheduleInput), \
-                    (member_id CONCAT(Members.f_name, ' ', Members.l_name) = :member_name))"
-            
+            return redirect("/class_participants")
 
 
 

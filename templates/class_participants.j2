@@ -52,8 +52,8 @@
                     {% for key in item.keys() %}
                         <td> {{ item[key] }} </td>
                     {% endfor %}
-                    <td><a href="edit_plan/{{item.Member_workout_ID}}" class="btn btn-default">Edit</a></td>
-                    <td><a href="delete_plan/{{item.Member_workout_ID}}" class="btn btn-default">Delete</a></td>
+                    <td><a href="edit_plan/{{item.member_class_id}}" class="btn btn-default">Edit</a></td>
+                    <td><a href="delete_plan/{{item.member_class_id}}" class="btn btn-default">Delete</a></td>
                 </tr>
             {% endfor %}
 
@@ -70,22 +70,6 @@
                     <input type="decimal" name="monthly_fee" id="monthly_fee" required>
                 <label>Workout Class ID</label> 
                     <select name="weight_cardio" id="weight_cardio" required>
-                        <option value=0> 0 </option>
-                        <option value=1> 1 </option>
-                    </select>
-                <label>Spa Room</label> 
-                    <select name="spa_room" id="spa_room" required>
-                        <option value=0> 0 </option>
-                        <option value=1> 1 </option>
-                    </select>
-                <p></p>
-                <label>Lap Pool</label>
-                    <select name="lap_pool" id="lap_pool" required>
-                        <option value=0> 0 </option>
-                        <option value=1> 1 </option>
-                    </select>
-                <label>Ball Court</label> 
-                    <select name="ballcourt" id="ballcourt" required>
                         <option value=0> 0 </option>
                         <option value=1> 1 </option>
                     </select>
