@@ -385,6 +385,50 @@ def classes():
 
             return redirect("/classes")
         
+@app.route("/edit_class/<int:Class_ID>", methods=["POST", "GET"])
+def edit_class(Class_ID):
+    if request.method == "GET":
+        # mySQL query to grab the infor of the person with our passed id
+        query = "SELECT Classes.class_id AS 'Class_ID',\
+                    Classes.class_type AS 'Class_Type', \
+                    Classes.schedule AS 'Schedule',\
+                    Classes.duration AS 'Duration',\
+                    Instructors.instructor_id AS 'Instructor_ID',\
+                    CONCAT(Instructors.f_name, ' ',Instructors.l_name) AS Instructor_Name\
+                FROM Classes \
+                INNER JOIN Instructors ON Classes.instructor_id = Instructors.instructor_id\
+                WHERE Class_ID = %s" % (Class_ID)
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+
+        #mySQL query to grab plan_id for dropdown
+        query2 = "SELECT Instructors.f_name, Instructors.instructor_id FROM Instructors"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        instructor_data = cur.fetchall()
+        
+        return render_template('edit_class.j2', data=data, instructors = instructor_data)    
+
+    if request.form.get("Edit_Class"):
+            # grab user form inputs
+            class_id = request.form["class_id"]
+            class_type = request.form["class_type"]
+            schedule = request.form["schedule"]
+            duration = request.form["duration"]
+            instructor_id = request.form["instructor_id"]
+
+            query = "UPDATE Classes \
+                SET Classes.class_type = %s, \
+                    Classes.schedule = %s,\
+                    Classes.duration = %s,\
+                    Classes.instructor_id = %s\
+                WHERE Classes.class_id = %s"
+            cur = mysql.connection.cursor()
+            cur.execute(query,(class_type, schedule, duration, instructor_id, class_id))
+            mysql.connection.commit()
+            return redirect("/classes")    
+    
 # handle deletion of classes
 @app.route("/delete_class/<int:Class_ID>")
 def delete_class(Class_ID):
@@ -443,8 +487,8 @@ def delete_class_participants(member_class_ID):
 # Listener
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 9111)) 
+    port = int(os.environ.get('PORT', 4000)) 
     #                                 ^^^^
     #              You can replace this number with any valid port
     
-    app.run(port=9111, debug=True)
+    app.run(port=4000, debug=True)

@@ -1,0 +1,62 @@
+<html>
+<head>
+    <title>Edit Class</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div> 
+        <table border="1 cellpadding="4">
+            <caption> <strong>Editing Class: </strong> </caption>
+            {% if data %}
+                <thead>
+                    <tr>
+                        {% for key in data[0].keys() %}
+                        <th> {{key}} </th>
+                        {% endfor %}
+                    </tr>
+
+                <tbody>
+                {% for item in data %}
+                    <tr>
+                    {% for key in item.keys() %}
+                        <td> {{item[key]}} </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+    </div>
+
+    <p>&nbsp;</p>
+    <div id="edit">
+    <form method="POST" action="/edit_class/{{data[0].Class_ID}}" id="editClass">
+        <legend><strong>Edit Member</strong></legend>
+            <fieldset class="fields">
+                <label>Class ID: {{data[0].Class_ID}}</label>
+                    <input type="hidden" value="{{data[0].Class_ID}}" id="class_id" name="class_id">
+                <label>Class Type:</label> 
+                    <input type="text" name="class_type" id="class_type" value="{{data[0].Class_Type}}" required>
+                <label>Schedule:</label> 
+                    <input type="text" name="schedule" id="schedule" value="{{data[0].Schedule}}" required>
+                <label>Duration</label> 
+                    <input type="text" name="duration" id="duration" value="{{data[0].Duration}}" required>
+                <p></p>
+                <label>Instructor</label> 
+                    <select name="instructor_id" id="instructor_id" required>
+                        <!-- Access our plans tuple passed from app.py -->
+                        {% for instructor in instructors %}
+                            {% if instructor["instructor_id"] == data[0].Instructor_ID %}
+                                <option value ="{{instructor["instructor_id"]}}" selected> {{instructor['f_name']}}</option>
+                            {% else %}
+                                <option value="{{instructor['instructor_id']}}"> {{instructor['f_name']}} </option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+            </fieldset>
+            <input class="btn" type="submit" name="Edit_Class" value="Edit Class">
+            <a href='/classes'><input class="btn" type="button" value="cancel"></a>
+    </form>
+</div> <!-- insert-->
+</body>
+</html>
