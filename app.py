@@ -332,6 +332,71 @@ def instructors():
                 mysql.connection.commit()
 
             return redirect("/instructors")
+
+# handle editing instructors       
+@app.route("/edit_instructor/<int:Instructor_ID>", methods=["POST", "GET"])
+def edit_instructor(Instructor_ID):
+    if request.method == "GET":
+        # mySQL query to grab the infor of the person with our passed id
+        query = "SELECT Instructors.instructor_id AS 'Instructor_ID', \
+                    Instructors.f_name AS 'First_Name', \
+                    Instructors.l_name AS 'Last_Name', \
+                    Instructors.address AS Address, \
+                    Instructors.birthday AS Birthday, \
+                    Instructors.email AS Email, \
+                    Instructors.phone_number AS 'Phone_Number', \
+                    Instructors.gym_id AS 'Gym_ID'\
+                FROM Instructors\
+                WHERE Instructor_ID = %s" % (Instructor_ID)
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+
+        #mySQL query to grab gym_id for dropdown
+        query2 = "SELECT Gyms.gym_id FROM Gyms"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        gym_data = cur.fetchall()
+        
+        return render_template('edit_instructor.j2', data=data, gyms=gym_data)
+
+    if request.method == "POST":
+        # fire off if user clicks the "Edit Person" button
+        if request.form.get("Edit_Instructor"):
+            # grab user form inputs
+            instructor_id = request.form["instructor_id"]
+            f_name = request.form["f_name"]
+            l_name = request.form["l_name"]
+            address = request.form["address"]
+            birthday = request.form["birthday"]
+            gym_id = request.form["gym_id"]
+
+            # account for cases where gym_id is set to null
+            if gym_id == "0":
+                query = "UPDATE Instructors \
+                    SET Instructors.f_name = %s, \
+                        Instructors.l_name = %s,\
+                        Instructors.address = %s,\
+                        Instructors.birthday = %s,\
+                        Instructors.gym_id = NULL\
+                    WHERE Instructors.instructor_id = %s"
+                cur = mysql.connection.cursor()
+                cur.execute(query,(f_name, l_name, address, birthday, instructor_id))
+                mysql.connection.commit()
+
+            else:
+                query = "UPDATE Instructors \
+                    SET Instructors.f_name = %s, \
+                        Instructors.l_name = %s,\
+                        Instructors.address = %s,\
+                        Instructors.birthday = %s,\
+                        Instructors.gym_id = %s \
+                    WHERE Instructors.instructor_id = %s"
+                cur = mysql.connection.cursor()
+                cur.execute(query,(f_name, l_name, address, birthday, gym_id, instructor_id))
+                mysql.connection.commit()
+
+            return redirect("/instructors")
         
 # handle deletion of instructors
 @app.route("/delete_instructor/<int:Instructor_ID>")
@@ -384,7 +449,8 @@ def classes():
             mysql.connection.commit()
 
             return redirect("/classes")
-        
+
+#handles editing classes  
 @app.route("/edit_class/<int:Class_ID>", methods=["POST", "GET"])
 def edit_class(Class_ID):
     if request.method == "GET":

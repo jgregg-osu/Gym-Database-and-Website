@@ -1,14 +1,13 @@
 <html>
-
 <head>
-	<title>Edit Member</title>
+    <title>Edit Instructor</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 
-<body> 
+<body>
     <div> 
         <table border="1 cellpadding="4">
-            <caption> <strong>Editing Member: </strong> </caption>
+            <caption> <strong>Editing Instructor: </strong> </caption>
 
             {% if data %}
                 <thead>
@@ -32,31 +31,21 @@
 
     <p>&nbsp;</p>
     <div id="edit">
-    <form method="POST" action="/edit_member/{{data[0].Member_ID}}" id="editMember">
-        <legend><strong>Edit Member</strong></legend>
+    <form method="POST" action="/edit_instructor/{{data[0].Instructor_ID}}" id="editInstructor">
+        <legend><strong>Edit Instructor</strong></legend>
             <fieldset class="fields">
-                <label>Member ID: {{data[0].Member_ID}}</label>
-                    <input type="hidden" value="{{data[0].Member_ID}}" id="member_id" name="member_id">
+                <label>Instructor ID: {{data[0].Instructor_ID}}</label>
+                    <input type="hidden" value="{{data[0].Instructor_ID}}" id="instructor_id" name="instructor_id">
                 <label>First Name:</label> 
                     <input type="text" name="f_name" id="f_name" value="{{data[0].First_Name}}" required>
                 <label>Last Name:</label> 
                     <input type="text" name="l_name" id="l_name" value="{{data[0].Last_Name}}" required>
+                <p></p>
                 <label>Address</label> 
                     <input type="text" name="address" id="address" value="{{data[0].Address}}" style="width: 500px;" required>
                 <p></p>
                 <label>Birthday</label> 
                     <input type="date" name="birthday" id="birthday" value="{{data[0].Birthday}}" required>
-                <label>Membership Plan</label> 
-                    <select name="plan_id" id="plan_id" required>
-                        <!-- Access our plans tuple passed from app.py -->
-                        {% for plan in plans %}
-                            {% if plan["plan_id"] == data[0].Membership_Plan_ID %}
-                                <option value ="{{plan["plan_id"]}}" selected> {{plan['plan_id']}}</option>
-                            {% else %}
-                                <option value="{{plan['plan_id']}}"> {{plan['plan_id']}} </option>
-                            {% endif %}
-                        {% endfor %}
-                    </select>
                 <label>Gym</label> 
                 <select name="gym_id" id="gym_id">
                     <option value="0">&nbsp;</option>
@@ -69,10 +58,9 @@
                     {% endfor %}
                 </select>
             </fieldset>
-            <input class="btn" type="submit" name="Edit_Member" value="Edit Member">
-            <a href='/members'><input class="btn" type="button" value="cancel"></a>
+            <input class="btn" type="submit" name="Edit_Instructor" value="Edit Instructor">
+            <a href='/instructors'><input class="btn" type="button" value="cancel"></a>
     </form>
 </div> <!-- insert-->
 </body>
-
 </html>
