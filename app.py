@@ -548,6 +548,56 @@ def delete_class_participants(member_class_ID):
     mysql.connection.commit()
     return redirect('/class_participants')
 
+# handle editing members
+@app.route("/edit_class_participants/<int:member_class_ID>", methods=["POST", "GET"])
+def edit_class_participants(member_class_ID):
+    if request.method == "GET":
+        # mySQL query to grab the infor of the person with our passed id
+        query = "SELECT  Class_participants.member_class_id AS 'Class Participant ID', \
+                    Members.member_id AS 'Member ID', \
+                    CONCAT(Members.f_name, ' ',Members.l_name) AS 'Member Name', \
+                    Class_participants.class_id AS 'Class ID', \
+                    Classes.class_type AS 'Class Type', \
+                    Classes.schedule AS 'Schedule' \
+                FROM Class_participants WHERE Member ID = %s \
+                JOIN Members ON Members.member_id = Class_participants.member_id \
+                JOIN Classes ON Class_participants.class_id = Classes.class_id;" % (member_class_ID)
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+
+        #mySQL query to grab member name for dropdown
+        query2 = "SELECT CONCAT(Members.f_name, ' ',Members.l_name) FROM Members;"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        member_data = cur.fetchall()
+        
+    
+        #mySQL query to grab classes for dropdown
+        query3 = "Select CONCAT(Classes.class_id, ' ', Classes.class_type) FROM Classes;"
+        cur = mysql.connection.cursor()
+        cur.execute(query3)
+        class_data = cur.fetchall()
+
+        return render_template('edit_class_participants.j2', data=data, member_data=member_data, class_data=class_data)
+    
+    if request.method == "POST":
+        # fire off if user clicks the "Edit Person" button
+        if request.form.get("Edit_Class_Participant"):
+            # grab user form inputs
+            member_class_id = request.form["member_class_id"]
+            member_id = request.form["member_id"]
+            class_id = request.form["class_id"]
+
+            query = "UPDATE Class_participants \
+                SET Class_participants.member_id = %s, \
+                    Class_participants.class_id = %s,\
+                WHERE Class_participants.member_class_id = %s"
+            cur = mysql.connection.cursor()
+            cur.execute(query,(member_id, class_id, member_class_id))
+            mysql.connection.commit()
+
+            return redirect("/class_participants")
 
 
 # Listener
