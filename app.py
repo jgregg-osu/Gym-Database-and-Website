@@ -513,15 +513,15 @@ Includes No Functionality
 @app.route("/class_participants", methods=["Get", "Post"])  
 def class_participants():
     if request.method == "GET":
-        query = "SELECT  Class_participants.member_class_id AS 'Class Particpant ID', \
-                Members.member_id AS 'Member ID', \
-                CONCAT(Members.f_name, " ",Members.l_name) AS 'Member Name' \
-                Class_participants.class_id AS 'Class ID', \
-                Classes.class_type AS 'Class Type', \
-                Classes.schedule AS 'Schedule', \
-        FROM Members \
-        JOIN Members ON Members.member_id = Class_participants.member_id \
-        JOIN Classes ON Class_participants.class_id = Classes.class_id"
+        query = "SELECT  Class_participants.member_class_id AS 'Class Participant ID', \
+                    Members.member_id AS 'Member ID', \
+                    CONCAT(Members.f_name, ' ',Members.l_name) AS 'Member Name', \
+                    Class_participants.class_id AS 'Class ID', \
+                    Classes.class_type AS 'Class Type', \
+                    Classes.schedule AS 'Schedule' \
+                FROM Class_participants \
+                JOIN Members ON Members.member_id = Class_participants.member_id \
+                JOIN Classes ON Class_participants.class_id = Classes.class_id;"
         cursor = mysql.connection.cursor()
         cursor.execute(query)
         data = cursor.fetchall()
