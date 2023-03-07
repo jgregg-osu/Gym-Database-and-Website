@@ -564,7 +564,20 @@ def class_participants():
         cursor.execute(query)
         data = cursor.fetchall()
 
-        return render_template("class_participants.j2", data = data)
+                #mySQL query to grab member name for dropdown
+        query2 = "SELECT CONCAT(Members.f_name, ' ',Members.l_name) FROM Members;"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        member_data = cur.fetchall()
+        
+    
+        #mySQL query to grab classes for dropdown
+        query3 = "Select CONCAT(Classes.class_id, ' ', Classes.class_type) FROM Classes;"
+        cur = mysql.connection.cursor()
+        cur.execute(query3)
+        class_data = cur.fetchall()
+
+        return render_template("class_participants.j2", data = data, members = member_data, classes = class_data)
     
     if request.method == "POST":
         if request.form.get("addParticipant"):

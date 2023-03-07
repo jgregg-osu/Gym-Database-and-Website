@@ -1,7 +1,7 @@
 <html>
 
 <head>
-<title>Membership Plans</title>
+<title>Class Participants</title>
 <link href="style.css" rel="stylesheet" type="text/css"/>
     <script language="JavaScript">
         function showform(dowhat) {
@@ -18,8 +18,8 @@
 				document.getElementById('insert').style.display = 'none';
             }
         }
-        function newPlan() { showform('insert'); }
-        function browsePlan() { showform ('browse'); }
+        function newParticipants() { showform('insert'); }
+        function browseParticipants() { showform ('browse'); }
         function showAll() { showform ('all'); }
     </script>
 </head>
@@ -62,19 +62,30 @@
 </div> <!--browse-->
 
 <div id="insert">
-    <form method="POST" action="/plans" id="addPlan">
+    <form method="POST" action="/class_participants" id="addParticipants">
         <legend><strong>Add Class Participant</strong></legend>
             <fieldset class="fields">
                 <label>Member ID</label> 
-                    <input type="decimal" name="monthly_fee" id="monthly_fee" required>
+                <select name="member_id" id="member_id" required>
+                {% for member in members %}
+                    {% for key in member.keys() %}
+                        <option value="{{member[key]}}"> {{member[key]}}</option>
+                        <td> {{member[key]}} </td>
+                    {% endfor %}
+                {% endfor %}
+                    </select>
                 <label>Workout Class ID</label> 
                     <select name="weight_cardio" id="weight_cardio" required>
-                        <option value=0> 0 </option>
-                        <option value=1> 1 </option>
+                {% for class in classes %}
+                    {% for key in class.keys() %}
+                        <option value="{{class[key]}}"> {{class[key]}}</option>
+                        <td> {{class[key]}} </td>
+                    {% endfor %}
+                {% endfor %}
                     </select>
             </fieldset>
-            <input class="btn" type="submit" name="addPlan" value="Add Plan">
-            <input class="btn" type="submit" value="cancel" onClick="browsePlan()">
+            <input class="btn" type="submit" name="addParticipants" value="Add Participants">
+            <input class="btn" type="submit" value="cancel" onClick="browseParticipants()">
     </form>
 </div> <!-- insert-->
 
