@@ -551,7 +551,7 @@ Includes No Functionality
 @app.route("/class_participants", methods=["Get", "Post"])  
 def class_participants():
     if request.method == "GET":
-        query = "SELECT  Class_participants.member_class_id AS 'Class Participant ID', \
+        query = "SELECT  Class_participants.member_class_id AS 'Class_Participant_ID', \
                     Members.member_id AS 'Member ID', \
                     CONCAT(Members.f_name, ' ',Members.l_name) AS 'Member Name', \
                     Class_participants.class_id AS 'Class ID', \
