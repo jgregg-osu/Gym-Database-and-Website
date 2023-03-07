@@ -69,20 +69,18 @@
                 <select name="member_id" id="member_id" required>
                 {% for member in members %}
                     {% for key in member.keys() %}
-                        <option value="{{member[key]}}"> {{member[key]}}</option>
-                        <td> {{member[key]}} </td>
+                        <option value="{{member[key]}}"> {{member[key]}} </option>
                     {% endfor %}
                 {% endfor %}
                     </select>
                 <label>Workout Class ID</label> 
-                    <select name="weight_cardio" id="weight_cardio" required>
+                <select name="class_id" id="class_id" required>
                 {% for class in classes %}
                     {% for key in class.keys() %}
-                        <option value="{{class[key]}}"> {{class[key]}}</option>
-                        <td> {{class[key]}} </td>
+                        <option value="{{class[key]}}"> {{class[key]}} </option>
                     {% endfor %}
                 {% endfor %}
-                    </select>
+                </select>
             </fieldset>
             <input class="btn" type="submit" name="addParticipants" value="Add Participants">
             <input class="btn" type="submit" value="cancel" onClick="browseParticipants()">

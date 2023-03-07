@@ -565,14 +565,14 @@ def class_participants():
         data = cursor.fetchall()
 
                 #mySQL query to grab member name for dropdown
-        query2 = "SELECT CONCAT(Members.f_name, ' ',Members.l_name) FROM Members;"
+        query2 = "SELECT Members.member_id FROM Members;"
         cur = mysql.connection.cursor()
         cur.execute(query2)
         member_data = cur.fetchall()
         
     
         #mySQL query to grab classes for dropdown
-        query3 = "Select CONCAT(Classes.class_id, ' ', Classes.class_type) FROM Classes;"
+        query3 = "Select Classes.class_id FROM Classes;"
         cur = mysql.connection.cursor()
         cur.execute(query3)
         class_data = cur.fetchall()
@@ -580,28 +580,28 @@ def class_participants():
         return render_template("class_participants.j2", data = data, members = member_data, classes = class_data)
     
     if request.method == "POST":
-        if request.form.get("addParticipant"):
-            member_class_id = request.form["member_id"]
-            workout_class_id = request.form["workout_class_id"]
-            query = "INSERT INTO Class_participants(class_id, member_id) VALUES  (%s, %s)"
+        if request.form.get("addParticipants"):
+            member_id = request.form["member_id"]
+            class_id = request.form["class_id"]
+            query = "INSERT INTO Class_participants(member_id, class_id) VALUES  (%s, %s);"
             cursor = mysql.connection.cursor()
-            cursor.execute(query,(member_class_id, workout_class_id))
+            cursor.execute(query,(member_id, class_id))
             mysql.connection.commit()
 
-            return redirect("/class_participants")
+        return redirect("/class_participants")
 
 # handle deletion of class_participants
-@app.route("/delete_class_participants/<int:member_class_ID>")
-def delete_class_participants(member_class_ID):
-    query = "DELETE FROM Class_participants WHERE member_class_ID = %s;"
+@app.route("/delete_class_participants/<int:member_class_id>")
+def delete_class_participants(member_class_id):
+    query = "DELETE FROM Class_participants WHERE member_class_id = %s;"
     cur = mysql.connection.cursor()
-    cur.execute(query, (member_class_ID,))
+    cur.execute(query, (member_class_id,))
     mysql.connection.commit()
     return redirect('/class_participants')
 
 # handle editing members
-@app.route("/edit_class_participants/<int:member_class_ID>", methods=["POST", "GET"])
-def edit_class_participants(member_class_ID):
+@app.route("/edit_class_participants/<int:member_class_id>", methods=["POST", "GET"])
+def edit_class_participants(member_class_id):
     if request.method == "GET":
         # mySQL query to grab the infor of the person with our passed id
         query = "SELECT  Class_participants.member_class_id AS 'Class Participant ID', \
@@ -612,7 +612,7 @@ def edit_class_participants(member_class_ID):
                     Classes.schedule AS 'Schedule' \
                 FROM Class_participants WHERE Member ID = %s \
                 JOIN Members ON Members.member_id = Class_participants.member_id \
-                JOIN Classes ON Class_participants.class_id = Classes.class_id;" % (member_class_ID)
+                JOIN Classes ON Class_participants.class_id = Classes.class_id;" % (member_class_id)
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
