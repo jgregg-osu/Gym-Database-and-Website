@@ -32,15 +32,17 @@
 
     <p>&nbsp;</p>
     <div id="edit">
-    <form method="POST" action="/edit_plan/{{ data[0].plan_id }}" id="editPlan">
+    <form method="POST" action="/edit_gym/{{ data[0].Gym_ID }}" id="editGym">
         <legend><strong>Edit Gym</strong></legend>
             <fieldset class="fields">
+                <label>Gym ID: {{data[0].Gym_ID}}</label>
+                <input type="hidden" value="{{data[0].Gym_ID}}" id="gym_id" name="gym_id">
                 <label>Gym Address:</label> 
-                    <input type="text" name="gym_address" id="gym_address" value="{{data[0].gym_address}}" required>
+                    <input type="text" name="gym_address" id="gym_address" value="{{data[0].Address}}" required>
                 <label>Opening Time:</label> 
-                    <input type="time" name="opening_time" id="opening_time" value="{{data[0].opening_time}}" required>
+                    <input type="time" name="opening_time" id="opening_time" value="{{data[0].OPENS}}" required>
                 <label>Closing Time</label> 
-                    <input type="time" name="closing_time" id="closing_time" value="{{data[0].closing_time}}" style="width: 500px;" required>
+                    <input type="time" name="closing_time" id="closing_time" value="{{data[0].CLOSES}}"  required>
                 <p></p>
             </fieldset>
             <input class="btn" type="submit" name="Edit_Gym" value="Edit Gym">
