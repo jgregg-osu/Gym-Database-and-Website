@@ -579,7 +579,7 @@ def edit_class_participants(member_class_ID):
         cur.execute(query3)
         class_data = cur.fetchall()
 
-        return render_template('edit_class_participants.j2', data=data, member_data=member_data, class_data=class_data)
+        return render_template('edit_class_participants.j2', data=data, members=member_data, classes=class_data)
     
     if request.method == "POST":
         # fire off if user clicks the "Edit Person" button
@@ -591,7 +591,7 @@ def edit_class_participants(member_class_ID):
 
             query = "UPDATE Class_participants \
                 SET Class_participants.member_id = %s, \
-                    Class_participants.class_id = %s,\
+                    Class_participants.class_id = %s, \
                 WHERE Class_participants.member_class_id = %s"
             cur = mysql.connection.cursor()
             cur.execute(query,(member_id, class_id, member_class_id))

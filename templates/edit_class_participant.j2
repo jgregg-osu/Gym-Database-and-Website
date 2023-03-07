@@ -1,0 +1,82 @@
+<html>
+
+<head>
+	<title>Edit Class Participant</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body> 
+    <div> 
+        <table border="1 cellpadding="4">
+            <caption> <strong>Editing Class Participant: </strong> </caption>
+
+            {% if data %}
+                <thead>
+                    <tr>
+                        {% for key in data[0].keys() %}
+                        <th> {{key}} </th>
+                        {% endfor %}
+                    </tr>
+
+                <tbody>
+                {% for item in data %}
+                    <tr>
+                    {% for key in item.keys() %}
+                        <td> {{item[key]}} </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+    </div>
+
+    <p>&nbsp;</p>
+    <div id="edit">
+    <form method="POST" action="/edit_class_participant/{{data[0].class_participant_id}}" id="Edit_Class_Participant">
+        <legend><strong>Edit Class Participant</strong></legend>
+            <fieldset class="fields">
+                <label>Class Participant ID: {{data[0].class_participant_id}}</label>
+                    <input type="hidden" value="{{data[0].class_participant_id}}" id="class_participant_id" name="class_participant_id">
+                {% for member in members %}
+                    {% if member["member_id"] == data[0]. %}
+
+                {% for class in classes %}
+                    {% if member["member"] %}                
+
+                <label>Participant Name:</label> 
+                    <input type="text" name="f_name" id="f_name" value="{{data[0].First_Name}}" required>
+                <label>Last Name:</label> 
+                    <input type="text" name="l_name" id="l_name" value="{{data[0].Last_Name}}" required>
+                <p></p>
+                <label>Birthday</label> 
+                    <input type="date" name="birthday" id="birthday" value="{{data[0].Birthday}}" required>
+                <label>Membership Plan</label> 
+                    <select name="plan_id" id="plan_id" required>
+                        <!-- Access our plans tuple passed from app.py -->
+                        {% for plan in plans %}
+                            {% if plan["plan_id"] == data[0].Membership_Plan_ID %}
+                                <option value ="{{plan["plan_id"]}}" selected> {{plan['plan_id']}}</option>
+                            {% else %}
+                                <option value="{{plan['plan_id']}}"> {{plan['plan_id']}} </option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                <label>Gym</label> 
+                <select name="gym_id" id="gym_id">
+                    <option value="0">&nbsp;</option>
+                    {% for gym in gyms %}
+                        {% if gym["gym_id"] == data[0].Gym_ID %}
+                            <option value ="{{gym["gym_id"]}}" selected> {{gym['gym_id']}}</option>
+                        {% else %}
+                            <option value="{{gym['gym_id']}}"> {{gym['gym_id']}} </option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </fieldset>
+            <input class="btn" type="submit" name="Edit_Member" value="Edit Member">
+            <a href='/members'><input class="btn" type="button" value="cancel"></a>
+    </form>
+</div> <!-- insert-->
+</body>
+
+</html>
