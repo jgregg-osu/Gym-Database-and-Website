@@ -233,7 +233,7 @@ def delete_plan(plan_id):
 
 '''####################################################################################################################
 Gyms Routes
-Includes No Functionality
+Includes Browse, Add, Update, and Delete Functionality
 ####################################################################################################################'''
 @app.route("/gyms", methods=["GET", "POST"])
 def gyms():
@@ -264,6 +264,44 @@ def gyms():
             mysql.connection.commit()
 
             return redirect("/gyms")
+        
+# handle updating gyms
+@app.route("/edit_gym/<int:Gym_ID>", methods=["POST", "GET"])
+def edit_gym(Gym_ID):
+    if request.method == "GET":
+        # mySQL query to grab the info of the gym with our passed id
+        query = "SELECT Gyms.gym_id AS 'Gym_ID', \
+                    Gyms.gym_address AS 'Address', \
+                    Gyms.opening_time AS 'OPENS', \
+                    Gyms.closing_time AS 'CLOSES'\
+                FROM Gyms\
+                WHERE Gym_ID = %s" % (Gym_ID)
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+        
+        return render_template('edit_gym.j2', data=data)
+
+    if request.method == "POST":
+        # fire off if user clicks the "Edit Person" button
+        if request.form.get("Edit_Gym"):
+            # grab user form inputs
+            gym_id = request.form["gym_id"]
+            gym_address = request.form["gym_address"]
+            opening_time = request.form["opening_time"]
+            closing_time = request.form["closing_time"]
+
+            query = "UPDATE Gyms \
+                SET Gyms.gym_address = %s, \
+                    Gyms.opening_time = %s,\
+                    Gyms.closing_time = %s\
+                WHERE Gyms.gym_id = %s"
+            cur = mysql.connection.cursor()
+            cur.execute(query,(gym_address, opening_time, closing_time, gym_id))
+            mysql.connection.commit()
+
+            return redirect("/gyms")
+
 
 
 # handle deletion of gyms
@@ -280,7 +318,7 @@ def delete_gym(gym_id):
 
 '''####################################################################################################################
 Instructors Routes
-Includes No Functionality
+Includes Browse, Add, Update, and Delete Functionality
 ####################################################################################################################'''
 @app.route("/instructors", methods=["POST", "GET"])
 def instructors():
@@ -412,7 +450,7 @@ def delete_instructor(Instructor_ID):
 
 '''####################################################################################################################
 Classes Routes
-Includes No Functionality
+Includes Browse, Add, Update, and Delete Functionality
 ####################################################################################################################'''
 @app.route("/classes", methods=["POST", "GET"])
 def classes():
