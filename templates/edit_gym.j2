@@ -32,7 +32,7 @@
 
     <p>&nbsp;</p>
     <div id="edit">
-    <form method="POST" action="/edit_gym/{{ data[0].Gym_ID }}" id="editGym">
+    <form method="POST" action="/edit_gym/{{data[0].Gym_ID}}" id="editGym">
         <legend><strong>Edit Gym</strong></legend>
             <fieldset class="fields">
                 <label>Gym ID: {{data[0].Gym_ID}}</label>
@@ -46,7 +46,7 @@
                 <p></p>
             </fieldset>
             <input class="btn" type="submit" name="Edit_Gym" value="Edit Gym">
-            <a href='/gyms'><input class="btn" type="button" value="cancel"></a
+            <a href='/gyms'><input class="btn" type="button" value="cancel"></a>
     </form>
 </div> <!-- insert-->
 </body>
