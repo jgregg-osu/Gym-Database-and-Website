@@ -600,7 +600,7 @@ def delete_class_participants(member_class_id):
     return redirect('/class_participants')
 
 # handle editing members
-@app.route("/edit_class_participant/<int:member_class_id>", methods=["POST", "GET"])
+@app.route("/edit_class_participants/<int:member_class_id>", methods=["POST", "GET"])
 def edit_class_participants(member_class_id):
     if request.method == "GET":
         # mySQL query to grab the infor of the person with our passed id
