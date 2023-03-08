@@ -32,34 +32,36 @@
 
     <p>&nbsp;</p>
     <div id="edit">
-    <form method="POST" action="/edit_plan/{{ data[0].plan_id }}" id="editPlan">
+    <form method="POST" action="/edit_plan/{{ data[0].Membership_Plan_ID }}" id="edit_Plan">
         <legend><strong>Edit Plan</strong></legend>
                         <fieldset class="fields">
+                <label>Plan ID: {{data[0].Membership_Plan_ID}}</label>
+                    <input type="hidden" value="{{data[0].Membership_Plan_ID}}" id="Membership_Plan_ID" name = "Membership_Plan_ID">
                 <label>Monthly Fee</label> 
-                    <input type="decimal" name="monthly_fee" id="monthly_fee" value="{{data[0].monthly_fee}}"required>
+                    <input type="decimal" name="Monthly_Fee" id="Monthly_Fee" value="{{data[0].Monthly_Fee}}" required>
                 <label>Weights/Cardio</label> 
-                    <select name="weight_cardio" id="weight_cardio" value="{{data[0].weight_cardio}}" required>
+                    <select name="Weights_Cardio" id="Weights_Cardio" value="{{data[0].Weights_Cardio}}" required>
                         <option value=0> 0 </option>
                         <option value=1> 1 </option>
                     </select>
                 <label>Spa Room</label> 
-                    <select name="spa_room" id="spa_room" value="{{data[0].spa_room}}" required>
+                    <select name="Spa_Room" id="Spa_Room" value="{{data[0].Spa_Room}}" required>
                         <option value=0> 0 </option>
                         <option value=1> 1 </option>
                     </select>
                 <p></p>
                 <label>Lap Pool</label>
-                    <select name="lap_pool" id="lap_pool" value="{{data[0].lap_pool}}" required>
+                    <select name="Lap_Pool" id="Lap_Pool" value="{{data[0].Lap_Pool}}" required>
                         <option value=0> 0 </option>
                         <option value=1> 1 </option>
                     </select>
                 <label>Ball Court</label> 
-                    <select name="ballcourt" id="ballcourt" value="{{data[0].ballcourt}}" required>
+                    <select name="Ballcourt" id="Ballcourt" value="{{data[0].Ballcourt}}" required>
                         <option value=0> 0 </option>
                         <option value=1> 1 </option>
                     </select>
             </fieldset>
-            <input class="btn" type="submit" name="Edit_Plan" value="Edit Plan">
+            <input class="btn" type="submit" name="edit_Plan" value="Edit Plan">
             <a href='/plans'><input class="btn" type="button" value="cancel"></a
     </form>
 </div> <!-- insert-->

@@ -227,8 +227,46 @@ def delete_plan(plan_id):
 
 
 # handle editing plans
-# @app.route("/edit_plan/<int:plan_id>", methods=["GET", "POST"])
-# def edit_plan(plan_id):
+@app.route("/edit_plan/<int:plan_id>", methods=["GET", "POST"])
+def edit_plan(plan_id):
+    if request.method == "GET":
+        query = "SELECT Plans.plan_id AS 'Membership_Plan_ID', \
+                Plans.monthly_fee AS 'Monthly_Fee', \
+                Plans.weight_cardio AS 'Weights_Cardio', \
+                Plans.spa_room AS 'Spa_Room', \
+                Plans.lap_pool AS 'Lap_Pool', \
+                Plans.ballcourt AS 'Ballcourt' \
+                FROM Plans WHERE Plans.plan_id = %s" % (plan_id)
+        cursor = mysql.connection.cursor()
+        cursor.execute(query)
+        data = cursor.fetchall()
+
+        return render_template("edit_plan.j2", data = data)
+
+    if request.method == "POST":
+        if request.form.get("edit_Plan"):
+            monthly_fee = request.form["Monthly_Fee"]
+            weight_cardio = request.form["Weights_Cardio"]
+            spa_room = request.form["Spa_Room"]
+            lap_pool = request.form["Lap_Pool"]
+            ballcourt = request.form["Ballcourt"]
+            membership_plan_id = request.form["Membership_Plan_ID"]
+
+
+            query = "UPDATE Plans \
+            SET Plans.monthly_fee = %s, \
+                Plans.weight_cardio = %s, \
+                Plans.spa_room = %s, \
+                Plans.lap_pool = %s, \
+                Plans.ballcourt = %s \
+            WHERE Plans.plan_id = %s"
+            cur = mysql.connection.cursor()
+            cur.execute(query,(monthly_fee, weight_cardio, spa_room, lap_pool, ballcourt, membership_plan_id))
+            mysql.connection.commit()
+
+        return redirect("/plans")
+
+
 
 
 '''####################################################################################################################
