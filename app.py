@@ -603,14 +603,18 @@ def class_participants():
         data = cursor.fetchall()
 
                 #mySQL query to grab member name for dropdown
-        query2 = "SELECT Members.member_id FROM Members;"
+        query2 = "SELECT Members.member_id,\
+            CONCAT(Members.f_name, ' ', Members.l_name) as Name\
+            FROM Members;"
         cur = mysql.connection.cursor()
         cur.execute(query2)
         member_data = cur.fetchall()
         
     
         #mySQL query to grab classes for dropdown
-        query3 = "Select Classes.class_id FROM Classes;"
+        query3 = "Select Classes.class_id,\
+            CONCAT(Classes.class_type, ' ', Classes.schedule) AS Class \
+            FROM Classes;"
         cur = mysql.connection.cursor()
         cur.execute(query3)
         class_data = cur.fetchall()
