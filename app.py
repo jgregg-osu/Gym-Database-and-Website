@@ -552,9 +552,9 @@ Includes No Functionality
 def class_participants():
     if request.method == "GET":
         query = "SELECT  Class_participants.member_class_id AS 'Class_Participant_ID', \
-                    Members.member_id AS 'Member ID', \
+                    Members.member_id AS 'Member_ID', \
                     CONCAT(Members.f_name, ' ',Members.l_name) AS 'Member Name', \
-                    Class_participants.class_id AS 'Class ID', \
+                    Class_participants.class_id AS 'Class_ID', \
                     Classes.class_type AS 'Class Type', \
                     Classes.schedule AS 'Schedule' \
                 FROM Class_participants \
