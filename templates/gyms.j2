@@ -3,6 +3,7 @@
 <head>
 <title>Gyms</title>
 <link href="/static/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script language="JavaScript">
         function showform(dowhat) {
             if(dowhat == 'insert') {
@@ -33,11 +34,12 @@
 <a href="plans">Membership Plans</a> |
 <a href="classes">Classes</a> | 
 <a href="class_participants">Class Participants</a>]
+<p></p>
 
 <div id="browse">
     <p><a href="#" onClick="newGym()"><strong>Add New Gym</strong></a> </p>
     <strong>Browse Gyms</strong>
-    <table border="1" cellpadding="4">
+    <table cellpadding="4">
         {% if data %}
             <thead>
                 <tr>
@@ -52,8 +54,8 @@
                     {% for key in item.keys() %}
                         <td> {{ item[key] }} </td>
                     {% endfor %}
-                    <td><a href="edit_gym/{{item.Gym_ID}}" class="btn btn-default">Edit</a></td>
-                    <td><a href="delete_gym/{{item.Gym_ID}}" class="btn btn-default">Delete</a></td>
+                    <td><a href="edit_gym/{{item.Gym_ID}}" class="btn btn-default"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                    <td><a href="delete_gym/{{item.Gym_ID}}" class="btn btn-default"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                 </tr>
             {% endfor %}
 
@@ -68,10 +70,13 @@
             <fieldset class="fields">
                 <label>Gym Address</label> 
                     <input type="text" name="gym_address" id="gym_address" required>
+                    <p></p>
                 <label>Opening Time</label> 
                     <input type="time" name="opening_time" id="opening_time" required>
+                    <p></p>
                 <label>Closing Time</label> 
                     <input type="time" name="closing_time" id="closing_time" required>
+                    <p></p>
             </fieldset>
             <input class="btn" type="submit" name="addGym" value="Add Gym">
             <input class="btn" type="submit" value="cancel" onClick="browseGyms()">

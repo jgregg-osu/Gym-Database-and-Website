@@ -32,12 +32,12 @@
     <p>&nbsp;</p>
     <div id="edit">
     <form method="POST" action="/edit_instructor/{{data[0].Instructor_ID}}" id="editInstructor">
-        <legend><strong>Edit Instructor</strong></legend>
+        <legend><strong>Edit Instructor {{data[0].Instructor_ID}}</strong></legend>
             <fieldset class="fields">
-                <label>Instructor ID: {{data[0].Instructor_ID}}</label>
                     <input type="hidden" value="{{data[0].Instructor_ID}}" id="instructor_id" name="instructor_id">
                 <label>First Name:</label> 
                     <input type="text" name="f_name" id="f_name" value="{{data[0].First_Name}}" required>
+                    <p></p>
                 <label>Last Name:</label> 
                     <input type="text" name="l_name" id="l_name" value="{{data[0].Last_Name}}" required>
                 <p></p>
@@ -46,8 +46,10 @@
                 <p></p>
                 <label>Birthday</label> 
                     <input type="date" name="birthday" id="birthday" value="{{data[0].Birthday}}" required>
+                    <p></p>
                 <label>Email</label> 
                     <input type="email" name="email" id="email" value="{{data[0].Email}}" required>
+                    <p></p>
                 <label>Gym</label> 
                 <select name="gym_id" id="gym_id">
                     <option value="0">&nbsp;</option>

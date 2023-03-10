@@ -2,6 +2,7 @@
 <head>
     <title> Instructors </title>
     <link href="/static/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script language="JavaScript">
         function showform(dowhat) {
             if(dowhat == 'insert') {
@@ -32,11 +33,12 @@
 <a href="plans">Membership Plans</a> |
 <a href="classes">Classes</a> | 
 <a href="class_participants">Class Participants</a>]
+<p></p>
 
     <div id="browse">
         <p><a href="#" onClick="newInstructor()"><strong>Add New Instructor</strong></a> </p>
         <strong>Browse Instructors</strong>
-            <table border="1" cellpadding="4">
+            <table cellpadding="4">
         {% if data %}
             <thead>
             <tr>
@@ -52,8 +54,8 @@
                     <td> {{item[key]}} </td>
                 {% endfor %}
 
-                    <td><a href="edit_instructor/{{item.Instructor_ID}}" class="btn btn-default">Edit</a></td>
-		    		<td><a href="delete_instructor/{{item.Instructor_ID}}" class="btn btn-default">Delete</a></td>
+                    <td><a href="edit_instructor/{{item.Instructor_ID}}" class="btn btn-default"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+		    		<td><a href="delete_instructor/{{item.Instructor_ID}}" class="btn btn-default"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
             </tr>
             {% endfor%}
         {% endif %}
@@ -68,18 +70,22 @@
                 <fieldset class="fields">
                     <label>First Name</label> 
                         <input type="text" name="f_name" id="f_name" required>
+                        <p></p>
                     <label>Last Name</label> 
                         <input type="text" name="l_name" id="l_name" required>
+                        <p></p>
                     <label>Address</label> 
                         <input type="text" name="address" id="address" required>
                     <p></p>
                     <label>Birthday</label> 
                         <input type="date" name="birthday" id="birthday" required>
+                        <p></p>
                     <label>Email</label> 
                         <input type="email" name="email" id="email">
+                        <p></p>
                     <label>Phone Number</label> 
                         <input type="text" name="phone_number" id="phone_number" required>
-                
+                        <p></p>
                     <label>Gym</label>
                         <select name="gym_id" id="gym_id">
                         <option value="0">&nbsp;</option>

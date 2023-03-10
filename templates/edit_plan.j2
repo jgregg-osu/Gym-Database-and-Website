@@ -33,17 +33,19 @@
     <p>&nbsp;</p>
     <div id="edit">
     <form method="POST" action="/edit_plan/{{ data[0].Membership_Plan_ID }}" id="edit_Plan">
-        <legend><strong>Edit Plan</strong></legend>
-                        <fieldset class="fields">
-                <label>Plan ID: {{data[0].Membership_Plan_ID}}</label>
+        <legend><strong>Edit Plan {{data[0].Membership_Plan_ID}}</strong></legend>
+            <fieldset class="fields">
+                
                     <input type="hidden" value="{{data[0].Membership_Plan_ID}}" id="Membership_Plan_ID" name = "Membership_Plan_ID">
                 <label>Monthly Fee</label> 
                     <input type="decimal" name="Monthly_Fee" id="Monthly_Fee" value="{{data[0].Monthly_Fee}}" required>
+                    <p></p>
                 <label>Weights/Cardio</label> 
                     <select name="Weights_Cardio" id="Weights_Cardio" value="{{data[0].Weights_Cardio}}" required>
                         <option value=0> 0 </option>
                         <option value=1> 1 </option>
                     </select>
+                    <p></p>
                 <label>Spa Room</label> 
                     <select name="Spa_Room" id="Spa_Room" value="{{data[0].Spa_Room}}" required>
                         <option value=0> 0 </option>
@@ -55,6 +57,7 @@
                         <option value=0> 0 </option>
                         <option value=1> 1 </option>
                     </select>
+                    <p></p>
                 <label>Ball Court</label> 
                     <select name="Ballcourt" id="Ballcourt" value="{{data[0].Ballcourt}}" required>
                         <option value=0> 0 </option>

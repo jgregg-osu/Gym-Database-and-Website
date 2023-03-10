@@ -33,9 +33,8 @@
     <p>&nbsp;</p>
     <div id="edit">
     <form method="POST" action="/edit_class_participants/{{data[0].Class_Participant_ID}}" id="Edit_Class_Participant">
-        <legend><strong>Edit Class Participant</strong></legend>
+        <legend><strong>Edit Class Participant {{data[0].Class_Participant_ID}}</strong></legend>
             <fieldset class="fields">
-                <label>Class Participant Info: {{data[0].Class_Participant_ID}}</label>
                     <input type="hidden" value="{{data[0].Class_Participant_ID}}" id="Class_Participant_ID" name="Class_Participant_ID">
                 <label>Member: </label> 
                 <select name="member_id" id="member_id" required>
@@ -47,6 +46,7 @@
                     {% endif %}
                 {% endfor %}
                     </select>
+                    <p></p>
                 <label>Workout Class Info: </label> 
                 <select name="class_id" id="class_id" required>
                 {% for class in classes %}

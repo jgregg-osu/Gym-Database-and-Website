@@ -3,6 +3,7 @@
 <head>
 <title>Class Participants</title>
 <link href="/static/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script language="JavaScript">
         function showform(dowhat) {
             if(dowhat == 'insert') {
@@ -33,11 +34,12 @@
 <a href="plans">Membership Plans</a> |
 <a href="classes">Classes</a> | 
 <a href="class_participants">Class Participants</a>]
+<p></p>
 
 <div id="browse">
     <p><a href="#" onClick="newParticipants()"><strong>Add New Class Participant</strong></a> </p>
     <strong>Browse Class Participants</strong>
-    <table border="1" cellpadding="4">
+    <table cellpadding="4">
         {% if data %}
             <thead>
                 <tr>
@@ -52,8 +54,8 @@
                     {% for key in item.keys() %}
                         <td> {{ item[key] }} </td>
                     {% endfor %}
-                    <td><a href="edit_class_participants/{{item.Class_Participant_ID}}" class="btn btn-default">Edit</a></td>
-                    <td><a href="delete_class_participants/{{item.Class_Participant_ID}}" class="btn btn-default">Delete</a></td>
+                    <td><a href="edit_class_participants/{{item.Class_Participant_ID}}" class="btn btn-default"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                    <td><a href="delete_class_participants/{{item.Class_Participant_ID}}" class="btn btn-default"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                 </tr>
             {% endfor %}
 
@@ -72,6 +74,7 @@
                         <option value="{{member['member_id']}}"> {{member['Name']}} </option>
                 {% endfor %}
                     </select>
+                    <p></p>
                 <label>Workout Class</label> 
                 <select name="class_id" id="class_id" required>
                 {% for class in classes %}

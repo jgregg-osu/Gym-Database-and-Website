@@ -3,6 +3,7 @@
 <head>
 <title>Members</title>
 <link href="/static/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script language="JavaScript">
         function showform(dowhat) {
             if(dowhat == 'insert') {
@@ -53,11 +54,12 @@
 <a href="plans">Membership Plans</a> |
 <a href="classes">Classes</a> | 
 <a href="class_participants">Class Participants</a>]
+<p></p>
 
 <div id="browse">
-    <p><a href="#" onClick="newMember()"><strong>Add New Member</strong></a> </p>
+    <p><a href="#" onClick="newMember()"><strong>Add New Member</strong></a></p>
     <strong>Browse Members</strong>
-    <table border="1" cellpadding="4">
+    <table cellpadding="4">
         {% if data %}
             <thead>
             <tr>
@@ -73,8 +75,8 @@
                     <td> {{item[key]}} </td>
                 {% endfor %}
 
-                    <td><a href="edit_member/{{item.Member_ID}}" class="btn btn-default">Edit</a></td>
-		    		<td><a href="delete_member/{{item.Member_ID}}" class="btn btn-default">Delete</a></td>
+                    <td><a href="edit_member/{{item.Member_ID}}" class="btn btn-default"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+		    		<td><a href="delete_member/{{item.Member_ID}}" class="btn btn-default"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
             </tr>
             {% endfor%}
         {% endif %}
@@ -88,12 +90,15 @@
             <fieldset class="fields">
                 <label>First Name</label> 
                     <input type="text" name="f_name" id="f_name" required>
+                    <p></p>
                 <label>Last Name</label> 
                     <input type="text" name="l_name" id="l_name" required>
+                    <p></p>
                 <label>Address</label> 
                     <input type="text" name="address" id="address" style="width: 500px;" required>
                 <p></p>
                 <label>Birthday</label> <input type="date" name="birthday" id="birthday" required>
+                <p></p>
                 <label>Membership Plan</label> 
                     <select name="plan_id" id="plan_id" required>
                         <!-- Access our plans tuple passed from app.py -->
@@ -101,6 +106,7 @@
                             <option value="{{plan['plan_id']}}"> {{plan['plan_id']}} </option>
                         {% endfor %}
                     </select>
+                <p></p>
                 <label>Gym</label> 
                 <select name="gym_id" id="gym_id">
                     <option value="0">&nbsp;</option>

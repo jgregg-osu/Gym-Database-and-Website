@@ -31,14 +31,15 @@
     <p>&nbsp;</p>
     <div id="edit">
     <form method="POST" action="/edit_class/{{data[0].Class_ID}}" id="editClass">
-        <legend><strong>Edit Class</strong></legend>
+        <legend><strong>Edit Class {{data[0].Class_ID}}</strong></legend>
             <fieldset class="fields">
-                <label>Class ID: {{data[0].Class_ID}}</label>
                     <input type="hidden" value="{{data[0].Class_ID}}" id="class_id" name="class_id">
                 <label>Class Type:</label> 
                     <input type="text" name="class_type" id="class_type" value="{{data[0].Class_Type}}" required>
+                    <p></p>
                 <label>Schedule:</label> 
                     <input type="text" name="schedule" id="schedule" value="{{data[0].Schedule}}" required>
+                    <p></p>
                 <label>Duration</label> 
                     <input type="text" name="duration" id="duration" value="{{data[0].Duration}}" required>
                 <p></p>

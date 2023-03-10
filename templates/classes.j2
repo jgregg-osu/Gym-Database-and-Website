@@ -2,6 +2,7 @@
 <head>
     <title>Classes</title>
     <link href="/static/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script language="JavaScript">
         function showform(dowhat) {
             if(dowhat == 'insert') {
@@ -32,11 +33,12 @@
 <a href="plans">Membership Plans</a> |
 <a href="classes">Classes</a> | 
 <a href="class_participants">Class Participants</a>]
+<p></p>
 
 <div id="browse">
     <p><a href="#" onClick="newClass()"><strong>Add New Class</strong></a></p>
     <strong>Browse Classes</strong>
-       <table border="1" cellpadding="4">
+       <table cellpadding="4">
         {% if data %}
             <thead>
                 <tr>
@@ -51,8 +53,8 @@
                     {% for key in item.keys() %}
                         <td> {{ item[key] }} </td>
                     {% endfor %}
-                    <td><a href="edit_class/{{item.Class_ID}}" class="btn btn-default">Edit</a></td>
-                    <td><a href="delete_class/{{item.Class_ID}}" class="btn btn-default">Delete</a></td>
+                    <td><a href="edit_class/{{item.Class_ID}}" class="btn btn-default"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                    <td><a href="delete_class/{{item.Class_ID}}" class="btn btn-default"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                 </tr>
             {% endfor %}
 
@@ -67,10 +69,13 @@
             <fieldset class="fields">
                 <label>Class Type</label>
                     <input type="text" name="class_type" id="class_type" required>
+                    <p></p>
                 <label>Schedule</label>
                     <input type="datetime-local" name="schedule" id="schedule" required>
+                    <p></p>
                 <label>Duration</label>
                     <input type="number" name="duration" id="duration" required>
+                    <p></p>
                 <label>Instructor</label>
                     <select name="instructor_id" id="instructor_id">
                         <!-- Access class instructor tuples passed from app.py -->

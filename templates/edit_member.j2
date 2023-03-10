@@ -33,19 +33,22 @@
     <p>&nbsp;</p>
     <div id="edit">
     <form method="POST" action="/edit_member/{{data[0].Member_ID}}" id="editMember">
-        <legend><strong>Edit Member</strong></legend>
+        <legend><strong>Edit Member {{data[0].Member_ID}}</strong></legend>
             <fieldset class="fields">
-                <label>Member ID: {{data[0].Member_ID}}</label>
+                
                     <input type="hidden" value="{{data[0].Member_ID}}" id="member_id" name="member_id">
                 <label>First Name:</label> 
                     <input type="text" name="f_name" id="f_name" value="{{data[0].First_Name}}" required>
+                    <p></p>
                 <label>Last Name:</label> 
                     <input type="text" name="l_name" id="l_name" value="{{data[0].Last_Name}}" required>
+                    <p></p>
                 <label>Address</label> 
                     <input type="text" name="address" id="address" value="{{data[0].Address}}" style="width: 500px;" required>
                 <p></p>
                 <label>Birthday</label> 
                     <input type="date" name="birthday" id="birthday" value="{{data[0].Birthday}}" required>
+                    <p></p>
                 <label>Membership Plan</label> 
                     <select name="plan_id" id="plan_id" required>
                         <!-- Access our plans tuple passed from app.py -->
@@ -57,6 +60,7 @@
                             {% endif %}
                         {% endfor %}
                     </select>
+                    <p></p>
                 <label>Gym</label> 
                 <select name="gym_id" id="gym_id">
                     <option value="0">&nbsp;</option>
