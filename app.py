@@ -445,6 +445,8 @@ def edit_instructor(Instructor_ID):
             l_name = request.form["l_name"]
             address = request.form["address"]
             birthday = request.form["birthday"]
+            email = request.form['email']
+            phone_number = request.form['phone_number']
             gym_id = request.form["gym_id"]
 
             # account for cases where gym_id is set to null
@@ -454,10 +456,12 @@ def edit_instructor(Instructor_ID):
                         Instructors.l_name = %s,\
                         Instructors.address = %s,\
                         Instructors.birthday = %s,\
+                        Instructors.email = %s,\
+                        Instructors.phone_number = %s,\
                         Instructors.gym_id = NULL\
                     WHERE Instructors.instructor_id = %s"
                 cur = mysql.connection.cursor()
-                cur.execute(query,(f_name, l_name, address, birthday, instructor_id))
+                cur.execute(query,(f_name, l_name, address, birthday, email, phone_number, instructor_id))
                 mysql.connection.commit()
 
             else:
@@ -466,10 +470,12 @@ def edit_instructor(Instructor_ID):
                         Instructors.l_name = %s,\
                         Instructors.address = %s,\
                         Instructors.birthday = %s,\
+                        Instructors.email = %s,\
+                        Instructors.phone_number = %s,\
                         Instructors.gym_id = %s \
                     WHERE Instructors.instructor_id = %s"
                 cur = mysql.connection.cursor()
-                cur.execute(query,(f_name, l_name, address, birthday, gym_id, instructor_id))
+                cur.execute(query,(f_name, l_name, address, birthday, email, phone_number, gym_id, instructor_id))
                 mysql.connection.commit()
 
             return redirect("/instructors")

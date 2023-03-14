@@ -34,6 +34,7 @@
     <div id="edit">
     <form method="POST" action="/edit_plan/{{ data[0].Membership_Plan_ID }}" id="edit_Plan">
         <legend><strong>Edit Plan {{data[0].Membership_Plan_ID}}</strong></legend>
+        <legend> 0=Not Included; 1=Included</legend>
             <fieldset class="fields">
                 
                     <input type="hidden" value="{{data[0].Membership_Plan_ID}}" id="Membership_Plan_ID" name = "Membership_Plan_ID">

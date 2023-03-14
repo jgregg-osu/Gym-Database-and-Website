@@ -40,6 +40,7 @@
     <p><a href="#" onClick="newPlan()"><strong>Add New Membership Plan</strong></a> </p>
     <strong>Browse Membership Plans</strong>
     <table cellpadding="4">
+    <caption> 1 = Included;  0 = Not Included</caption>
         {% if data %}
             <thead>
                 <tr>
@@ -73,26 +74,26 @@
                     <p></p>
                 <label>Weights/Cardio</label> 
                     <select name="weight_cardio" id="weight_cardio" required>
-                        <option value=0> 0 </option>
-                        <option value=1> 1 </option>
+                        <option value=0> No </option>
+                        <option value=1> Yes </option>
                     </select>
                     <p></p>
                 <label>Spa Room</label> 
                     <select name="spa_room" id="spa_room" required>
-                        <option value=0> 0 </option>
-                        <option value=1> 1 </option>
+                        <option value=0> No </option>
+                        <option value=1> Yes </option>
                     </select>
                 <p></p>
                 <label>Lap Pool</label>
                     <select name="lap_pool" id="lap_pool" required>
-                        <option value=0> 0 </option>
-                        <option value=1> 1 </option>
+                        <option value=0> No </option>
+                        <option value=1> Yes </option>
                     </select>
                     <p></p>
                 <label>Ball Court</label> 
                     <select name="ballcourt" id="ballcourt" required>
-                        <option value=0> 0 </option>
-                        <option value=1> 1 </option>
+                        <option value=0> No </option>
+                        <option value=1> Yes </option>
                     </select>
             </fieldset>
             <input class="btn" type="submit" name="addPlan" value="Add Plan">
