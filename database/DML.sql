@@ -8,7 +8,7 @@
 -- Members queries --
 ------------------------------------------------------------------------------
 -- select all Members --
-SELECT  Members.member_id AS "Member ID",
+SELECT  Members.member_id AS "Member_ID",
         Members.f_name AS "First_Name",
         Members.l_name AS "Last_Name",
         Members.address AS Address,
@@ -33,7 +33,7 @@ VALUES (:f_nameInput,
         :gym_idInput)
 
 -- browse member data for edit page --
-SELECT  Members.member_id AS "Member ID",
+SELECT  Members.member_id AS "Member_ID",
         Members.f_name AS "First_Name",
         Members.l_name AS "Last_Name",
         Members.address AS Address,
@@ -98,14 +98,14 @@ FROM Instructors WHERE instructor_id = :instructor_id_selected_from_browse_instr
 
 -- update Instructor --
 UPDATE FROM Instructors
-SET f_name = :new_first_name
-    l_name = :new_last_name
-    address = :new_address
-    birthday = :new_birthday
-    email = :new_email
-    phone_number = :new_phone_number
-    gym_id = :new_gym_id
-WHERE instructor_id = :id_from_form
+SET Instructors.f_name = :new_first_name
+    Instructors.l_name = :new_last_name
+    Instructors.address = :new_address
+    Instructors.birthday = :new_birthday
+    Instructors.email = :new_email
+    Instructors.phone_number = :new_phone_number
+    Instructors.gym_id = :new_gym_id
+WHERE Instructors.instructor_id = :id_from_form
 
 -- delete Instructor --
 DELETE FROM Instructors
@@ -119,7 +119,7 @@ WHERE instructor_id = :id_from_form
 -- select all gyms --
 SELECT Gyms.gym_id AS "Gym_ID", 
         Gyms.gym_address AS Address,
-        Gyms.opening_time AS OPENS
+        Gyms.opening_time AS OPENS,
         Gyms.closing_time AS CLOSES
 FROM Gyms
 
@@ -130,16 +130,16 @@ VALUES (:gym_addressInput, :opening_timeInput, :closing_timeInput)
 -- browse Gym data for edit page --
 SELECT  Gyms.gym_id AS "Gym_ID", 
         Gyms.gym_address AS Address,
-        Gyms.opening_time AS OPENS
+        Gyms.opening_time AS OPENS,
         Gyms.closing_time AS CLOSES
 FROM Gyms WHERE gym_id = :gym_id_selected_from_browse_gym_page
 
 -- update gym information --
 UPDATE Gyms
-SET gym_address = :new_gym_address
-    opening_time = :new_opening_time
-    closing_time = :new_closing_time
-WHERE gym_id = :id_from_form
+SET Gyms.gym_address = :new_gym_address,
+    Gyms.opening_time = :new_opening_time,
+    Gyms.closing_time = :new_closing_time
+WHERE Gyms.gym_id = :id_from_form
 
 -- delete gym --
 DELETE FROM Gyms
@@ -174,16 +174,16 @@ SELECT  Plans.plan_id AS "Membership_Plan_ID",
         Plans.spa_room AS "Spa Room",
         Plans.lap_pool AS "Lap Pool",
         Plans.ballcourt AS Ballcourt
-FROM Plans Where plan_id = :plan_id_selected_from_browse_plan_page
+FROM Plans Where Plans.plan_id = :plan_id_selected_from_browse_plan_page
 
 -- update membership plan --
 UPDATE Plans
 SET monthly_fee = :new_monthly_fee
-    weight_cardio = :new_weight_cardio
-    spa_room = :new_spa_room
-    lap_pool = :new_lap_pool
-    ballcourt = :new_ballcourt
-WHERE plan_id = :id_from_form
+    Plans.weight_cardio = :new_weight_cardio
+    Plans.spa_room = :new_spa_room
+    Plans.lap_pool = :new_lap_pool
+    Plans.ballcourt = :new_ballcourt
+WHERE Plans.plan_id = :id_from_form
 
 -- delete membership plan --
 DELETE FROM Plans
@@ -192,15 +192,15 @@ WHERE plan_id = :id_from_form
 
 
 ------------------------------------------------------------------------------
--- Workout classes queries --
+-- Classes queries --
 ------------------------------------------------------------------------------
--- select all workout classes --
+-- select all Classes --
 SELECT  Classes.class_id AS "Class_ID", 
         Classes.class_type AS "Class_Type", 
         Classes.schedule AS Schedule,
         Classes.duration AS Duration,
-        Instructors.instructor_id AS "Instructor ID",
-        CONCAT(Instructors.f_name, ' ', Instructors.l_name ) AS "Instructor_Name"
+        Instructors.instructor_id AS "Instructor_ID",
+        CONCAT(Instructors.f_name, ' ', Instructors.l_name ) AS Instructor_Name
 FROM Classes
 INNER JOIN Instructors ON Classes.instructor_id = Instructors.instructor_id
 
@@ -211,7 +211,7 @@ SELECT Instructors.f_name, Instructors.instructor_id FROM Instructors
 SELECT  Classes.class_id, 
         Classes.class_type, 
         Classes.schedule,
-        Classes.duration,
+        Classes.duration
 FROM Classes WHERE Classes.instructor_id = :id_from_form
 
 -- add new workout class --
@@ -223,21 +223,23 @@ SELECT  Classes.class_id AS "Class_ID",
         Classes.class_type AS "Class_Type", 
         Classes.schedule AS Schedule,
         Classes.duration AS Duration,
-        Instructors.instructor_id AS "Instructor ID",
-        CONCAT(Instructors.f_name, ' ', Instructors.l_name ) AS "Instructor_Name"
-FROM Classes WHERE class_id = :class_id_selected_from_browse_plan_page
+        Instructors.instructor_id AS "Instructor_ID",
+        CONCAT(Instructors.f_name, ' ', Instructors.l_name ) AS Instructor_Name
+FROM Classes
+INNER JOIN Instructors ON Classes.instructor_id = Instructors.instructor_id
+WHERE Classes.class_id = :class_id_selected_from_browse_plan_page
 
 -- update workout class --
 UPDATE Classes
-SET class_type = :new_class_type
-    schedule = :new_schedule
-    duration = :new_duration
-    instructor_id = :new_instructor_id
-WHERE class_id = :id_from_form
+SET Classes.class_type = :new_class_type,
+    Classes.schedule = :new_schedule,
+    Classes.duration = :new_duration,
+    Classes.instructor_id = :new_instructor_id
+WHERE Classes.class_id = :id_from_form
 
 -- delete workout class --
 DELETE FROM Classes
-WHERE class_id = :id_from_form
+WHERE Classes.class_id = :id_from_form
 
 
 
