@@ -384,6 +384,7 @@ def instructors():
         cur.execute(query)
         data = cur.fetchall()
 
+        # select Gyms.gym_id for dropdown
         query2 = "SELECT Gyms.gym_id FROM Gyms"
         cur = mysql.connection.cursor()
         cur.execute(query2)
