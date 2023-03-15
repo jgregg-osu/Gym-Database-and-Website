@@ -1,16 +1,18 @@
+<!--Citation for instructors page-->
+<!--Date: 3/15/2023-->
+<!--All code is based on the CS 3409  flask starter app-->
+<!--Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app--> 
+
 <html>
 <head>
     <title> Instructors </title>
     <link href="/static/style.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- determines what shows up on the page-->
     <script language="JavaScript">
         function showform(dowhat) {
             if(dowhat == 'insert') {
                 document.getElementById('browse').style.display = 'none';
-				document.getElementById('insert').style.display = 'block';
-            }
-            else if (dowhat == 'all') {
-                document.getElementById('browse').style.display = 'block';
 				document.getElementById('insert').style.display = 'block';
             }
             else {
@@ -20,13 +22,15 @@
         }
         function newInstructor() { showform('insert'); }
         function browseInstructor() { showform ('browse'); }
-        function showAll() { showform ('all'); }
     </script>
 </head>
 
+<!-- show instructors when the page loads-->
 <body onload="browseInstructor()">
-    <h1>Instructors</h1>
-    [ <a href="/">Home</a> |
+
+<!--link to change pages-->
+<h1>Instructors</h1>
+[ <a href="/">Home</a> |
 <a href="members">Members</a> |
 <a href="instructors">Instructors</a> |
 <a href="gyms">Gyms</a> |
@@ -35,12 +39,16 @@
 <a href="class_participants">Class Participants</a>]
 <p></p>
 
+    
     <div id="browse">
         <p><a href="#" onClick="newInstructor()"><strong>Add New Instructor</strong></a> </p>
         <strong>Browse Instructors</strong>
-            <table cellpadding="4">
+        <!-- table for browsing all instructors -->
+        <table cellpadding="4">
+        <!-- access data passed from app.py-->
         {% if data %}
             <thead>
+            <!-- iterate through data for the headers -->
             <tr>
                 {% for key in data[0].keys() %}
                 <th>{{key}}</th>
@@ -48,12 +56,13 @@
             </tr>    
 
             <tbody>
+            <!-- for every item, iterate through every key to populate table with data -->
             {% for item in data %}
             <tr>
                 {% for key in item.keys() %}
                     <td> {{item[key]}} </td>
                 {% endfor %}
-
+                    <!-- a link routes to editing and deleting instructor -->
                     <td><a href="edit_instructor/{{item.Instructor_ID}}" class="btn btn-default"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
 		    		<td><a href="delete_instructor/{{item.Instructor_ID}}" class="btn btn-default"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
             </tr>
@@ -63,7 +72,7 @@
         <p>&nbsp;</p>
     </div> <!-- browse -->
 
-    
+    <!-- form for inserting new instructor -->
     <div id="insert">
         <form method="POST" id="addInstructor" action="/instructors">
             <legend> <strong>Add Instructor</strong></legend>
@@ -95,6 +104,7 @@
                         {% endfor %}
                         </select>
                 </fieldset>
+                <!--buttons to submit or cancel form-->
                 <input class="btn" type="submit" name="addInstructor" value="Add Instructor">
                 <input class="btn" type="submit" value="cancel" onClick="browseInstructor()">
         </form>

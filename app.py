@@ -1,3 +1,9 @@
+# Citation for all routes
+# Date: 3/15/2023
+# All code is based on the CS 3409  flask starter app
+# Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
+
+
 from flask import Flask, render_template, json, redirect
 from flask import request
 from flask_mysqldb import MySQL
@@ -24,6 +30,9 @@ mysql = MySQL(app)
 
 # Routes 
 
+'''####################################################################################################################
+HomePage Route
+####################################################################################################################'''
 # return to index page 
 @app.route('/')
 def root():
@@ -330,7 +339,7 @@ def edit_gym(Gym_ID):
             closing_time = request.form["closing_time"]
 
             query = "UPDATE Gyms \
-                SET Gyms.gym_address = %s, \
+                SET Gyms.gym_address = %s,\
                     Gyms.opening_time = %s,\
                     Gyms.closing_time = %s\
                 WHERE Gyms.gym_id = %s"
