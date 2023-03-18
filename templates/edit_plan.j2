@@ -1,0 +1,98 @@
+<!--Citation for edit plan page-->
+<!--Date: 3/15/2023-->
+<!--This page is adapted from the CS 340 flask starter app-->
+<!--Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app--> 
+
+<html>
+
+<head>
+	<title>Edit Membership Plan</title>
+    <link href="/static/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<!-- table populated with plan's existing data -->
+<body> 
+    <div> 
+        <table border="1 cellpadding="4">
+            <caption> <strong>Editing Plan: </strong> </caption>
+            <!-- access data passed from app.py-->
+            {% if data %}
+                <thead>
+                    <!-- iterate through data for the headers -->
+                    <tr>
+                        {% for key in data[0].keys() %}
+                        <th> {{ key }} </th>
+                        {% endfor %}
+                    </tr>
+
+                <tbody>
+                <!-- for every item, iterate through every key to populate table with data -->
+                {% for item in data %}
+                    <tr>
+                    {% for key in item.keys() %}
+                        <td> {{ item[key] }} </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <!-- form to edit plan that is prepolated with old values -->
+    <div id="edit">
+    <form method="POST" action="/edit_plan/{{ data[0].Membership_Plan_ID }}" id="edit_Plan">
+        <legend><strong>Edit Plan {{data[0].Membership_Plan_ID}}</strong></legend>
+        <legend> 0=Not Included; 1=Included</legend>
+            <fieldset class="fields">
+                
+                    <input type="hidden" value="{{data[0].Membership_Plan_ID}}" id="Membership_Plan_ID" name = "Membership_Plan_ID">
+                <label>Monthly Fee</label> 
+                    <input type="decimal" name="Monthly_Fee" id="Monthly_Fee" value="{{data[0].Monthly_Fee}}" required>
+                    <p></p>
+                <label>Weights/Cardio</label> 
+                    <select name="Weights_Cardio" id="Weights_Cardio" value="{{data[0].Weights_Cardio}}" required>
+                        <option value=0> 0 </option>
+                        <option value=1> 1 </option>
+                    </select>
+                    <p></p>
+                <label>Spa Room</label> 
+                    <select name="Spa_Room" id="Spa_Room" value="{{data[0].Spa_Room}}" required>
+                        <option value=0> 0 </option>
+                        <option value=1> 1 </option>
+                    </select>
+                <p></p>
+                <label>Lap Pool</label>
+                    <select name="Lap_Pool" id="Lap_Pool" value="{{data[0].Lap_Pool}}" required>
+                        <option value=0> 0 </option>
+                        <option value=1> 1 </option>
+                    </select>
+                    <p></p>
+                <label>Ball Court</label> 
+                    <select name="Ballcourt" id="Ballcourt" value="{{data[0].Ballcourt}}" required>
+                        <option value=0> 0 </option>
+                        <option value=1> 1 </option>
+                    </select>
+            </fieldset>
+            <!--buttons to submit or cancel form-->
+            <input class="btn" type="submit" name="edit_Plan" value="Edit Plan">
+            <a href='/plans'><input class="btn" type="button" value="cancel"></a
+    </form>
+</div> <!-- insert-->
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

@@ -1,0 +1,75 @@
+<!--Citation for edit class page-->
+<!--Date: 3/15/2023-->
+<!--This page is adapted from the CS 340 flask starter app-->
+<!--Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app--> 
+
+<html>
+<head>
+    <title>Edit Class</title>
+    <link href="/static/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<!-- table populated with class's existing data -->
+<body>
+    <div> 
+        <table border="1 cellpadding="4">
+            <caption> <strong>Editing Class: </strong> </caption>
+            <!-- access data passed from app.py-->
+            {% if data %}
+                <thead>
+                    <!-- iterate through data for the headers -->
+                    <tr>
+                        {% for key in data[0].keys() %}
+                        <th> {{key}} </th>
+                        {% endfor %}
+                    </tr>
+
+                <tbody>
+                <!-- for every item, iterate through every key to populate table with data -->
+                {% for item in data %}
+                    <tr>
+                    {% for key in item.keys() %}
+                        <td> {{item[key]}} </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <!-- form to edit class that is prepolated with old values -->
+    <div id="edit">
+    <form method="POST" action="/edit_class/{{data[0].Class_ID}}" id="editClass">
+        <legend><strong>Edit Class {{data[0].Class_ID}}</strong></legend>
+            <fieldset class="fields">
+                    <input type="hidden" value="{{data[0].Class_ID}}" id="class_id" name="class_id">
+                <label>Class Type:</label> 
+                    <input type="text" name="class_type" id="class_type" value="{{data[0].Class_Type}}" required>
+                    <p></p>
+                <label>Schedule:</label> 
+                    <input type="datetime-local" name="schedule" id="schedule" value="{{data[0].Schedule}}" required>
+                    <p></p>
+                <label>Duration</label> 
+                    <input type="number" name="duration" id="duration" min="0" value="{{data[0].Duration}}" required>
+                <p></p>
+                <label>Instructor</label> 
+                    <select name="instructor_id" id="instructor_id" required>
+                        <!-- Access our plans tuple passed from app.py -->
+                        {% for instructor in instructors %}
+                            {% if instructor["instructor_id"] == data[0].Instructor_ID %}
+                                <option value ="{{instructor["instructor_id"]}}" selected> {{instructor['f_name']}}</option>
+                            {% else %}
+                                <option value="{{instructor['instructor_id']}}"> {{instructor['f_name']}} </option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+            </fieldset>
+            <!--buttons to submit or cancel form-->
+            <input class="btn" type="submit" name="Edit_Class" value="Edit Class">
+            <a href='/classes'><input class="btn" type="button" value="cancel"></a>
+    </form>
+</div> <!-- insert-->
+</body>
+</html>

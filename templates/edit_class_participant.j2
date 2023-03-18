@@ -1,0 +1,78 @@
+<!--Citation for edit participants page-->
+<!--Date: 3/15/2023-->
+<!--This page is adapted from the CS 340 flask starter app-->
+<!--Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app--> 
+
+<html>
+
+<head>
+	<title>Edit Class Participant</title>
+    <link href="/static/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<!-- table populated with class participant's existing data -->
+<body> 
+    <div> 
+        <table border="1 cellpadding="4">
+            <caption> <strong>Editing Class Participant: </strong> </caption>
+            <!-- access data passed from app.py-->
+            {% if data %}
+                <thead>
+                    <!-- iterate through data for the headers -->
+                    <tr>
+                        {% for key in data[0].keys() %}
+                        <th> {{key}} </th>
+                        {% endfor %}
+                    </tr>
+                
+                <tbody>
+                <!-- for every item, iterate through every key to populate table with data -->
+                {% for item in data %}
+                    <tr>
+                    {% for key in item.keys() %}
+                        <td> {{item[key]}} </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <!-- form to edit class participant that is prepolated with old values -->
+    <div id="edit">
+    <form method="POST" action="/edit_class_participants/{{data[0].Class_Participant_ID}}" id="Edit_Class_Participant">
+        <legend><strong>Edit Class Participant {{data[0].Class_Participant_ID}}</strong></legend>
+            <fieldset class="fields">
+                    <input type="hidden" value="{{data[0].Class_Participant_ID}}" id="Class_Participant_ID" name="Class_Participant_ID">
+                <label>Member: </label> 
+                <select name="member_id" id="member_id" required>
+                {% for member in members %}
+                    {% if member.member_id == data[0].Member_ID %}
+                        <option value="{{member.member_id}}" selected>{{member.member_id}}: {{member.member_name}} </option>
+                    {% else %}
+                        <option value="{{member.member_id}}">{{member.member_id}}: {{member.member_name}} </option>
+                    {% endif %}
+                {% endfor %}
+                    </select>
+                    <p></p>
+                <label>Workout Class Info: </label> 
+                <select name="class_id" id="class_id" required>
+                {% for class in classes %}
+                    {% if class.class_id == data[0].Class_ID %}
+                        <option value="{{class.class_id}}" selected>{{class.class_id}}: {{class.class_type}} </option>
+                    {% else %}
+                        <option value="{{class.class_id}}">{{class.class_id}}: {{class.class_type}} </option>
+                    {% endif %}
+                {% endfor %}
+                </select>              
+            </fieldset>
+            <!--buttons to submit or cancel form-->
+            <input class="btn" type="submit" name="Edit_Class_Participant" value="Edit Class Participants">
+            <a href='/class_participants'><input class="btn" type="button" value="cancel"></a>
+    </form>
+</div> <!-- insert-->
+</body>
+
+</html>

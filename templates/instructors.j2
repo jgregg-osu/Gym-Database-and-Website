@@ -1,0 +1,115 @@
+<!--Citation for instructors page-->
+<!--Date: 3/15/2023-->
+<!--This page is adapted from the CS 340 flask starter app-->
+<!--Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app--> 
+
+<html>
+<head>
+    <title> Instructors </title>
+    <link href="/static/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- determines what shows up on the page-->
+    <script language="JavaScript">
+        function showform(dowhat) {
+            if(dowhat == 'insert') {
+                document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+            }
+            else {
+                document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+            }
+        }
+        function newInstructor() { showform('insert'); }
+        function browseInstructor() { showform ('browse'); }
+    </script>
+</head>
+
+<!-- show instructors when the page loads-->
+<body onload="browseInstructor()">
+
+<!--link to change pages-->
+<h1>Instructors</h1>
+[ <a href="/">Home</a> |
+<a href="members">Members</a> |
+<a href="instructors">Instructors</a> |
+<a href="gyms">Gyms</a> |
+<a href="plans">Membership Plans</a> |
+<a href="classes">Classes</a> | 
+<a href="class_participants">Class Participants</a>]
+<p></p>
+
+    
+    <div id="browse">
+        <p><a href="#" onClick="newInstructor()"><strong><i class="fa fa-plus" aria-hidden="true"></i> Add New Instructor</strong></a> </p>
+        <strong>Browse Instructors</strong>
+        <!-- table for browsing all instructors -->
+        <table cellpadding="4">
+        <!-- access data passed from app.py-->
+        {% if data %}
+            <thead>
+            <!-- iterate through data for the headers -->
+            <tr>
+                {% for key in data[0].keys() %}
+                <th>{{key}}</th>
+                {% endfor %}
+            </tr>    
+
+            <tbody>
+            <!-- for every item, iterate through every key to populate table with data -->
+            {% for item in data %}
+            <tr>
+                {% for key in item.keys() %}
+                    <td> {{item[key]}} </td>
+                {% endfor %}
+                    <!-- a link routes to editing and deleting instructor -->
+                    <td><a href="edit_instructor/{{item.Instructor_ID}}" class="btn btn-default"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+		    		<td><a href="delete_instructor/{{item.Instructor_ID}}" class="btn btn-default"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+            </tr>
+            {% endfor%}
+        {% endif %}
+    </table>
+        <p>&nbsp;</p>
+    </div> <!-- browse -->
+
+    <!-- form for inserting new instructor -->
+    <div id="insert">
+        <form method="POST" id="addInstructor" action="/instructors">
+            <legend> <strong>Add Instructor</strong></legend>
+                <fieldset class="fields">
+                    <label>First Name</label> 
+                        <input type="text" name="f_name" id="f_name" required>
+                        <p></p>
+                    <label>Last Name</label> 
+                        <input type="text" name="l_name" id="l_name" required>
+                        <p></p>
+                    <label>Address</label> 
+                        <input type="text" name="address" id="address" required>
+                    <p></p>
+                    <label>Birthday</label> 
+                        <input type="date" name="birthday" id="birthday" required>
+                        <p></p>
+                    <label>Email</label> 
+                        <input type="email" name="email" id="email" required>
+                        <p></p>
+                    <label>Phone Number</label> 
+                        <input type="tel" name="phone_number" id="phone_number" placeholder="123-456-7890" required>
+                        <p></p>
+                    <label>Gym</label>
+                        <select name="gym_id" id="gym_id">
+                        <option value="0">&nbsp;</option>
+                        <!-- Access our plans tuple passed from app.py -->
+                        {% for gym in gyms %}
+                            <option value="{{gym['gym_id']}}"> {{gym['gym_id']}} </option>
+                        {% endfor %}
+                        </select>
+                </fieldset>
+                <!--buttons to submit or cancel form-->
+                <input class="btn" type="submit" name="addInstructor" value="Add Instructor">
+                <input class="btn" type="submit" value="cancel" onClick="browseInstructor()">
+        </form>
+    </div> <!-- insert -->
+    <p>&nbsp;</p>
+</body>
+
+</html>

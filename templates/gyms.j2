@@ -1,0 +1,100 @@
+<!--Citation for gyms page-->
+<!--Date: 3/15/2023-->
+<!--This page is adapted from the CS 340 flask starter app-->
+<!--Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app--> 
+
+<html>
+
+<head>
+<title>Gyms</title>
+<link href="/static/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- determines what shows up on the page-->
+    <script language="JavaScript">
+        function showform(dowhat) {
+            if(dowhat == 'insert') {
+                document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+            }
+            else {
+                document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+            }
+        }
+        function newGym() { showform('insert'); }
+        function browseGyms() { showform ('browse'); }
+    </script>
+</head>
+
+<!-- show gyms when the page loads-->
+<body onload="browseGyms()">
+
+<!--link to change pages-->
+<h1>Gyms</h1>    
+[ <a href="/">Home</a> |
+<a href="members">Members</a> |
+<a href="instructors">Instructors</a> |
+<a href="gyms">Gyms</a> |
+<a href="plans">Membership Plans</a> |
+<a href="classes">Classes</a> | 
+<a href="class_participants">Class Participants</a>]
+<p></p>
+
+
+<div id="browse">
+    <p><a href="#" onClick="newGym()"><strong><i class="fa fa-plus" aria-hidden="true"></i> Add New Gym</strong></a> </p>
+    <strong>Browse Gyms</strong>
+    <!-- table for browsing all gyms -->
+    <table cellpadding="4">
+        <!-- access data passed from app.py-->
+        {% if data %}
+            <thead>
+                <!-- iterate through data for the headers -->
+                <tr>
+                    {% for key in data[0].keys() %}
+                    <th>{{ key }}</th>
+                    {% endfor %}
+                </tr>    
+
+            <tbody>
+            <!-- for every item, iterate through every key to populate table with data -->
+            {% for item in data %}
+                <tr>
+                    {% for key in item.keys() %}
+                        <td> {{ item[key] }} </td>
+                    {% endfor %}
+                    <!-- a link routes to editing and deleting gyms -->
+                    <td><a href="edit_gym/{{item.Gym_ID}}" class="btn btn-default"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                    <td><a href="delete_gym/{{item.Gym_ID}}" class="btn btn-default"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                </tr>
+            {% endfor %}
+
+        {% endif %}
+    </table>
+    <p>&nbsp;</p>
+</div> <!--browse-->
+
+<!-- form for inserting new gym -->
+<div id="insert">
+    <form method="POST" action="/gyms" id="addGym">
+        <legend><strong>Add Gym</strong></legend>
+            <fieldset class="fields">
+                <label>Gym Address</label> 
+                    <input type="text" name="gym_address" id="gym_address" required>
+                    <p></p>
+                <label>Opening Time</label> 
+                    <input type="time" name="opening_time" id="opening_time" required>
+                    <p></p>
+                <label>Closing Time</label> 
+                    <input type="time" name="closing_time" id="closing_time" required>
+                    <p></p>
+            </fieldset>
+            <!--buttons to submit or cancel form-->
+            <input class="btn" type="submit" name="addGym" value="Add Gym">
+            <input class="btn" type="submit" value="cancel" onClick="browseGyms()">
+    </form>
+</div> <!-- insert-->
+
+</body>
+
+</html>

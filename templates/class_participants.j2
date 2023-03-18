@@ -1,0 +1,108 @@
+<!--Citation for class particpants page-->
+<!--Date: 3/15/2023-->
+<!--This page is adapted from the CS 340 flask starter app-->
+<!--Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app--> 
+
+<html>
+
+<head>
+<title>Class Participants</title>
+<link href="/static/style.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- determines what shows up on the page-->
+    <script language="JavaScript">
+        function showform(dowhat) {
+            if(dowhat == 'insert') {
+                document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+            }
+            else {
+                document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+            }
+        }
+        function newParticipants() { showform('insert'); }
+        function browseParticipants() { showform ('browse'); }
+    </script>
+</head>
+
+<!-- show Participants when the page loads-->
+<body onload="browseParticipants()">
+
+<!--link to change pages-->
+<h1>Class Participants</h1>    
+[ <a href="/">Home</a> |
+<a href="members">Members</a> |
+<a href="instructors">Instructors</a> |
+<a href="gyms">Gyms</a> |
+<a href="plans">Membership Plans</a> |
+<a href="classes">Classes</a> | 
+<a href="class_participants">Class Participants</a>]
+<p></p>
+
+<!--browse all particpants-->
+<div id="browse">
+    <p><a href="#" onClick="newParticipants()"><strong><i class="fa fa-plus" aria-hidden="true"></i> Add New Class Participant</strong></a> </p>
+    <strong>Browse Class Participants</strong>
+
+    <!-- table for browsing all class participants -->
+    <table cellpadding="4">
+        <!-- access data passed from app.py-->
+        {% if data %}
+            <thead>
+                <!-- iterate through data for the headers -->
+                <tr>
+                    {% for key in data[0].keys() %}
+                    <th>{{ key }}</th>
+                    {% endfor %}
+                </tr>    
+
+            <tbody>
+            <!-- for every item, iterate through every key to populate table with data -->
+            {% for item in data %}
+                <tr>
+                    {% for key in item.keys() %}
+                        <td> {{ item[key] }} </td>
+                    {% endfor %}
+                    <!-- a link routes to editing and deleting class participant -->
+                    <td><a href="edit_class_participants/{{item.Class_Participant_ID}}" class="btn btn-default"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                    <td><a href="delete_class_participants/{{item.Class_Participant_ID}}" class="btn btn-default"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                </tr>
+            {% endfor %}
+
+        {% endif %}
+    </table>
+    <p>&nbsp;</p>
+</div> <!--browse-->
+
+<!-- form for inserting new class participant -->
+<div id="insert">
+    <form method="POST" action="/class_participants" id="addParticipants">
+        <legend><strong>Add Class Participant</strong></legend>
+            <fieldset class="fields">
+                <label>Member</label> 
+                <select name="member_id" id="member_id" required>
+                <!-- Access our plans tuple passed from app.py -->
+                {% for member in members %}
+                        <option value="{{member['member_id']}}"> {{member['Name']}} </option>
+                {% endfor %}
+                    </select>
+                    <p></p>
+                <label>Workout Class</label> 
+                <select name="class_id" id="class_id" required>
+                <!-- Access our plans tuple passed from app.py -->
+                {% for class in classes %}
+                      <option value="{{class['class_id']}}"> {{class['Class']}} </option>
+                    
+                {% endfor %}
+                </select>
+            </fieldset>
+            <!--buttons to submit or cancel form-->
+            <input class="btn" type="submit" name="addParticipants" value="Add Participants">
+            <input class="btn" type="submit" value="cancel" onClick="browseParticipants()">
+    </form>
+</div> <!-- insert-->
+
+</body>
+
+</html>

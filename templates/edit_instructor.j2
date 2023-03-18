@@ -1,0 +1,84 @@
+<!--Citation for edit instructor page-->
+<!--Date: 3/15/2023-->
+<!--This page is adapted from the CS 340 flask starter app-->
+<!--Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app--> 
+
+<html>
+<head>
+    <title>Edit Instructor</title>
+    <link href="/static/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<!-- table populated with instructor's existing data -->
+<body>
+    <div> 
+        <table border="1 cellpadding="4">
+            <caption> <strong>Editing Instructor: </strong> </caption>
+            <!-- access data passed from app.py-->
+            {% if data %}
+                <thead>
+                    <!-- iterate through data for the headers -->
+                    <tr>
+                        {% for key in data[0].keys() %}
+                        <th> {{key}} </th>
+                        {% endfor %}
+                    </tr>
+
+                <tbody>
+                <!-- for every item, iterate through every key to populate table with data -->
+                {% for item in data %}
+                    <tr>
+                    {% for key in item.keys() %}
+                        <td> {{item[key]}} </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <!-- form to edit instructor that is prepolated with old values -->
+    <div id="edit">
+    <form method="POST" action="/edit_instructor/{{data[0].Instructor_ID}}" id="editInstructor">
+        <legend><strong>Edit Instructor {{data[0].Instructor_ID}}</strong></legend>
+            <fieldset class="fields">
+                    <input type="hidden" value="{{data[0].Instructor_ID}}" id="instructor_id" name="instructor_id">
+                <label>First Name:</label> 
+                    <input type="text" name="f_name" id="f_name" value="{{data[0].First_Name}}" required>
+                    <p></p>
+                <label>Last Name:</label> 
+                    <input type="text" name="l_name" id="l_name" value="{{data[0].Last_Name}}" required>
+                <p></p>
+                <label>Address</label> 
+                    <input type="text" name="address" id="address" value="{{data[0].Address}}" style="width: 500px;" required>
+                <p></p>
+                <label>Birthday</label> 
+                    <input type="date" name="birthday" id="birthday" value="{{data[0].Birthday}}" required>
+                    <p></p>
+                <label>Email</label> 
+                    <input type="email" name="email" id="email" value="{{data[0].Email}}" required>
+                    <p></p>
+                <label>Phone Number</label> 
+                    <input type="tel" name="phone_number" id="phone_number" value="{{data[0].Phone_Number}}" required>
+                    <p></p>
+                <label>Gym</label> 
+                <select name="gym_id" id="gym_id">
+                    <option value="0">&nbsp;</option>
+                    {% for gym in gyms %}
+                        {% if gym["gym_id"] == data[0].Gym_ID %}
+                            <option value ="{{gym["gym_id"]}}" selected> {{gym['gym_id']}}</option>
+                        {% else %}
+                            <option value="{{gym['gym_id']}}"> {{gym['gym_id']}} </option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </fieldset>
+            <!--buttons to submit or cancel form-->
+            <input class="btn" type="submit" name="Edit_Instructor" value="Edit Instructor">
+            <a href='/instructors'><input class="btn" type="button" value="cancel"></a>
+    </form>
+</div> <!-- insert-->
+</body>
+</html>
